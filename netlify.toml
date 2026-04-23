@@ -1,5 +1,9 @@
+# Netlify arayüzünde Publish directory "." olmasın; boş bırakın veya bu repo ile Git deploy kullanın.
 [build]
   command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "20"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
