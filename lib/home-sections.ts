@@ -4,12 +4,12 @@ export const retailPath = {
   eyebrow: "Perakende",
   title: "Gramajlı paket, net etiket, hızlı sor–cevap",
   body:
-    "Ev, ofis ikramı, hediye veya raf satışı için kabuklu ve iç ürünlerde hazır paketler. Ürün kartından kullanım alanını okuyun; gramaj ve stok için tek mesaj yeter.",
+    "Ev, ikram ve hediye için kabuklu, iç fıstık ve paketli ürünlerde gramaj seçip sepete ekleyebilirsiniz.",
   bullets: [
-    "Ürün görselleri gerçek parti mantığıyla seçilir",
-    "Fiyat: ürün + gramaj + işleme durumuna göre tekliflenir",
+    "250 g, 500 g ve 1 kg seçenekleri",
+    "Sepet, teslimat ve sipariş tamamlama akışı",
   ],
-  ctaHref: "/urunler#perakende",
+  ctaHref: "/urunler",
   ctaLabel: "Perakende ürünlere git",
   waPreset:
     "Merhaba, perakende Antep fıstığı (gramaj / paket tipi) için fiyat ve stok soruyorum.",

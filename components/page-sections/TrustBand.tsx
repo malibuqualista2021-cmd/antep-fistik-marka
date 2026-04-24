@@ -109,7 +109,7 @@ export function TrustBand() {
               </dl>
             ) : (
               <p className="rounded-[12px] bg-background/90 px-4 py-3 font-sans text-sm text-muted ring-1 ring-black/[0.06]">
-                Açık adres .env ile eklendiğinde burada listelenir. Şimdilik{" "}
+                Ziyaret ve konum bilgisi randevu/onay sonrası paylaşılır. Şimdilik{" "}
                 <Link href="/iletisim" className="font-semibold text-primary underline">
                   iletişim
                 </Link>{" "}

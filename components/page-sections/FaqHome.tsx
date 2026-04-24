@@ -19,7 +19,7 @@ export function FaqHome() {
               id="faq-home-heading"
               eyebrow="SSS"
               title="Sık sorulanlar"
-              subtitle="Fiyatın teklifle netleşmesi, gönderim, minimum sipariş ve numune gibi konularda kısa yanıtlar."
+              subtitle="Perakende sipariş, kargo, iade ve toptan teklif süreçleri için kısa yanıtlar."
             />
             <Link
               href="/sikca-sorulan-sorular"

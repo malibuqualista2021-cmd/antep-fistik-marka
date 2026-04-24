@@ -2,7 +2,6 @@ import Image from "next/image";
 import type { Product } from "@/lib/products";
 import { audienceLabel } from "@/lib/products";
 import { Button } from "@/components/ui/Button";
-import { waLink } from "@/lib/site";
 
 function wholesaleHint(audience: Product["audience"]) {
   if (audience === "retail") return "Toptan: hayır";
@@ -11,7 +10,12 @@ function wholesaleHint(audience: Product["audience"]) {
 }
 
 export function ProductCard({ product }: { product: Product }) {
-  const waMsg = `${product.name} için güncel fiyat ve paket bilgisi almak istiyorum.`;
+  const secondary =
+    product.audience === "retail"
+      ? { href: "/urunler#perakende-satin-al", label: "Satın alma seçenekleri" }
+      : product.audience === "wholesale"
+        ? { href: "/toptan-satis#teklif", label: "Toptan teklif al" }
+        : { href: "/urunler#perakende-satin-al", label: "Perakende satın al" };
 
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] bg-surface shadow-[var(--shadow-soft)] ring-1 ring-black/5">
@@ -47,32 +51,30 @@ export function ProductCard({ product }: { product: Product }) {
         </ul>
         <dl className="mt-4 space-y-2 font-sans text-sm text-foreground/90">
           <div>
-            <dt className="text-muted">Kimler için</dt>
-            <dd className="mt-0.5 leading-snug">{product.forWho}</dd>
-          </div>
-          <div>
-            <dt className="text-muted">Kullanım</dt>
+            <dt className="text-muted">En uygun kullanım</dt>
             <dd className="mt-0.5 leading-snug">{product.usage}</dd>
           </div>
           <div>
-            <dt className="text-muted">Paket</dt>
-            <dd className="mt-0.5 leading-snug">{product.packages}</dd>
+            <dt className="text-muted">Satış tipi</dt>
+            <dd className="mt-0.5 leading-snug">{audienceLabel(product.audience)}</dd>
           </div>
           <div>
-            <dt className="text-muted">Toptan uygunluk</dt>
-            <dd className="mt-0.5">{wholesaleHint(product.audience)}</dd>
+            <dt className="text-muted">Fiyatı etkileyenler</dt>
+            <dd className="mt-0.5 leading-snug">{product.priceFactors}</dd>
+          </div>
+          <div>
+            <dt className="text-muted">İlk adım</dt>
+            <dd className="mt-0.5 leading-snug">{product.firstStep}</dd>
           </div>
         </dl>
         <div className="mt-6 flex flex-col gap-2">
           <Button variant="primary" href={`/urunler/${product.slug}`} className="w-full justify-center">
             Ürün detayı
           </Button>
-          <a
-            href={waLink(waMsg)}
-            className="min-h-[44px] text-center font-sans text-sm font-semibold text-primary underline-offset-4 hover:underline"
-          >
-            Bu ürün için fiyat sor
-          </a>
+          <Button variant="secondary" href={secondary.href} className="w-full justify-center">
+            {secondary.label}
+          </Button>
+          <p className="font-sans text-xs text-muted">{wholesaleHint(product.audience)}</p>
         </div>
       </div>
     </article>

@@ -6,14 +6,11 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { FaqAccordion } from "@/components/page-sections/FaqAccordion";
 import { faqItems } from "@/lib/faq";
-import { cta } from "@/lib/cta";
-import {
-  audienceLabel,
-  getProductBySlug,
-  getRelatedProducts,
-  products,
-} from "@/lib/products";
-import { site, waLink } from "@/lib/site";
+import { getProductBySlug, products } from "@/lib/products";
+import { formatMoney, getRetailProductByDetailSlug, getSimilarRetailProducts } from "@/lib/shop-products";
+import { RetailProductDetailBuyBox } from "@/components/shop/RetailProductDetailBuyBox";
+import { RetailProductCard } from "@/components/shop/RetailProductCard";
+import { CatalogWholesaleDetail } from "@/components/shop/CatalogWholesaleDetail";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -23,11 +20,14 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
-  if (!product) return {};
+  const retail = getRetailProductByDetailSlug(slug);
+  const catalog = getProductBySlug(slug);
+  const title = retail?.name ?? catalog?.name;
+  const description = retail?.shortDescription ?? catalog?.excerpt;
+  if (!title) return {};
   return {
-    title: product.name,
-    description: product.excerpt,
+    title,
+    description: description ?? undefined,
   };
 }
 
@@ -35,126 +35,138 @@ const detailFaq = faqItems.slice(0, 4);
 
 export default async function ProductDetailPage({ params }: Props) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
-  if (!product) notFound();
+  const retail = getRetailProductByDetailSlug(slug);
+  const catalog = getProductBySlug(slug);
 
-  const isWholesale =
-    product.audience === "wholesale" || product.audience === "both";
-  const ct = cta.productDetail(product.name);
-  const related = getRelatedProducts(slug, 3);
+  if (!catalog) notFound();
+
+  if (!retail) {
+    return <CatalogWholesaleDetail product={catalog} />;
+  }
+
+  const similar = getSimilarRetailProducts(retail, 4);
+  const description = retail.description ?? retail.shortDescription;
+  const ingredients = retail.ingredients ?? "Antep fıstığı (ürün tipine göre etiket bilgisi geçerlidir).";
+  const allergens =
+    retail.allergens ??
+    "Fıstık içerir; aynı ortamda diğer kuru yemiş ve alerjenlerle temas ihtimali bulunabilir.";
+  const storage =
+    retail.storage ??
+    "Serin ve kuru yerde, kapalı ambalajda saklayın; açıldıktan sonra kısa sürede tüketin.";
 
   return (
     <main id="icerik" className="pb-16">
-      <Container className="grid gap-8 py-9 md:grid-cols-2 md:items-start md:gap-11 md:py-12">
-        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[var(--radius-card)] bg-surface shadow-[var(--shadow-soft)] ring-1 ring-black/5 md:aspect-[4/5]">
-          <Image
-            src={product.imageSrc}
-            alt={product.imageAlt}
-            fill
-            priority
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 45vw"
-          />
-          {product.badge ? (
-            <span className="absolute left-3 top-3 rounded-full bg-background/95 px-3 py-1 font-sans text-xs font-semibold text-accent ring-1 ring-accent/30">
-              {product.badge}
-            </span>
-          ) : null}
+      <Container className="py-6 md:py-8">
+        <nav className="font-sans text-sm text-muted" aria-label="Sayfa konumu">
+          <Link href="/" className="hover:text-primary">
+            Ana sayfa
+          </Link>
+          <span className="mx-2 text-muted/60">/</span>
+          <Link href="/urunler" className="hover:text-primary">
+            Ürünler
+          </Link>
+          <span className="mx-2 text-muted/60">/</span>
+          <span className="text-foreground">{retail.name}</span>
+        </nav>
+      </Container>
+
+      <Container className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(300px,380px)] md:items-start md:gap-10 lg:gap-12">
+        <div>
+          <div className="relative aspect-square w-full overflow-hidden rounded-[var(--radius-card)] bg-surface shadow-[var(--shadow-soft)] ring-1 ring-black/5 md:aspect-[5/6]">
+            <Image
+              src={retail.imageSrc}
+              alt={retail.imageAlt}
+              fill
+              priority
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 55vw"
+            />
+          </div>
         </div>
-        <div className="min-w-0">
-          <p className="font-sans text-sm font-medium uppercase tracking-wider text-accent">
-            {audienceLabel(product.audience)}
-          </p>
-          <h1 className="mt-2 font-serif text-[1.85rem] font-semibold leading-tight text-foreground md:text-[2.5rem]">
-            {product.name}
-          </h1>
-          <p className="mt-3 font-sans text-base leading-relaxed text-muted md:text-lg">
-            {product.excerpt}
-          </p>
 
-          <ul className="mt-4 flex flex-wrap gap-2" aria-label="Ürün etiketleri">
-            {product.tags.map((t) => (
-              <li
-                key={t}
-                className="rounded-full bg-surface px-3 py-1 font-sans text-xs font-medium text-foreground/90 ring-1 ring-black/10"
-              >
-                {t}
-              </li>
-            ))}
-          </ul>
+        <div className="min-w-0 space-y-6">
+          <div>
+            <p className="font-sans text-sm font-semibold text-accent">Perakende</p>
+            <h1 className="mt-2 font-serif text-[1.85rem] font-semibold leading-tight text-foreground md:text-[2.35rem]">
+              {retail.name}
+            </h1>
+            <p className="mt-3 font-sans text-base leading-relaxed text-muted">{retail.shortDescription}</p>
+            <p className="mt-2 font-sans text-sm text-muted">
+              Başlangıç fiyatı:{" "}
+              <span className="font-semibold text-foreground">{formatMoney(retail.price, retail.currency)}</span>{" "}
+              ({retail.weight}) — gramaj seçimine göre güncellenir.
+            </p>
+          </div>
 
-          <section className="mt-8" aria-labelledby="summary-heading">
-            <h2 id="summary-heading" className="sr-only">
-              Ürün özeti
+          <RetailProductDetailBuyBox product={retail} />
+
+          <aside
+            className="rounded-[var(--radius-card)] border border-black/[0.08] bg-surface/50 p-4 md:p-5"
+            aria-labelledby="wholesale-cta-title"
+          >
+            <h2 id="wholesale-cta-title" className="font-serif text-lg text-foreground">
+              Bu ürünü toptan almak ister misiniz?
             </h2>
-            <p className="font-sans text-sm leading-relaxed text-muted md:text-base">
-              {product.detail}
-            </p>
-          </section>
-
-          <dl className="mt-8 grid gap-4 font-sans text-sm sm:grid-cols-2">
-            <div className="rounded-[var(--radius-card)] bg-surface/90 p-4 ring-1 ring-black/5">
-              <dt className="text-muted">Kimler için</dt>
-              <dd className="mt-1 text-foreground">{product.forWho}</dd>
-            </div>
-            <div className="rounded-[var(--radius-card)] bg-surface/90 p-4 ring-1 ring-black/5">
-              <dt className="text-muted">Kullanım alanı</dt>
-              <dd className="mt-1 text-foreground">{product.usage}</dd>
-            </div>
-            <div className="rounded-[var(--radius-card)] bg-surface/90 p-4 ring-1 ring-black/5 sm:col-span-2">
-              <dt className="text-muted">Paketleme / satış tipi</dt>
-              <dd className="mt-1 text-foreground">{product.packages}</dd>
-            </div>
-          </dl>
-
-          <div className="mt-6 rounded-[var(--radius-card)] border border-primary/15 bg-primary/[0.06] p-4 md:p-5">
-            <h2 className="font-serif text-lg text-foreground">Minimum sipariş</h2>
             <p className="mt-2 font-sans text-sm leading-relaxed text-muted">
-              {product.minOrder}
+              Koli, çuval veya palet ihtiyaçlarınız için miktar ve teslim iline göre yazılı teklif alabilirsiniz.
             </p>
-          </div>
-          <div className="mt-3 rounded-[var(--radius-card)] border border-black/[0.06] bg-background p-4 md:p-5">
-            <h2 className="font-serif text-lg text-foreground">Fiyat bilgisi</h2>
-            <p className="mt-2 font-sans text-sm leading-relaxed text-muted">
-              {product.pricingNote}
-            </p>
-          </div>
-
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <Button
-              variant="primary"
-              href={waLink(ct.primaryWaMessage)}
-              aria-label={ct.primaryWaAriaLabel}
-            >
-              {ct.primaryWaLabel}
+            <Button href="/toptan-satis#teklif" variant="secondary" className="mt-4 w-full justify-center sm:w-auto">
+              Toptan teklif alın
             </Button>
-            <Button variant="secondary" href={ct.secondaryHref}>
-              {ct.secondaryLabel}
-            </Button>
-            {isWholesale ? (
-              <Button variant="ghost" href={ct.wholesaleHref}>
-                {ct.wholesaleLabel}
-              </Button>
-            ) : null}
-          </div>
-          {site.phone ? (
-            <p className="mt-5 font-sans text-sm text-muted">
-              Telefon:{" "}
-              <a
-                className="font-medium text-primary underline-offset-2 hover:underline"
-                href={`tel:${site.phoneE164}`}
-              >
-                {site.phone}
-              </a>
-            </p>
-          ) : null}
+          </aside>
         </div>
       </Container>
 
-      <Container className="mt-4 border-t border-black/5 pt-10 md:mt-6 md:pt-12">
-        <h2 className="font-serif text-xl text-foreground md:text-2xl">
-          Bu ürün için sık sorulanlar
-        </h2>
+      <Container className="mt-12 max-w-4xl space-y-10 md:mt-16">
+        <section aria-labelledby="desc-heading">
+          <h2 id="desc-heading" className="font-serif text-xl text-foreground md:text-2xl">
+            Ürün açıklaması
+          </h2>
+          <p className="mt-3 font-sans text-sm leading-relaxed text-muted md:text-base">{description}</p>
+        </section>
+
+        <div className="grid gap-6 md:grid-cols-3">
+          <section className="rounded-[var(--radius-card)] bg-surface/70 p-4 ring-1 ring-black/5" aria-labelledby="ing-heading">
+            <h2 id="ing-heading" className="font-serif text-lg text-foreground">
+              İçindekiler
+            </h2>
+            <p className="mt-2 font-sans text-sm leading-relaxed text-muted">{ingredients}</p>
+          </section>
+          <section className="rounded-[var(--radius-card)] bg-surface/70 p-4 ring-1 ring-black/5" aria-labelledby="allergen-heading">
+            <h2 id="allergen-heading" className="font-serif text-lg text-foreground">
+              Alerjen uyarısı
+            </h2>
+            <p className="mt-2 font-sans text-sm leading-relaxed text-muted">{allergens}</p>
+          </section>
+          <section className="rounded-[var(--radius-card)] bg-surface/70 p-4 ring-1 ring-black/5" aria-labelledby="storage-heading">
+            <h2 id="storage-heading" className="font-serif text-lg text-foreground">
+              Saklama koşulları
+            </h2>
+            <p className="mt-2 font-sans text-sm leading-relaxed text-muted">{storage}</p>
+          </section>
+        </div>
+
+        <section className="rounded-[var(--radius-card)] bg-background p-5 ring-1 ring-black/[0.06] md:p-6" aria-labelledby="reviews-heading">
+          <h2 id="reviews-heading" className="font-serif text-xl text-foreground">
+            Müşteri yorumları
+          </h2>
+          <p className="mt-3 font-sans text-sm leading-relaxed text-muted">
+            Henüz yorum yok. İlk doğrulanmış müşteri yorumları siparişlerden sonra eklenecektir.
+          </p>
+        </section>
+      </Container>
+
+      <Container className="mt-12 md:mt-14">
+        <h2 className="font-serif text-xl text-foreground md:text-2xl">Benzer ürünler</h2>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {similar.map((p) => (
+            <RetailProductCard key={p.id} product={p} />
+          ))}
+        </div>
+      </Container>
+
+      <Container className="mt-12 border-t border-black/5 pt-10 md:mt-14 md:pt-12">
+        <h2 className="font-serif text-xl text-foreground md:text-2xl">Sık sorulanlar</h2>
         <div className="mt-5 max-w-3xl">
           <FaqAccordion items={detailFaq} />
         </div>
@@ -163,38 +175,6 @@ export default async function ProductDetailPage({ params }: Props) {
             Tüm SSS
           </Link>
         </p>
-      </Container>
-
-      <Container className="mt-12">
-        <h2 className="font-serif text-xl text-foreground md:text-2xl">Benzer ürünler</h2>
-        <ul className="mt-6 grid gap-6 md:grid-cols-3">
-          {related.map((p) => (
-            <li key={p.slug}>
-              <Link
-                href={`/urunler/${p.slug}`}
-                className="group flex gap-4 rounded-[var(--radius-card)] bg-surface/80 p-4 ring-1 ring-black/5 transition hover:ring-primary/20"
-              >
-                <div className="relative h-20 w-24 shrink-0 overflow-hidden rounded-lg bg-background">
-                  <Image
-                    src={p.imageSrc}
-                    alt=""
-                    fill
-                    className="object-cover"
-                    sizes="96px"
-                  />
-                </div>
-                <div className="min-w-0">
-                  <p className="font-serif text-lg text-foreground group-hover:text-primary">
-                    {p.name}
-                  </p>
-                  <p className="mt-1 line-clamp-2 font-sans text-xs text-muted">
-                    {p.excerpt}
-                  </p>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
       </Container>
     </main>
   );

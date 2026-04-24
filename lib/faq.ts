@@ -29,4 +29,40 @@ export const faqItems: FaqItem[] = [
     q: "Numune gönderiyor musunuz?",
     a: "Numune, ürün grubuna ve talep miktarına göre değerlendirilir. İlk iş birliği öncesi numune veya küçük deneme partisi seçenekleri iletişimde netleştirilir.",
   },
+  {
+    q: "Ürün fotoğrafları gerçek parti mi, temsilî mi?",
+    a: "Görseller ürün tipini temsil eder. Toptan siparişte parti bilgisi ve varsa görsel teyit teklif aşamasında ayrıca paylaşılır.",
+  },
+  {
+    q: "Numune ücretli mi?",
+    a: "Numune uygulaması ürün ve talep tipine göre değişir. Ücretli/ücretsiz durumu ve gönderim koşulu talep sırasında yazılı olarak netleştirilir.",
+  },
+  {
+    q: "Toptan siparişte fatura kesiliyor mu?",
+    a: "Toptan siparişlerde işletme bilgisi paylaşıldığında uygun belge ve fatura süreci sipariş onayında netleştirilir.",
+  },
+  {
+    q: "Kargo veya ambar hasarında süreç nasıl ilerler?",
+    a: "Teslimde hasar tespit edildiğinde tutanak/fotoğraf ile aynı gün bildirim yapılır; taşıma ve sipariş kaydına göre çözüm adımı yazılı paylaşılır.",
+  },
+  {
+    q: "Ürünleri nasıl saklamalıyım?",
+    a: "Serin, kuru ve doğrudan güneş almayan ortam önerilir. Açılan paketlerde hava almayan kap kullanımı ürün kalitesini korumaya yardımcı olur.",
+  },
+  {
+    q: "Düzenli alımda aynı parti/kalite sürekliliği nasıl planlanır?",
+    a: "Düzenli alımlarda ürün kodu, kullanım alanı ve hedef miktar üzerinden parti planı yapılır; çıkış öncesi özet paylaşımıyla süreklilik korunur.",
+  },
+  {
+    q: "Kurumsal hediye veya etiketli paket yapılır mı?",
+    a: "Talep edilen adet ve paket tipine göre etiketli/kurumsal sunum seçenekleri değerlendirilir. Uygunluk ve teslim planı teklif aşamasında netleştirilir.",
+  },
+  {
+    q: "Siparişten sonra ortalama çıkış süresi nedir?",
+    a: "Çıkış süresi ürün tipi, miktar ve sevkiyat hattına göre değişir; hedef pencere teklif veya sipariş onayı sırasında yazılı belirtilir.",
+  },
+  {
+    q: "Fiyat teklifi ne kadar süre geçerlidir?",
+    a: "Tekliflerde geçerlilik süresi ürün ve piyasa koşuluna göre belirtilir; süresi dolan tekliflerde güncel parti ve nakliye kalemiyle revizyon yapılır.",
+  },
 ];

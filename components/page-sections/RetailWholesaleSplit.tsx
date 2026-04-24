@@ -2,11 +2,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { SectionShell } from "@/components/ui/SectionShell";
 import { retailPath, wholesalePath } from "@/lib/home-sections";
-import { site, waLink } from "@/lib/site";
 
 export function RetailWholesaleSplit() {
-  const waRetail = retailPath.waPreset;
-
   return (
     <SectionShell tone="muted" className="!bg-[color-mix(in_srgb,var(--surface)_65%,var(--background))]">
       <div className="max-w-3xl">
@@ -43,11 +40,9 @@ export function RetailWholesaleSplit() {
             <Button variant="primary" href={retailPath.ctaHref}>
               {retailPath.ctaLabel}
             </Button>
-            {site.whatsappE164 ? (
-              <Button variant="secondary" href={waLink(waRetail)}>
-                Perakende için fiyat sor
-              </Button>
-            ) : null}
+            <Button variant="secondary" href="/sepet">
+              Sepeti görüntüle
+            </Button>
           </div>
         </article>
 

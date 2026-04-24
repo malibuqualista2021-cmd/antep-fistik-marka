@@ -137,9 +137,9 @@ export default function AboutPage() {
             uydurmak yerine ürünü ve süreci göstermeyi tercih ederiz.
           </p>
           <p>
-            Sertifika veya resmi belge metni varsa .env üzerinden sayfaya eklenir; yoksa
-            alan dürüstçe boş bırakılmaz, “eklenebilir” yapı ile tasarlanır — güven
-            sahte rakamla değil, operasyon diliyle kurulur.
+            Belge veya doğrulama bilgisi mevcut olduğunda açıkça paylaşırız; yoksa
+            uydurma veri yazmayız. Güveni sahte rakamla değil, operasyon dilindeki
+            tutarlılıkla kurarız.
           </p>
         </div>
         <div className="flex flex-col justify-center gap-4 rounded-[var(--radius-card)] border border-black/[0.06] bg-background p-6 md:p-8">

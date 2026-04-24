@@ -81,15 +81,62 @@ export function WholesaleLeadForm({ source = "page" }: Props) {
           />
         </div>
         <div>
+          <label htmlFor="wl-product" className="block font-sans text-sm font-medium text-foreground">
+            Ürün türü <span className="text-accent">*</span>
+          </label>
+          <select id="wl-product" name="productType" required className={inputFieldClass}>
+            <option value="">Seçiniz</option>
+            <option value="ic-fistik">İç fıstık</option>
+            <option value="kabuklu">Kabuklu</option>
+            <option value="boz-ic">Boz iç</option>
+            <option value="perakende-paket">Perakende paket</option>
+            <option value="karma">Karma / birden fazla ürün</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="wl-quantity" className="block font-sans text-sm font-medium text-foreground">
+            Yaklaşık miktar <span className="text-accent">*</span>
+          </label>
+          <input id="wl-quantity" name="quantity" required className={inputFieldClass} placeholder="Örn: aylık 50 kg / tek sefer 300 kg" />
+        </div>
+        <div>
+          <label htmlFor="wl-usage" className="block font-sans text-sm font-medium text-foreground">
+            Kullanım alanı <span className="text-accent">*</span>
+          </label>
+          <input id="wl-usage" name="usageArea" required className={inputFieldClass} placeholder="Örn: baklava üretimi, raf satışı, dolgu" />
+        </div>
+        <div>
+          <label htmlFor="wl-city" className="block font-sans text-sm font-medium text-foreground">
+            Teslim ili <span className="text-accent">*</span>
+          </label>
+          <input id="wl-city" name="deliveryCity" required className={inputFieldClass} />
+        </div>
+        <div>
+          <label htmlFor="wl-date" className="block font-sans text-sm font-medium text-foreground">
+            Hedef tarih <span className="text-muted">(isteğe bağlı)</span>
+          </label>
+          <input id="wl-date" name="targetDate" type="date" className={inputFieldClass} />
+        </div>
+        <div>
+          <label htmlFor="wl-request" className="block font-sans text-sm font-medium text-foreground">
+            Talep türü <span className="text-accent">*</span>
+          </label>
+          <select id="wl-request" name="requestType" required className={inputFieldClass}>
+            <option value="">Seçiniz</option>
+            <option value="sample">Numune istiyorum</option>
+            <option value="quote">Doğrudan teklif istiyorum</option>
+          </select>
+        </div>
+        <div>
           <label htmlFor="wl-note" className="block font-sans text-sm font-medium text-foreground">
-            Ürün / miktar / teslim ili <span className="text-accent">*</span>
+            Ek not <span className="text-muted">(isteğe bağlı)</span>
           </label>
           <textarea
             id="wl-note"
             name="note"
-            required
             rows={4}
             className={`${inputFieldClass} min-h-[120px] resize-y`}
+            placeholder="Ambalaj tercihi, nakliye notu, vade veya özel beklenti yazabilirsiniz."
           />
         </div>
         <Button type="submit" variant="primary" className="w-full justify-center text-base">

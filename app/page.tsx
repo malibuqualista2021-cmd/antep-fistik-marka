@@ -1,28 +1,26 @@
-import { ApproachStrip } from "@/components/page-sections/ApproachStrip";
+import { AudienceChoice } from "@/components/page-sections/AudienceChoice";
 import { BottomCta } from "@/components/page-sections/BottomCta";
-import { CategoryBand } from "@/components/page-sections/CategoryBand";
+import { CategoryDiscovery } from "@/components/page-sections/CategoryDiscovery";
 import { FaqHome } from "@/components/page-sections/FaqHome";
-import { FeaturedProducts } from "@/components/page-sections/FeaturedProducts";
 import { HeroHome } from "@/components/page-sections/HeroHome";
-import { RetailWholesaleSplit } from "@/components/page-sections/RetailWholesaleSplit";
-import { TrustBand } from "@/components/page-sections/TrustBand";
-import { TrustClientSegments } from "@/components/page-sections/TrustClientSegments";
-import { WhyUs } from "@/components/page-sections/WhyUs";
-import { WholesaleTeaser } from "@/components/page-sections/WholesaleTeaser";
+import { HomeShoppingJourney } from "@/components/page-sections/HomeShoppingJourney";
+import { MarketplaceProductRail } from "@/components/page-sections/MarketplaceProductRail";
+import { MarketplacePromoStrip } from "@/components/page-sections/MarketplacePromoStrip";
+import { RetailTrustStrip } from "@/components/page-sections/RetailTrustStrip";
+import { WholesaleMiniCta } from "@/components/page-sections/WholesaleMiniCta";
 
 export default function HomePage() {
   return (
     <main id="icerik">
       <HeroHome />
-      <CategoryBand />
-      <WhyUs />
-      <RetailWholesaleSplit />
-      <FeaturedProducts />
-      <ApproachStrip />
-      <TrustClientSegments />
-      <WholesaleTeaser />
-      <TrustBand />
+      <MarketplacePromoStrip />
+      <CategoryDiscovery />
+      <MarketplaceProductRail />
+      <AudienceChoice />
+      <HomeShoppingJourney />
+      <RetailTrustStrip />
       <FaqHome />
+      <WholesaleMiniCta />
       <BottomCta />
     </main>
   );

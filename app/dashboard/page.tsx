@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { DashboardLogin } from "@/components/dashboard/DashboardLogin";
-import { MediaDashboard } from "@/components/dashboard/MediaDashboard";
+import { DashboardTabs } from "@/components/dashboard/DashboardTabs";
 import { dashboardAuthReady, isDashboardAuthenticated } from "@/lib/admin-auth";
 import { mediaSlots } from "@/lib/media-slots";
 
@@ -35,7 +35,7 @@ export default async function DashboardPage() {
         </div>
 
         {authed ? (
-          <MediaDashboard slots={slots} />
+          <DashboardTabs slots={slots} />
         ) : (
           <DashboardLogin ready={dashboardAuthReady()} />
         )}

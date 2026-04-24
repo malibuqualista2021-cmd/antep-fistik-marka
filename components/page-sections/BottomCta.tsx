@@ -5,7 +5,6 @@ import { site, waLink } from "@/lib/site";
 
 export function BottomCta() {
   const b = cta.bottomCta;
-  const h = cta.home;
 
   return (
     <section
@@ -26,10 +25,10 @@ export function BottomCta() {
           <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center">
             <Button
               variant="secondary"
-              href={h.primaryHref}
-              className="!min-h-[48px] !border-2 !border-[#F7F3EA] !bg-transparent !px-5 !text-[#F7F3EA] hover:!bg-[#F7F3EA]/10"
+              href="/urunler"
+              className="!min-h-[48px] !border-2 !border-[#F7F3EA] !bg-[#F7F3EA] !px-5 !text-primary hover:!bg-[#EFE7D6]"
             >
-              {h.primaryLabel}
+              Perakende ürünleri gör
             </Button>
             {site.whatsappE164 ? (
               <Button

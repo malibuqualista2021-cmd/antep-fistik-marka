@@ -4,10 +4,10 @@
 export const cta = {
   home: {
     primaryHref: "/urunler",
-    primaryLabel: "Ürünleri incele",
+    primaryLabel: "Perakende ürünleri gör",
     secondaryHref: "/toptan-satis#teklif",
     secondaryLabel: "Toptan teklif al",
-    waPriceLabel: "Güncel fiyat sor",
+    waPriceLabel: "WhatsApp destek",
     waPriceMessage:
       "Merhaba, güncel Antep fıstığı fiyatı ve stok durumu hakkında bilgi almak istiyorum.",
     sampleHref: "/toptan-satis#numune",
@@ -23,16 +23,16 @@ export const cta = {
   floatingWa: {
     label: "WhatsApp",
     message:
-      "Merhaba, Antep fıstığı için bilgi veya fiyat teklifi almak istiyorum.",
+      "Merhaba, perakende sipariş veya toptan teklif hakkında destek almak istiyorum.",
   },
   productsPage: {
     introCtaHref: "/toptan-satis#teklif",
     introCtaLabel: "Toptan teklif al",
   },
   productDetail: (productName: string) => ({
-    primaryWaLabel: "Bu ürün için fiyat sor",
-    primaryWaAriaLabel: `${productName} için güncel fiyat ve paket seçenekleri sor`,
-    primaryWaMessage: `Merhaba, "${productName}" için güncel fiyat ve paket seçenekleri hakkında bilgi almak istiyorum.`,
+    primaryWaLabel: "Perakende ürünlere git",
+    primaryWaAriaLabel: `${productName} için perakende ürün seçeneklerine git`,
+    primaryWaMessage: `Merhaba, "${productName}" hakkında destek almak istiyorum.`,
     secondaryHref: "/iletisim",
     secondaryLabel: "Form ile yaz",
     wholesaleHref: "/toptan-satis#teklif",
@@ -49,9 +49,12 @@ export const cta = {
   contactPage: {
     waLabel: "WhatsApp ile yaz",
     waMessage:
-      "Merhaba, iletişim sayfasından yazıyorum. Talep / soru konusu: ",
+      "Merhaba, sipariş veya toptan teklif hakkında destek almak istiyorum. Konu: ",
     formSubmitLabel: "Formu gönder",
   },
+  /** Ürün detay — WhatsApp’tan sor ön mesajı */
+  retailProductDetailQuestion: (productName: string, gramaj: string) =>
+    `Merhaba, "${productName}" (${gramaj}) ürünü hakkında bilgi almak istiyorum.`,
   bottomCta: {
     title: "Uygun ürün için bizimle iletişime geçin",
     subtitle:

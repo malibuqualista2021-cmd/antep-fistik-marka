@@ -16,6 +16,24 @@ export const metadata: Metadata = {
 
 export default function WholesalePage() {
   const w = cta.wholesalePage;
+  const segments = [
+    {
+      title: "Baklavacılar",
+      text: "İç fıstık ve boz içte renk, doku ve üretim takvimine göre parti önerisi.",
+    },
+    {
+      title: "Kuruyemişçiler",
+      text: "Kabuklu ve iç üründe raf, teşhir ve düzenli alım ihtiyacına göre ambalaj.",
+    },
+    {
+      title: "Gıda üreticileri",
+      text: "Dolgu, dondurma ve endüstriyel kullanım için torba ve deneme partisi akışı.",
+    },
+    {
+      title: "Düzenli alım yapan işletmeler",
+      text: "Aylık/seferlik miktar, teslim ili ve çıkış takvimine göre yazılı teklif.",
+    },
+  ];
 
   return (
     <main id="icerik" className="pb-16">
@@ -58,6 +76,47 @@ export default function WholesalePage() {
           steps={b2bProcessSteps}
           layout="vertical"
         />
+      </Container>
+
+      <Container className="pb-2 md:pb-4">
+        <section aria-labelledby="segmentler" className="mb-8 md:mb-10">
+          <h2 id="segmentler" className="font-serif text-2xl text-foreground md:text-[2.15rem]">
+            İşletme tipine göre toptan akış
+          </h2>
+          <p className="mt-3 max-w-3xl font-sans text-sm leading-relaxed text-muted md:text-base">
+            Toptan taleplerde ürün seçimi, ambalaj ve sevkiyat ihtiyacı işletme tipine göre
+            değişir. Aşağıdaki ayrım teklifin daha net hazırlanmasını sağlar.
+          </p>
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            {segments.map((segment) => (
+              <article key={segment.title} className="card-elevated rounded-[var(--radius-card)] p-5">
+                <h3 className="font-serif text-xl text-foreground">{segment.title}</h3>
+                <p className="mt-2 font-sans text-sm leading-relaxed text-muted">{segment.text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section
+          aria-labelledby="ornek-teklif"
+          className="rounded-[var(--radius-xl)] border border-primary/15 bg-primary/[0.05] p-6 md:p-8"
+        >
+          <h2 id="ornek-teklif" className="font-serif text-2xl text-foreground md:text-[2.05rem]">
+            Örnek teklif formatı
+          </h2>
+          <p className="mt-3 max-w-3xl font-sans text-sm leading-relaxed text-muted md:text-base">
+            Aşağıdaki satırlar sadece teklif formatını gösterir; gerçek fiyat ürün, parti,
+            miktar ve sevkiyat detayına göre yazılı olarak paylaşılır.
+          </p>
+          <dl className="mt-5 grid gap-3 md:grid-cols-2">
+            <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-black/[0.06]"><dt className="text-xs font-semibold uppercase tracking-wide text-muted">Ürün</dt><dd className="mt-1 text-sm text-foreground">Antep İç Fıstık (çiğ/kavrulmuş)</dd></div>
+            <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-black/[0.06]"><dt className="text-xs font-semibold uppercase tracking-wide text-muted">Miktar</dt><dd className="mt-1 text-sm text-foreground">Aylık / seferlik yaklaşık miktar</dd></div>
+            <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-black/[0.06]"><dt className="text-xs font-semibold uppercase tracking-wide text-muted">Ambalaj</dt><dd className="mt-1 text-sm text-foreground">Torba, koli veya palet</dd></div>
+            <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-black/[0.06]"><dt className="text-xs font-semibold uppercase tracking-wide text-muted">Teslim ili</dt><dd className="mt-1 text-sm text-foreground">İl / bölge ve hedef tarih penceresi</dd></div>
+            <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-black/[0.06]"><dt className="text-xs font-semibold uppercase tracking-wide text-muted">Nakliye</dt><dd className="mt-1 text-sm text-foreground">Kargo, ambar veya paletli taşıma satırı</dd></div>
+            <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-black/[0.06]"><dt className="text-xs font-semibold uppercase tracking-wide text-muted">Ödeme ve çıkış</dt><dd className="mt-1 text-sm text-foreground">Ödeme notu + planlanan çıkış tarihi</dd></div>
+          </dl>
+        </section>
       </Container>
 
       <Container className="grid gap-10 pb-14 md:grid-cols-[1fr_400px] md:items-start md:gap-12">
@@ -143,7 +202,8 @@ export default function WholesalePage() {
             <p className="mt-3 font-sans text-muted md:text-[1.02rem]">
               Çıkış öncesi parti bilgisi ve teslim penceresi yazılı özetle paylaşılır.
               İsimli müşteri referansı yalnızca izin olduğunda verilir; aksi halde ürün ve
-              numune ile ilerlenir. Sertifika veya belge metni .env ile eklenebilir.
+              numune ile ilerlenir. Belge veya doğrulama notu mevcutsa teklifte ayrıca
+              paylaşılır.
             </p>
           </section>
         </div>

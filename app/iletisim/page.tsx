@@ -14,6 +14,43 @@ export default function ContactPage() {
   const mapHref = mapsLink();
   const c = cta.contactPage;
 
+  const waPendingCopy =
+    "WhatsApp hattı yakında aktif olacak. Şimdilik iletişim formunu kullanabilirsiniz.";
+  const phonePendingCopy =
+    "Telefon hattı üzerinden hızlı destek için numaramızı tamamladığımızda bu alanda paylaşacağız. Şimdilik formu kullanabilirsiniz.";
+  const emailPendingCopy =
+    "Kurumsal e-posta adresimiz hazır olduğunda burada yayınlanacak. Yazılı talepleriniz için formu kullanın.";
+  const instagramPendingCopy =
+    "Sosyal medya hesaplarımız hazır olduğunda bu sayfadan paylaşılacaktır.";
+
+  const channels = [
+    {
+      label: "WhatsApp",
+      value: site.whatsappE164 ? "Sipariş ve hızlı destek" : waPendingCopy,
+      href: site.whatsappE164 ? waLink(c.waMessage) : "#form",
+    },
+    {
+      label: "Telefon",
+      value: site.phone ? site.phone : phonePendingCopy,
+      href: site.phoneE164 ? `tel:${site.phoneE164}` : "#form",
+    },
+    {
+      label: "E-posta",
+      value: site.email ? site.email : emailPendingCopy,
+      href: site.email ? `mailto:${site.email}` : "#form",
+    },
+    {
+      label: "Instagram",
+      value: site.socialInstagram ? "Instagram hesabımız" : instagramPendingCopy,
+      href: site.socialInstagram || "#form",
+    },
+    {
+      label: "Çalışma saatleri",
+      value: site.hours ? site.hours : "Çalışma saatleri talep üzerine ve yoğunluğa göre paylaşılır; formdan konu belirtebilirsiniz.",
+      href: "#form",
+    },
+  ];
+
   return (
     <main id="icerik" className="pb-16">
       <section className="border-b border-black/5 bg-surface/30 py-10 md:py-12">
@@ -30,11 +67,39 @@ export default function ContactPage() {
 
       <Container className="grid gap-10 py-10 md:grid-cols-2 md:gap-12 md:py-12">
         <div className="space-y-8">
+          <section aria-labelledby="quick-contact-heading">
+            <h2 id="quick-contact-heading" className="font-serif text-xl text-foreground">
+              Hızlı iletişim
+            </h2>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              {channels.map((channel) => (
+                <a
+                  key={channel.label}
+                  href={channel.href}
+                  target={channel.href.startsWith("http") ? "_blank" : undefined}
+                  rel={channel.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="rounded-[var(--radius-card)] bg-background p-4 font-sans ring-1 ring-black/5 hover:ring-primary/20"
+                >
+                  <span className="block text-xs font-semibold uppercase tracking-wide text-muted">{channel.label}</span>
+                  <span className="mt-1 block font-semibold text-primary">{channel.value}</span>
+                </a>
+              ))}
+            </div>
+          </section>
+
           <section aria-labelledby="channels-heading">
             <h2 id="channels-heading" className="font-serif text-xl text-foreground">
-              Kanallar
+              Firma bilgisi
             </h2>
             <address className="mt-4 space-y-5 not-italic font-sans text-sm text-muted">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-foreground">
+                  İşletme
+                </p>
+                <p className="mt-1">{site.name}</p>
+                <p>Gaziantep merkezli perakende ve toptan Antep fıstığı satışı.</p>
+                <p>Şehir: Gaziantep</p>
+              </div>
               {site.address.line1 || site.address.line2 ? (
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wide text-foreground">
@@ -55,8 +120,9 @@ export default function ContactPage() {
                 </div>
               ) : (
                 <p className="rounded-[var(--radius-card)] bg-background p-4 text-sm ring-1 ring-black/5">
-                  Adres satırları yapılandırıldığında burada görünecek. Şimdilik
-                  telefon veya mesaj ile konum paylaşılabilir.
+                  Ziyaret ve konum bilgisi randevu/onay sonrası paylaşılır. Hızlı
+                  fiyat ve stok için WhatsApp; yazılı teklif için formu
+                  kullanabilirsiniz.
                 </p>
               )}
               {site.phone ? (
@@ -128,7 +194,7 @@ export default function ContactPage() {
           </section>
         </div>
 
-        <div className="rounded-[var(--radius-card)] bg-surface/80 p-6 ring-1 ring-black/5 md:p-8">
+        <div id="form" className="rounded-[var(--radius-card)] bg-surface/80 p-6 ring-1 ring-black/5 md:p-8 scroll-mt-24">
           <h2 className="font-serif text-xl text-foreground">Kısa mesaj formu</h2>
           <p className="mt-2 font-sans text-sm text-muted">
             Ad, iletişim ve tek paragraf mesaj yeterlidir. Toptan için mümkünse{" "}

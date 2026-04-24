@@ -25,6 +25,7 @@ type Props = {
   href?: string;
   type?: "button" | "submit";
   onClick?: () => void;
+  disabled?: boolean;
   "aria-label"?: string;
 };
 
@@ -35,18 +36,19 @@ export function Button({
   href,
   type = "button",
   onClick,
+  disabled = false,
   "aria-label": ariaLabel,
 }: Props) {
   const cls = `${base} ${variants[variant]} ${className}`;
   if (href) {
     return (
-      <Link href={href} className={cls} aria-label={ariaLabel}>
+      <Link href={href} className={cls} aria-label={ariaLabel} onClick={onClick}>
         {children}
       </Link>
     );
   }
   return (
-    <button type={type} className={cls} onClick={onClick} aria-label={ariaLabel}>
+    <button type={type} className={cls} onClick={onClick} aria-label={ariaLabel} disabled={disabled}>
       {children}
     </button>
   );

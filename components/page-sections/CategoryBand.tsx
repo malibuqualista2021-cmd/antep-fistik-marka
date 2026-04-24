@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { SectionShell } from "@/components/ui/SectionShell";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { waLink } from "@/lib/site";
 
 type CatItem = {
   title: string;
@@ -12,7 +11,6 @@ type CatItem = {
   cta: string;
   secondaryLabel: string;
   secondaryHref: string;
-  secondaryExternal?: boolean;
 };
 
 function buildItems(): CatItem[] {
@@ -23,9 +21,8 @@ function buildItems(): CatItem[] {
       desc: "Kavrulmuş veya çiğ; parti bazlı renk ve iç doluluk uyumu.",
       href: "/urunler#ic",
       cta: "İç fıstık ürünlerine git",
-      secondaryLabel: "Bu grup için fiyat sor",
-      secondaryHref: waLink("Antep iç fıstık için güncel fiyat ve stok soruyorum."),
-      secondaryExternal: true,
+      secondaryLabel: "Perakende mağaza",
+      secondaryHref: "/urunler",
     },
     {
       title: "Kabuklu",
@@ -33,9 +30,8 @@ function buildItems(): CatItem[] {
       desc: "Kabuk bütünlüğü ve boyut dengesi; teşhir ve paket seçenekleri.",
       href: "/urunler#kabuklu",
       cta: "Kabuklu ürünlere git",
-      secondaryLabel: "Kabuklu için fiyat sor",
-      secondaryHref: waLink("Kabuklu Antep fıstığı için fiyat soruyorum."),
-      secondaryExternal: true,
+      secondaryLabel: "Sepete ekle",
+      secondaryHref: "/urunler",
     },
     {
       title: "Boz iç",
@@ -52,9 +48,8 @@ function buildItems(): CatItem[] {
       desc: "Net gramaj ve etiket; raf ve online satışa hazır seriler.",
       href: "/urunler#perakende",
       cta: "Paketleri incele",
-      secondaryLabel: "Perakende için yaz",
-      secondaryHref: waLink("Perakende paketler için bilgi almak istiyorum."),
-      secondaryExternal: true,
+      secondaryLabel: "Sepete ekle",
+      secondaryHref: "/urunler",
     },
     {
       title: "Toptan koli / çuval / palet",
@@ -98,22 +93,12 @@ export function CategoryBand() {
                 <Button variant="primary" href={item.href} className="w-full justify-center">
                   {item.cta}
                 </Button>
-                {item.secondaryExternal ? (
-                  <a
-                    href={item.secondaryHref}
-                    className="min-h-[44px] text-center font-sans text-sm font-semibold text-primary underline-offset-4 hover:underline"
-                    rel="noopener noreferrer"
-                  >
-                    {item.secondaryLabel}
-                  </a>
-                ) : (
-                  <Link
-                    href={item.secondaryHref}
-                    className="min-h-[44px] text-center font-sans text-sm font-semibold text-primary underline-offset-4 hover:underline"
-                  >
-                    {item.secondaryLabel}
-                  </Link>
-                )}
+                <Link
+                  href={item.secondaryHref}
+                  className="min-h-[44px] text-center font-sans text-sm font-semibold text-primary underline-offset-4 hover:underline"
+                >
+                  {item.secondaryLabel}
+                </Link>
               </div>
             </article>
           </li>

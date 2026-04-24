@@ -36,15 +36,15 @@ export function HeroHome() {
           <ul className="mt-6 space-y-2.5 border-l-[3px] border-primary/30 pl-4 font-sans text-sm leading-snug text-foreground sm:text-[0.95rem]">
             <li>
               <span className="font-semibold text-primary">Ne? </span>
-              İç, kabuklu, boz iç ve hazır perakende paketler.
+              Kabuklu, iç fıstık, boz iç ve hediye/paket ürünler.
             </li>
             <li>
-              <span className="font-semibold text-primary">Kime? </span>
-              Raf ve bireyselden baklavacı ve üreticiye.
+              <span className="font-semibold text-primary">Perakende? </span>
+              Gramaj seçin, sepete ekleyin, sipariş verin.
             </li>
             <li>
-              <span className="font-semibold text-primary">Nasıl? </span>
-              Ürünü seçin; fiyat ve toptan için mesaj veya form ile netleştirin.
+              <span className="font-semibold text-primary">Toptan? </span>
+              Miktar ve teslim iline göre yazılı teklif alın.
             </li>
           </ul>
 

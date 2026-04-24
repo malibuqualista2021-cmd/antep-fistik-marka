@@ -1,78 +1,60 @@
 import type { Metadata } from "next";
-import { ProductCard } from "@/components/ui/ProductCard";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
-import { products } from "@/lib/products";
-import { cta } from "@/lib/cta";
+import { RetailStore } from "@/components/shop/RetailStore";
 
 export const metadata: Metadata = {
   title: "Ürünler",
   description:
-    "Antep iç fıstık, kabuklu, boz iç, perakende paketler ve toptan koli/çuval. Kullanım ve paket bilgisiyle karşılaştırın.",
+    "Antep fıstığı perakende ürünleri ve toptan ürün grupları. Sepete ekleyin veya toplu alım için teklif isteyin.",
 };
 
-const groups = [
-  { id: "ic", title: "İç fıstık", slugs: ["antep-ic-fistik"] as const },
-  { id: "kabuklu", title: "Kabuklu", slugs: ["kabuklu-antep-fistigi"] as const },
-  { id: "boz", title: "Boz iç", slugs: ["boz-ic"] as const },
-  { id: "perakende", title: "Perakende paketler", slugs: ["perakende-paketler"] as const },
-  {
-    id: "toptan",
-    title: "Toptan koli & çuval",
-    slugs: ["toptan-koli-cuval"] as const,
-  },
-];
-
 export default function ProductsPage() {
-  const intro = cta.productsPage;
-
   return (
     <main id="icerik" className="pb-16">
       <section className="border-b border-black/5 bg-surface/30 py-10 md:py-14">
         <Container>
+          <p className="font-sans text-sm font-semibold uppercase tracking-[0.12em] text-accent">
+            Köklü Antep Mağazası
+          </p>
           <h1 className="font-serif text-[2rem] font-semibold leading-tight text-foreground md:text-[2.75rem]">
-            Ürünler
+            Perakende Ürünler
           </h1>
           <p className="mt-3 max-w-2xl font-sans text-base leading-relaxed text-muted md:text-lg">
-            Önce kullanım alanınıza uygun grubu seçin. Her kartta kısa tanım,
-            paket seçenekleri ve toptan uygunluk için yönlendirme yer alır.
-            Fiyatlar ürün tipi, parti ve miktara göre teklifle netleşir.
+            Ev, ikram ve hediye için uygun gramajı seçin, ürünleri sepete ekleyin
+            ve siparişinizi tamamlayın.
           </p>
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <Button variant="primary" href={intro.introCtaHref}>
-              {intro.introCtaLabel}
-            </Button>
-            <Button variant="secondary" href="/iletisim">
-              Form ile talep
-            </Button>
+          <div className="mt-5 grid gap-3 font-sans text-sm text-muted sm:grid-cols-3">
+            <div className="rounded-[12px] bg-background px-4 py-3 ring-1 ring-black/5">Güvenli sipariş</div>
+            <div className="rounded-[12px] bg-background px-4 py-3 ring-1 ring-black/5">1-3 iş günü kargo</div>
+            <div className="rounded-[12px] bg-background px-4 py-3 ring-1 ring-black/5">WhatsApp destek</div>
           </div>
         </Container>
       </section>
 
-      {groups.map((group) => (
-        <section
-          key={group.id}
-          id={group.id}
-          aria-labelledby={`heading-${group.id}`}
-          className="scroll-mt-24 border-b border-black/5 py-10 last:border-b-0 md:py-12"
-        >
-          <Container>
-            <h2
-              id={`heading-${group.id}`}
-              className="font-serif text-2xl text-foreground md:text-3xl"
-            >
-              {group.title}
+      <section
+        id="perakende-satin-al"
+        className="scroll-mt-24 border-b border-black/5 py-10 md:py-12"
+        aria-labelledby="perakende-heading"
+      >
+        <Container>
+          <div className="max-w-3xl">
+            <p className="font-sans text-sm font-semibold uppercase tracking-[0.12em] text-accent">
+              Perakende satış
+            </p>
+            <h2 id="perakende-heading" className="mt-2 font-serif text-2xl text-foreground md:text-[2.35rem]">
+              Sepete ekle, siparişi tamamla
             </h2>
-            <div className="mt-7 grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {group.slugs.map((slug) => {
-                const p = products.find((x) => x.slug === slug);
-                if (!p) return null;
-                return <ProductCard key={p.slug} product={p} />;
-              })}
-            </div>
-          </Container>
-        </section>
-      ))}
+            <p className="mt-3 font-sans text-sm leading-relaxed text-muted md:text-base">
+              Ev, ikram ve hediye için uygun gramajı seçin, sepetinize ekleyin ve
+              teslimat bilgileriyle siparişinizi tamamlayın. Kargo ve ödeme bilgileri
+              sipariş adımında net şekilde gösterilir.
+            </p>
+          </div>
+          <div className="mt-8">
+            <RetailStore />
+          </div>
+        </Container>
+      </section>
     </main>
   );
 }

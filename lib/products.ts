@@ -8,6 +8,8 @@ export type Product = {
   excerpt: string;
   usage: string;
   packages: string;
+  priceFactors: string;
+  firstStep: string;
   audience: ProductAudience;
   detail: string;
   forWho: string;
@@ -30,6 +32,8 @@ export const products: Product[] = [
       "Baklava ve kuruyemiş için parti bazlı renk ve doluluk uyumu; kavrulmuş veya çiğ seçenek.",
     usage: "Baklavacılık, kuruyemiş rafı, mutfak, dolgu",
     packages: "Perakende poşet / kutu · Toptan torba · palet (miktara göre)",
+    priceFactors: "İşleme şekli, parti homojenliği, gramaj veya torba/palet seviyesi.",
+    firstStep: "Ürün kodu + yaklaşık miktarı yazıp fiyat/parti özeti isteyin.",
     audience: "both",
     detail:
       "Eleme ve renk uyumu parti bazında kontrol edilir. Aynı ürün kodunda sürpriz yaşamamanız için çıkış öncesi parti özeti paylaşılır; kırım oranı ve tazelik beklentiniz teklif aşamasında netleşir.",
@@ -51,6 +55,8 @@ export const products: Product[] = [
       "Doğal kabukta; ikram, hediye ve raf satışına uygun seçilmiş boyut ve kabuk bütünlüğü.",
     usage: "Perakende, ikram, hediye, kuruyemiş teşhiri",
     packages: "500 g · 1 kg · Toptan çuval / koli",
+    priceFactors: "Boyut dağılımı, kavrulma durumu, gramaj ve sezon partisi.",
+    firstStep: "Hedef kullanım (ikram/raf/toptan) ve gramaj bilgisini paylaşın.",
     audience: "both",
     detail:
       "Kabuk bütünlüğü ve boyut dağılığı seçilir. Kurutma dengesi tazelik hissini korur; kampanya veya sezonluk serilerde parti bilgisi isteğe bağlı paylaşılır.",
@@ -71,6 +77,8 @@ export const products: Product[] = [
       "Pastacılık, dondurma ve dolgu için homojen doku; üretim hattına uygun parti bilgisi.",
     usage: "Pastane, dondurma, krema, endüstriyel dolgu",
     packages: "Endüstriyel torba · numune · parti bazlı",
+    priceFactors: "Doku homojenliği, miktar, numune talebi ve teslim rotası.",
+    firstStep: "Kullanım hattını ve aylık tüketimi yazıp numune/teklif tercih edin.",
     audience: "wholesale",
     detail:
       "Öğütme ve karıştırma davranışı tutarlı boz iç; numune ve teknik bilgi ile üretim denemesine uygun sunulur. Parti değişiminde önceden bilgilendirme yapılır.",
@@ -90,6 +98,8 @@ export const products: Product[] = [
       "Raf ve online satış için hazır gramajlar; okunaklı etiket ve paket tipi seçenekleri.",
     usage: "Market, e-ticaret, bireysel, kurumsal hediye",
     packages: "250 g · 500 g · 1 kg (seriye göre)",
+    priceFactors: "Gramaj, ambalaj tipi, etiket tercihi ve adet.",
+    firstStep: "İstenen gramajı ve adet aralığını gönderin.",
     audience: "retail",
     detail:
       "Paketleme bilgisi ve son kullanma takibi ile düzenli seri. Görünür pencere veya tam kapak gibi satış kanalınıza uygun seçenekler konuşulur.",
@@ -109,6 +119,8 @@ export const products: Product[] = [
       "İşletme planına göre koli, çuval ve palet; teslimat penceresi teklifle bağlanır.",
     usage: "Baklavacı, üretici, toptan kuruyemiş, düzenli alım",
     packages: "Koli · çuval · palet",
+    priceFactors: "Miktar, ambalaj türü, teslim ili, nakliye ve çıkış tarihi.",
+    firstStep: "Ürün + miktar + teslim ili + hedef tarih bilgisiyle talep açın.",
     audience: "wholesale",
     detail:
       "Minimum miktar ve teslimat ili teklifle netleşir. Sevkiyat öncesi çıkış teyidi ve yükleme fotoğrafı ihtiyaca göre paylaşılır.",
