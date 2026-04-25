@@ -23,7 +23,7 @@ export function Header() {
       <Container className="flex h-[3.65rem] items-center justify-between gap-2 md:h-[4.1rem] md:gap-4">
         <Link
           href="/"
-          className="min-h-[44px] shrink-0 font-serif text-[1.05rem] font-semibold leading-tight tracking-tight text-primary min-[380px]:text-lg md:text-xl"
+          className="min-h-[44px] shrink-0 font-serif text-[1.05rem] font-semibold leading-tight tracking-tight text-primary min-[380px]:text-lg md:text-xl lg:hidden"
           onClick={() => setOpen(false)}
         >
           {site.shortName}
@@ -81,7 +81,7 @@ export function Header() {
         </button>
       </Container>
 
-      <div className="hidden border-t border-[var(--border-subtle)] bg-[var(--paper)] md:block">
+      <div className="hidden border-t border-[var(--border-subtle)] bg-[var(--paper)] md:block lg:hidden">
         <Container>
           <nav
             className="flex min-h-[44px] flex-wrap items-center gap-x-4 gap-y-1 overflow-x-auto py-1 font-sans text-sm font-semibold text-foreground/88"

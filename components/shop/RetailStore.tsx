@@ -108,7 +108,7 @@ export function RetailStore() {
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
         {/* Sol: dikey kategori sekmeleri */}
         <nav
-          className="w-full shrink-0 lg:sticky lg:top-[5.5rem] lg:w-[200px] lg:self-start xl:w-[220px]"
+          className="w-full shrink-0 lg:sticky lg:top-[6.25rem] lg:w-[200px] lg:self-start xl:w-[220px]"
           aria-label="Ürün kategorileri"
         >
           <p className="mb-2 font-sans text-xs font-bold uppercase tracking-wide text-[var(--walnut)]">Kategoriler</p>
