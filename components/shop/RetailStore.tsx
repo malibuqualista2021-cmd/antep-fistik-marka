@@ -105,43 +105,62 @@ export function RetailStore() {
 
   return (
     <div className="rounded-[var(--radius-xl)] bg-[var(--paper)]/80 p-3 ring-1 ring-[var(--border-subtle)] md:p-5">
-      <div className="flex flex-col gap-4 border-b border-black/10 pb-4 lg:flex-row lg:items-center lg:justify-between">
-        <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1" role="tablist" aria-label="Ürün kategorileri">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              type="button"
-              onClick={() => {
-                setCategory(tab.id);
-                applyNav({
-                  kategori: tab.id === "all" ? undefined : tab.id,
-                });
-              }}
-              className={`min-h-[44px] shrink-0 rounded-full px-5 py-2 font-sans text-sm font-semibold shadow-sm ring-1 ring-primary/15 ${
-                category === tab.id ? "bg-primary text-[var(--cream)]" : "bg-[var(--cream)] text-primary hover:bg-surface"
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-        <label className="flex shrink-0 items-center gap-2 font-sans text-sm text-muted">
-          Sırala
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value)}
-            className="min-h-[42px] rounded-full border border-black/10 bg-background px-3 text-foreground"
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
+        {/* Sol: dikey kategori sekmeleri */}
+        <nav
+          className="w-full shrink-0 lg:sticky lg:top-[5.5rem] lg:w-[200px] lg:self-start xl:w-[220px]"
+          aria-label="Ürün kategorileri"
+        >
+          <p className="mb-2 font-sans text-xs font-bold uppercase tracking-wide text-[var(--walnut)]">Kategoriler</p>
+          <div
+            className="flex flex-col gap-1 rounded-[var(--radius-card)] bg-[var(--cream)] p-2 ring-1 ring-[var(--border-subtle)] lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto"
+            role="tablist"
+            aria-orientation="vertical"
           >
-            <option value="popular">Çok satanlar</option>
-            <option value="price-asc">Fiyata göre artan</option>
-            <option value="price-desc">Fiyata göre azalan</option>
-            <option value="stock">Stok durumu</option>
-          </select>
-        </label>
-      </div>
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                role="tab"
+                aria-selected={category === tab.id}
+                onClick={() => {
+                  setCategory(tab.id);
+                  applyNav({
+                    kategori: tab.id === "all" ? undefined : tab.id,
+                  });
+                }}
+                className={`min-h-[48px] w-full rounded-[10px] px-4 py-3 text-left font-sans text-sm font-semibold transition ${
+                  category === tab.id
+                    ? "bg-primary text-[var(--cream)] shadow-sm"
+                    : "text-foreground hover:bg-[var(--paper)]"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </nav>
 
-      <div className="mt-5 grid gap-5 lg:grid-cols-[240px_1fr]">
-        <aside className="hidden rounded-[var(--radius-card)] bg-[var(--cream)] p-4 ring-1 ring-[var(--border-subtle)] lg:block">
+        {/* Sağ: sıralama + filtreler + ürünler */}
+        <div className="min-w-0 flex-1">
+          <div className="mb-4 flex flex-col gap-3 border-b border-black/10 pb-4 sm:flex-row sm:items-center sm:justify-end">
+            <label className="flex w-full shrink-0 items-center justify-end gap-2 font-sans text-sm text-muted sm:w-auto">
+              Sırala
+              <select
+                value={sort}
+                onChange={(e) => setSort(e.target.value)}
+                className="min-h-[42px] max-w-full rounded-full border border-black/10 bg-background px-3 text-foreground"
+              >
+                <option value="popular">Çok satanlar</option>
+                <option value="price-asc">Fiyata göre artan</option>
+                <option value="price-desc">Fiyata göre azalan</option>
+                <option value="stock">Stok durumu</option>
+              </select>
+            </label>
+          </div>
+
+          <div className="grid gap-5 lg:grid-cols-[240px_1fr]">
+            <aside className="hidden rounded-[var(--radius-card)] bg-[var(--cream)] p-4 ring-1 ring-[var(--border-subtle)] lg:block">
           <p className="font-sans text-sm font-semibold text-[var(--walnut)]">Filtreler</p>
 
           <fieldset className="mt-4 space-y-2 font-sans text-sm">
@@ -243,12 +262,14 @@ export function RetailStore() {
             <input type="checkbox" checked={stokta} onChange={(e) => setStokta(e.target.checked)} />
             Yalnızca stokta olanlar
           </label>
-        </aside>
+            </aside>
 
-        <div>
+            <div>
           <div className="mb-4 rounded-[12px] bg-[var(--cream)] p-3 font-sans text-sm text-muted ring-1 ring-black/[0.05] lg:hidden">
             <p className="font-semibold text-foreground">Filtreler</p>
-            <p className="mt-1 text-xs">Masaüstünde sol panelden gramaj, işlem ve kullanım filtrelerini kullanabilirsiniz.</p>
+            <p className="mt-1 text-xs">
+              Büyük ekranda solda kategori sekmeleri, ürünlerin solunda ise gramaj ve diğer filtreler yer alır.
+            </p>
           </div>
           <div className="mb-4 flex items-center justify-between font-sans text-sm text-muted">
             <span>{products.length} ürün</span>
@@ -265,6 +286,8 @@ export function RetailStore() {
               ))}
             </div>
           )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
