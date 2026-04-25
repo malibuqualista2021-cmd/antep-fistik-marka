@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { ImageSlot } from "@/components/ui/ImageSlot";
@@ -38,14 +37,13 @@ export function HeroHome() {
               {h.secondaryLabel}
             </Button>
           </div>
+          <p className="mt-3 font-sans text-xs text-muted">
+            Perakende: mağazada gramaj seçip sepete eklersiniz. Toptan: ayrı teklif formu ve süreç — üstteki ikinci düğme.
+          </p>
           <p className="mt-4 font-sans text-sm text-muted">
             <a href={waLink(h.waPriceMessage)} className="font-semibold text-primary underline-offset-4 hover:underline">
               {h.waPriceLabel}
             </a>
-            <span className="mx-2 text-muted/40">·</span>
-            <Link href="/toptan-satis#teklif" className="font-semibold text-[var(--walnut)] underline-offset-4 hover:underline">
-              Toptan teklif
-            </Link>
           </p>
 
           <dl className="mt-8 grid gap-3 border-t border-black/[0.08] pt-6 sm:grid-cols-3">

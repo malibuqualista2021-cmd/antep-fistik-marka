@@ -4,7 +4,7 @@
 export const cta = {
   home: {
     primaryHref: "/urunler",
-    primaryLabel: "Sepete ekle (Perakende)",
+    primaryLabel: "Sepete ekle",
     secondaryHref: "/toptan-satis#teklif",
     secondaryLabel: "Toptan teklif al",
     waPriceLabel: "WhatsApp destek",

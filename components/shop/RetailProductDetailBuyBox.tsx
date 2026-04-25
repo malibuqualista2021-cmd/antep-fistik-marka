@@ -130,26 +130,42 @@ export function RetailProductDetailBuyBox({ product }: Props) {
         </li>
       </ul>
 
-      <div className="mt-6 flex flex-col gap-3">
-        <Button
-          type="button"
-          variant="cta"
-          className="w-full justify-center"
-          disabled={disabled}
-          onClick={() => {
-            if (disabled) return;
-            addItem(selectedProduct, quantity);
-            setAdded(true);
-            window.setTimeout(() => setAdded(false), 1600);
-          }}
-        >
-          {disabled ? "Stokta yok" : added ? "Sepete eklendi" : "Sepete ekle"}
-        </Button>
+      <div className="mt-6 space-y-5">
+        <div>
+          <p className="font-sans text-[11px] font-bold uppercase tracking-wide text-[var(--walnut)]">Perakende</p>
+          <div className="mt-2 flex flex-col gap-2">
+            <Button
+              type="button"
+              variant="cta"
+              className="w-full justify-center"
+              disabled={disabled}
+              onClick={() => {
+                if (disabled) return;
+                addItem(selectedProduct, quantity);
+                setAdded(true);
+                window.setTimeout(() => setAdded(false), 1600);
+              }}
+            >
+              {disabled ? "Stokta yok" : added ? "Sepete eklendi" : "Sepete ekle"}
+            </Button>
+            <Button variant="ghost" href="/sepet" className="w-full justify-center text-sm">
+              Sepete git
+            </Button>
+          </div>
+        </div>
+
+        <div className="h-px bg-black/10" aria-hidden />
+
+        <div>
+          <p className="font-sans text-[11px] font-bold uppercase tracking-wide text-[var(--walnut)]">Toptan</p>
+          <p className="mt-1 font-sans text-xs text-muted">Koli, çuval veya palet için ayrı teklif; sepet yerine form.</p>
+          <Button variant="secondary" href="/toptan-satis#teklif" className="mt-3 w-full justify-center">
+            Toptan teklif al
+          </Button>
+        </div>
+
         <Button variant="secondary" href={waQuestionHref} className="w-full justify-center">
           WhatsApp’tan sor
-        </Button>
-        <Button variant="ghost" href="/sepet" className="w-full justify-center text-sm">
-          Sepete git
         </Button>
       </div>
     </div>

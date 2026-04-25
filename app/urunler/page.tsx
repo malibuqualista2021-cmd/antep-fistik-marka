@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { RetailStore } from "@/components/shop/RetailStore";
 
 export const metadata: Metadata = {
   title: "Ürünler",
   description:
-    "Antep fıstığı perakende ürünleri ve toptan ürün grupları. Sepete ekleyin veya toplu alım için teklif isteyin.",
+    "Perakende: gramaj seçip sepete ekleyerek sipariş. Toptan: koli ve palet için ayrı teklif formu — iki akış birbirinden bağımsızdır.",
 };
 
 export default function ProductsPage() {
@@ -29,6 +30,19 @@ export default function ProductsPage() {
             <div className="rounded-[12px] bg-background px-4 py-3 ring-1 ring-black/5">1-3 iş günü kargo</div>
             <div className="rounded-[12px] bg-background px-4 py-3 ring-1 ring-black/5">WhatsApp destek</div>
           </div>
+
+          <div className="mt-8 flex flex-col gap-4 rounded-[var(--radius-card)] bg-[var(--paper)] p-5 ring-1 ring-[var(--border-subtle)] md:flex-row md:items-center md:justify-between md:p-6">
+            <div className="min-w-0">
+              <p className="font-sans text-[11px] font-bold uppercase tracking-wide text-[var(--walnut)]">Toptan satış</p>
+              <p className="mt-2 max-w-xl font-sans text-sm leading-relaxed text-muted md:text-base">
+                Bu sayfadaki ürünler perakende sepet akışı içindir. İşletme alımlarında miktar, ambalaj ve teslim ili için{" "}
+                <strong className="font-semibold text-foreground">ayrı teklif</strong> alınır; sepete eklemezsiniz.
+              </p>
+            </div>
+            <Button variant="secondary" href="/toptan-satis#teklif" className="w-full shrink-0 justify-center md:w-auto md:min-w-[200px]">
+              Toptan teklif al
+            </Button>
+          </div>
         </Container>
       </section>
 
@@ -43,7 +57,7 @@ export default function ProductsPage() {
               Perakende satış
             </p>
             <h2 id="perakende-heading" className="mt-2 font-serif text-2xl text-foreground md:text-[2.35rem]">
-              Sepete ekle, siparişi tamamla
+              Perakende: sepete ekle, siparişi tamamla
             </h2>
             <p className="mt-3 font-sans text-sm leading-relaxed text-muted md:text-base">
               Ev, ikram ve hediye için uygun gramajı seçin, sepetinize ekleyin ve

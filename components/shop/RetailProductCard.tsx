@@ -76,8 +76,12 @@ export function RetailProductCard({ product }: { product: RetailProduct }) {
           Güvenli ödeme · Taze paketleme · Türkiye geneli kargo
         </div>
         <div className="mt-4 flex-1" />
-        <AddToCartButton product={product} variantId={variantId} onVariantChange={setVariantId} layout="buttons" />
-        <Button variant="secondary" href="/toptan-satis#teklif" className="mt-2 w-full justify-center text-sm">
+        <p className="font-sans text-[10px] font-bold uppercase tracking-wide text-[var(--walnut)]">Perakende</p>
+        <div className="mt-1.5">
+          <AddToCartButton product={product} variantId={variantId} onVariantChange={setVariantId} layout="buttons" />
+        </div>
+        <p className="mt-4 font-sans text-[10px] font-bold uppercase tracking-wide text-[var(--walnut)]">Toptan</p>
+        <Button variant="secondary" href="/toptan-satis#teklif" className="mt-1.5 w-full justify-center text-sm">
           Toptan teklif al
         </Button>
         <Button variant="secondary" href={`/urunler/${product.detailSlug}`} className="mt-2 w-full justify-center text-sm">
