@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import type { RetailProduct } from "@/lib/shop-products";
+import { LS, readWithLegacyMigrate } from "@/lib/storage-keys";
 
 export type CartItem = {
   product: RetailProduct;
@@ -18,7 +19,7 @@ type CartContextValue = {
   count: number;
 };
 
-const STORAGE_KEY = "koklu-antep-cart-v1";
+const STORAGE_KEY = LS.cart.key;
 const CartContext = createContext<CartContextValue | null>(null);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
@@ -27,7 +28,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     try {
-      const raw = window.localStorage.getItem(STORAGE_KEY);
+      const raw = readWithLegacyMigrate(STORAGE_KEY, LS.cart.legacy);
       if (raw) setItems(JSON.parse(raw) as CartItem[]);
     } catch {
       setItems([]);

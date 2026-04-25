@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import type { OrderRecord, OrderStatus } from "@/lib/orders";
 import { formatMoney } from "@/lib/shop-products";
 import { Button } from "@/components/ui/Button";
+import { LS, readWithLegacyMigrate } from "@/lib/storage-keys";
 
-const KEY = "koklu-antep-orders-v1";
+const KEY = LS.orders.key;
 const statuses: OrderStatus[] = ["new", "confirmed", "preparing", "shipped", "cancelled"];
 
 export function OrderManager() {
@@ -13,6 +14,7 @@ export function OrderManager() {
 
   useEffect(() => {
     try {
+      readWithLegacyMigrate(KEY, LS.orders.legacy);
       setOrders(JSON.parse(window.localStorage.getItem(KEY) || "[]") as OrderRecord[]);
     } catch {
       setOrders([]);

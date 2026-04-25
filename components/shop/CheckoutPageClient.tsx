@@ -7,8 +7,9 @@ import { useCart } from "@/components/shop/CartProvider";
 import { formatMoney } from "@/lib/shop-products";
 import { inputFieldClass } from "@/lib/form-classes";
 import type { OrderRecord } from "@/lib/orders";
+import { LS, readWithLegacyMigrate } from "@/lib/storage-keys";
 
-const ORDERS_KEY = "koklu-antep-orders-v1";
+const ORDERS_KEY = LS.orders.key;
 
 export function CheckoutPageClient() {
   const router = useRouter();
@@ -41,6 +42,7 @@ export function CheckoutPageClient() {
         return;
       }
 
+      readWithLegacyMigrate(ORDERS_KEY, LS.orders.legacy);
       const existing = JSON.parse(window.localStorage.getItem(ORDERS_KEY) || "[]") as OrderRecord[];
       window.localStorage.setItem(ORDERS_KEY, JSON.stringify([data.order, ...existing]));
       clearCart();

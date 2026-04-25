@@ -40,7 +40,7 @@ export function Footer() {
           <p className="font-serif text-xl font-semibold text-primary">{site.name}</p>
           <p className="mt-2 max-w-sm font-sans text-sm leading-relaxed text-muted">{site.footerBlurb}</p>
           <p className="mt-3 font-sans text-xs font-semibold uppercase tracking-wide text-[var(--walnut)]">
-            Gaziantep · butik gıda vitrinimiz
+            Gaziantep · İnal Fıstık
           </p>
         </div>
         <div>

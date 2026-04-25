@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { CheckoutPageClient } from "@/components/shop/CheckoutPageClient";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Siparişi tamamla",
-  description: "Köklü Antep Fıstığı perakende sipariş bilgileri ve mock ödeme adımı.",
+  description: `${site.name} perakende sipariş bilgileri ve mock ödeme adımı.`,
 };
 
 export default function CheckoutPage() {

@@ -3,15 +3,16 @@
 import { useEffect, useState } from "react";
 import { retailProducts, formatMoney, type RetailProduct } from "@/lib/shop-products";
 import { Button } from "@/components/ui/Button";
+import { LS, readWithLegacyMigrate } from "@/lib/storage-keys";
 
-const KEY = "koklu-antep-dashboard-products-v1";
+const KEY = LS.dashboardProducts.key;
 
 export function ProductManager() {
   const [products, setProducts] = useState<RetailProduct[]>(retailProducts);
 
   useEffect(() => {
     try {
-      const raw = window.localStorage.getItem(KEY);
+      const raw = readWithLegacyMigrate(KEY, LS.dashboardProducts.legacy);
       if (raw) setProducts(JSON.parse(raw) as RetailProduct[]);
     } catch {
       setProducts(retailProducts);

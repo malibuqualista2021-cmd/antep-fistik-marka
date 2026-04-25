@@ -56,8 +56,8 @@ function parseTestimonials(): Testimonial[] {
  * Sahte örnek telefon / adres kullanılmaz.
  */
 export const site = {
-  name: publicEnv("NEXT_PUBLIC_SITE_NAME") || "Köklü Antep Fıstığı",
-  shortName: publicEnv("NEXT_PUBLIC_SITE_SHORT_NAME") || "Köklü Antep",
+  name: publicEnv("NEXT_PUBLIC_SITE_NAME") || "İnal Fıstık",
+  shortName: publicEnv("NEXT_PUBLIC_SITE_SHORT_NAME") || "İnal Fıstık",
   description:
     publicEnv("NEXT_PUBLIC_SITE_DESCRIPTION") ||
     "Gaziantep merkezli Antep fıstığı: perakende paketler ve toptan parti tedariki.",

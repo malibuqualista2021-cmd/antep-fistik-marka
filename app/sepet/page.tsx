@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { CartPageClient } from "@/components/shop/CartPageClient";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Sepet",
-  description: "Köklü Antep Fıstığı perakende ürün sepeti.",
+  description: `${site.name} perakende ürün sepeti.`,
 };
 
 export default function CartPage() {

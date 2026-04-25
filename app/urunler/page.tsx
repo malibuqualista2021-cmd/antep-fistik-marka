@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { RetailStore } from "@/components/shop/RetailStore";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Ürünler",
@@ -16,7 +17,7 @@ export default function ProductsPage() {
       <section className="border-b border-black/5 bg-surface/30 py-10 md:py-14">
         <Container>
           <p className="font-sans text-sm font-semibold uppercase tracking-[0.12em] text-accent">
-            Köklü Antep Mağazası
+            {site.shortName} Mağazası
           </p>
           <h1 className="font-serif text-[2rem] font-semibold leading-tight text-foreground md:text-[2.75rem]">
             Perakende Ürünler

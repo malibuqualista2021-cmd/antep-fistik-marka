@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Sipariş alındı",
-  description: "Köklü Antep Fıstığı perakende siparişiniz alındı.",
+  description: `${site.name} perakende siparişiniz alındı.`,
 };
 
 export default async function OrderSuccessPage({

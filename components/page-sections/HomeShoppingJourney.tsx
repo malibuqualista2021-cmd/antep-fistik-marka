@@ -15,7 +15,7 @@ const blocks = [
     cta: "Kargo ve teslimat",
   },
   {
-    title: "Neden Köklü Antep?",
+    title: "Neden İnal Fıstık?",
     body: "Gaziantep merkezli seçim ve paketleme yaklaşımı; perakende paketlerde net gramaj ve şeffaf ürün bilgisi, toptanda ise yazılı teklif disiplini.",
     href: "/hakkimizda",
     cta: "Hakkımızda",
