@@ -1,4 +1,6 @@
 import { Container } from "@/components/ui/Container";
+import { ImageSlot } from "@/components/ui/ImageSlot";
+import { pistachioImages } from "@/lib/pistachio-images";
 
 const items = [
   {
@@ -19,6 +21,17 @@ const items = [
   },
 ] as const;
 
+const badges = ["Müşteri yorumu", "İade / değişim", "Hızlı kargo", "Güvenli ödeme", "WhatsApp destek"] as const;
+
+const gallery = [
+  { src: pistachioImages.products.kabuklu, alt: "Kabuklu Antep fıstığı ürün görseli" },
+  { src: pistachioImages.products.ic, alt: "İç Antep fıstığı ürün görseli" },
+  { src: pistachioImages.products.boz, alt: "Boz iç ürün görseli" },
+  { src: pistachioImages.products.perakende, alt: "Perakende paket görseli" },
+  { src: pistachioImages.hero.packaging, alt: "Paketleme istasyonu görseli" },
+  { src: pistachioImages.hero.logistics, alt: "Depo ve sevkiyat görseli" },
+] as const;
+
 export function RetailTrustStrip() {
   return (
     <section className="border-b border-[var(--border-subtle)] bg-[var(--paper)]/40 py-9 md:py-12" aria-labelledby="retail-trust-heading">
@@ -30,6 +43,27 @@ export function RetailTrustStrip() {
           Yakın çekim ürün görselleri, paketleme disiplini ve kargo hazırlığı; gerçek satıcı hissi için vitrin ile aynı
           dili konuşuruz.
         </p>
+        <ul className="mt-4 flex flex-wrap gap-2">
+          {badges.map((badge) => (
+            <li
+              key={badge}
+              className="rounded-full bg-[var(--cream)] px-3 py-1.5 font-sans text-xs font-semibold text-[var(--walnut)] ring-1 ring-[var(--border-subtle)]"
+            >
+              {badge}
+            </li>
+          ))}
+        </ul>
+        <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-3">
+          {gallery.map((image) => (
+            <ImageSlot
+              key={image.alt}
+              src={image.src}
+              alt={image.alt}
+              wrapperClassName="aspect-[4/3] w-full rounded-[12px]"
+              sizes="(max-width: 768px) 50vw, 22vw"
+            />
+          ))}
+        </div>
         <ul className="mt-8 grid gap-4 md:grid-cols-4">
           {items.map((item) => (
             <li key={item.title} className="card-elevated rounded-[var(--radius-card)] p-5">

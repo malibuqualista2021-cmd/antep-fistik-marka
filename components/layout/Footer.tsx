@@ -88,26 +88,42 @@ export function Footer() {
                   {site.phone}
                 </a>
               </p>
-            ) : null}
+            ) : (
+              <p>Telefon: İletişim formundan paylaşılır</p>
+            )}
             {site.whatsappE164 ? (
               <p>
                 <a className="font-medium text-primary hover:underline" href={waLink()}>
                   WhatsApp
                 </a>
               </p>
-            ) : null}
+            ) : (
+              <p>
+                <Link className="font-medium text-primary hover:underline" href="/iletisim">
+                  WhatsApp desteği için yazın
+                </Link>
+              </p>
+            )}
             {site.email ? (
               <p>
                 <a className="hover:text-primary" href={`mailto:${site.email}`}>
                   {site.email}
                 </a>
               </p>
-            ) : null}
+            ) : (
+              <p>
+                <Link className="hover:text-primary" href="/iletisim">
+                  E-posta bilgisi için iletişime geçin
+                </Link>
+              </p>
+            )}
             {site.address.line1 || site.address.line2 ? (
               <p>
                 {site.address.line1} {site.address.line2}
               </p>
-            ) : null}
+            ) : (
+              <p>Gaziantep merkezli sevkiyat noktası</p>
+            )}
             {mapsLink() ? (
               <p>
                 <a className="font-medium text-primary hover:underline" href={mapsLink()} target="_blank" rel="noopener noreferrer">

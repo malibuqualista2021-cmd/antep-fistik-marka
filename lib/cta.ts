@@ -4,9 +4,9 @@
 export const cta = {
   home: {
     primaryHref: "/urunler",
-    primaryLabel: "Ürünleri İncele",
-    secondaryHref: "/urunler?kullanim=baklavalik",
-    secondaryLabel: "Baklavalık Fıstık Seç",
+    primaryLabel: "Sepete ekle (Perakende)",
+    secondaryHref: "/toptan-satis#teklif",
+    secondaryLabel: "Toptan teklif al",
     waPriceLabel: "WhatsApp destek",
     waPriceMessage:
       "Merhaba, güncel Antep fıstığı fiyatı ve stok durumu hakkında bilgi almak istiyorum.",

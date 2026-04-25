@@ -12,7 +12,7 @@ export function MarketplaceProductRail() {
         <div className="rounded-[18px] bg-[var(--paper)]/90 p-4 ring-1 ring-[var(--border-subtle)] md:p-5">
           <div className="flex items-center justify-between gap-3">
             <h2 id="marketplace-rail-heading" className="font-sans text-base font-bold text-foreground md:text-lg">
-              Çok satanlar
+              En çok satan ürünler
             </h2>
             <Link href="/urunler" className="font-sans text-sm font-semibold text-primary hover:underline">
               Tümünü gör
