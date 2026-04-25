@@ -1,12 +1,12 @@
-/** Ana vitrin — keskin ticari dil, ilk 5 sn. netliği */
+/** Ana vitrin — butik gıda mağazası tonu: sade, güvenilir, iştah açıcı */
 export const heroCopy = {
-  kicker: "Gaziantep · Antep fıstığı ticareti",
-  title: "Gaziantep’ten Taze Antep Fıstığı",
+  kicker: "Yeni mahsul · Gaziantep",
+  title: "Yeni Mahsul Antep Fıstığı Çeşitleri",
   subtitle:
-    "Ev, ikram ve hediye için perakende paketler; işletmeler için toptan Antep fıstığı tedariki.",
+    "Kavrulmuş, çiğ, baklavalık ve iç Antep fıstığı seçeneklerini gramajına göre seçin; taze paketlenmiş şekilde kapınıza gelsin.",
   trustMicro: [
-    { label: "Perakende", text: "250 g, 500 g ve 1 kg paket" },
-    { label: "Kargo", text: "Türkiye geneli gönderim" },
-    { label: "Toptan", text: "Koli, çuval ve palet teklifi" },
+    { label: "Gramaj", text: "250 g · 500 g · 1 kg seçenekleri" },
+    { label: "Kargo", text: "Türkiye geneli; 1–3 iş günü hedefi" },
+    { label: "Güven", text: "Net fiyat ve stok bilgisi" },
   ],
 } as const;

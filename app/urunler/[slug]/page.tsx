@@ -11,6 +11,8 @@ import { formatMoney, getRetailProductByDetailSlug, getSimilarRetailProducts } f
 import { RetailProductDetailBuyBox } from "@/components/shop/RetailProductDetailBuyBox";
 import { RetailProductCard } from "@/components/shop/RetailProductCard";
 import { CatalogWholesaleDetail } from "@/components/shop/CatalogWholesaleDetail";
+import { ProductDetailTabs } from "@/components/shop/ProductDetailTabs";
+import { buildProductDetailTabs } from "@/lib/build-product-tabs";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -45,14 +47,7 @@ export default async function ProductDetailPage({ params }: Props) {
   }
 
   const similar = getSimilarRetailProducts(retail, 4);
-  const description = retail.description ?? retail.shortDescription;
-  const ingredients = retail.ingredients ?? "Antep fıstığı (ürün tipine göre etiket bilgisi geçerlidir).";
-  const allergens =
-    retail.allergens ??
-    "Fıstık içerir; aynı ortamda diğer kuru yemiş ve alerjenlerle temas ihtimali bulunabilir.";
-  const storage =
-    retail.storage ??
-    "Serin ve kuru yerde, kapalı ambalajda saklayın; açıldıktan sonra kısa sürede tüketin.";
+  const detailTabs = buildProductDetailTabs(retail);
 
   return (
     <main id="icerik" className="pb-16">
@@ -117,43 +112,8 @@ export default async function ProductDetailPage({ params }: Props) {
         </div>
       </Container>
 
-      <Container className="mt-12 max-w-4xl space-y-10 md:mt-16">
-        <section aria-labelledby="desc-heading">
-          <h2 id="desc-heading" className="font-serif text-xl text-foreground md:text-2xl">
-            Ürün açıklaması
-          </h2>
-          <p className="mt-3 font-sans text-sm leading-relaxed text-muted md:text-base">{description}</p>
-        </section>
-
-        <div className="grid gap-6 md:grid-cols-3">
-          <section className="rounded-[var(--radius-card)] bg-surface/70 p-4 ring-1 ring-black/5" aria-labelledby="ing-heading">
-            <h2 id="ing-heading" className="font-serif text-lg text-foreground">
-              İçindekiler
-            </h2>
-            <p className="mt-2 font-sans text-sm leading-relaxed text-muted">{ingredients}</p>
-          </section>
-          <section className="rounded-[var(--radius-card)] bg-surface/70 p-4 ring-1 ring-black/5" aria-labelledby="allergen-heading">
-            <h2 id="allergen-heading" className="font-serif text-lg text-foreground">
-              Alerjen uyarısı
-            </h2>
-            <p className="mt-2 font-sans text-sm leading-relaxed text-muted">{allergens}</p>
-          </section>
-          <section className="rounded-[var(--radius-card)] bg-surface/70 p-4 ring-1 ring-black/5" aria-labelledby="storage-heading">
-            <h2 id="storage-heading" className="font-serif text-lg text-foreground">
-              Saklama koşulları
-            </h2>
-            <p className="mt-2 font-sans text-sm leading-relaxed text-muted">{storage}</p>
-          </section>
-        </div>
-
-        <section className="rounded-[var(--radius-card)] bg-background p-5 ring-1 ring-black/[0.06] md:p-6" aria-labelledby="reviews-heading">
-          <h2 id="reviews-heading" className="font-serif text-xl text-foreground">
-            Müşteri yorumları
-          </h2>
-          <p className="mt-3 font-sans text-sm leading-relaxed text-muted">
-            Henüz yorum yok. İlk doğrulanmış müşteri yorumları siparişlerden sonra eklenecektir.
-          </p>
-        </section>
+      <Container className="mt-12 max-w-4xl md:mt-16">
+        <ProductDetailTabs tabs={detailTabs} />
       </Container>
 
       <Container className="mt-12 md:mt-14">

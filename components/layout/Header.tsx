@@ -7,46 +7,23 @@ import { Container } from "@/components/ui/Container";
 import { site, waLink } from "@/lib/site";
 import { cta } from "@/lib/cta";
 import { CartLink } from "@/components/shop/CartLink";
-
-const marketTabs = [
-  { href: "/urunler", label: "Tüm Ürünler" },
-  { href: "/urunler?kategori=kabuklu", label: "Kabuklu" },
-  { href: "/urunler?kategori=ic", label: "İç Fıstık" },
-  { href: "/urunler?kategori=boz", label: "Boz İç" },
-  { href: "/urunler?kategori=paket", label: "Hediye & Paket" },
-  { href: "/toptan-satis", label: "Toptan" },
-  { href: "/kargo-teslimat", label: "Kargo & İade" },
-  { href: "/sikca-sorulan-sorular", label: "SSS" },
-  { href: "/hakkimizda", label: "Hakkımızda" },
-];
+import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
+import { MegaNav } from "@/components/layout/MegaNav";
+import { mainNavLinks, megaMenuAntep } from "@/lib/store-navigation";
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const h = cta.header;
+  const stripLinks = mainNavLinks.filter((l) => l.href !== "/");
 
   return (
-    <header className="sticky top-0 z-50 border-b border-black/5 bg-background/90 backdrop-blur-md">
-      <div className="hidden border-b border-black/5 bg-surface/70 md:block">
-        <Container className="flex min-h-[34px] items-center justify-between gap-3 py-1">
-          <p className="font-sans text-xs font-medium text-foreground/85">Gaziantep merkezli</p>
-          <div className="flex items-center gap-4 font-sans text-xs">
-            {site.phone ? (
-              <a href={`tel:${site.phoneE164}`} className="font-semibold text-primary hover:underline">
-                {site.phone}
-              </a>
-            ) : null}
-            {site.whatsappE164 ? (
-              <a href={waLink(h.waMessage)} className="font-semibold text-primary hover:underline">
-                WhatsApp
-              </a>
-            ) : null}
-          </div>
-        </Container>
-      </div>
-      <Container className="flex h-[3.75rem] items-center justify-between gap-3 md:h-[4.25rem]">
+    <header className="sticky top-0 z-50 border-b border-[var(--border-subtle)] bg-[var(--cream)]/95 backdrop-blur-md">
+      <AnnouncementBar />
+
+      <Container className="flex h-[3.65rem] items-center justify-between gap-2 md:h-[4.1rem] md:gap-4">
         <Link
           href="/"
-          className="min-h-[44px] shrink-0 font-serif text-lg font-semibold tracking-tight text-primary min-[380px]:text-xl md:text-2xl"
+          className="min-h-[44px] shrink-0 font-serif text-[1.05rem] font-semibold leading-tight tracking-tight text-primary min-[380px]:text-lg md:text-xl"
           onClick={() => setOpen(false)}
         >
           {site.shortName}
@@ -59,41 +36,40 @@ export function Header() {
           <input
             id="site-search"
             name="q"
-            placeholder="Antep fıstığı, iç fıstık, kabuklu ara"
-            className="h-11 w-full rounded-full border border-black/10 bg-surface/80 px-4 font-sans text-sm text-foreground placeholder:text-muted/70 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            placeholder="Antep fıstığı, boz iç, kavrulmuş fıstık ara…"
+            className="h-11 w-full rounded-full border border-black/10 bg-[var(--paper)] px-4 font-sans text-sm text-foreground placeholder:text-muted/65 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
           />
         </form>
 
-        <div className="hidden shrink-0 flex-wrap items-center justify-end gap-x-3 gap-y-1 md:flex">
+        <div className="hidden shrink-0 flex-wrap items-center justify-end gap-x-2 gap-y-1 md:flex md:gap-x-3">
+          {site.phoneE164 ? (
+            <a
+              href={`tel:${site.phoneE164}`}
+              className="font-sans text-xs font-semibold text-[var(--walnut)] hover:text-primary"
+            >
+              Telefon
+            </a>
+          ) : null}
+          {site.whatsappE164 ? (
+            <a href={waLink(h.waMessage)} className="font-sans text-xs font-semibold text-primary hover:underline">
+              WhatsApp
+            </a>
+          ) : null}
           <Link href="/iletisim" className="font-sans text-xs font-semibold text-foreground hover:text-primary">
             Hesabım
           </Link>
           <Link href="/urunler" className="font-sans text-xs font-semibold text-foreground hover:text-primary">
-            Favorilerim
+            Favoriler
           </Link>
           <CartLink />
           <Link href="/iletisim" className="font-sans text-xs font-semibold text-foreground hover:text-primary">
             İletişim
           </Link>
-          {site.whatsappE164 ? (
-            <Button
-              variant="primary"
-              href={waLink(h.waMessage)}
-              className="!min-h-[44px] !px-3 !py-2 !text-sm"
-              aria-label={h.waLabel}
-            >
-              {h.waLabel}
-            </Button>
-          ) : site.phoneE164 ? (
-            <Button variant="primary" href={`tel:${site.phoneE164}`} className="!min-h-[44px] !px-3 !py-2 !text-sm">
-              Ara
-            </Button>
-          ) : null}
         </div>
 
         <button
           type="button"
-          className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-[var(--radius-button)] border border-primary/20 bg-surface md:hidden"
+          className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-[var(--radius-button)] border border-primary/20 bg-[var(--paper)] md:hidden"
           aria-expanded={open}
           aria-controls="mobile-nav"
           onClick={() => setOpen((v) => !v)}
@@ -105,14 +81,18 @@ export function Header() {
         </button>
       </Container>
 
-      <div className="hidden border-t border-black/5 bg-[var(--cream)] md:block">
+      <div className="hidden border-t border-[var(--border-subtle)] bg-[var(--paper)] md:block">
         <Container>
           <nav
-            className="flex min-h-[42px] items-center gap-5 overflow-x-auto font-sans text-sm font-semibold text-foreground/85"
-            aria-label="Mağaza ve site menüsü"
+            className="flex min-h-[44px] flex-wrap items-center gap-x-4 gap-y-1 overflow-x-auto py-1 font-sans text-sm font-semibold text-foreground/88"
+            aria-label="Ana menü"
           >
-            {marketTabs.map((item) => (
-              <Link key={item.href} href={item.href} className="shrink-0 py-2 hover:text-primary">
+            <Link href="/" className="shrink-0 py-2 hover:text-primary">
+              Ana Sayfa
+            </Link>
+            <MegaNav />
+            {stripLinks.map((item) => (
+              <Link key={item.href + item.label} href={item.href} className="shrink-0 py-2 hover:text-primary" title={item.hint ?? undefined}>
                 {item.label}
               </Link>
             ))}
@@ -121,8 +101,8 @@ export function Header() {
       </div>
 
       {open ? (
-        <div id="mobile-nav" className="border-t border-black/5 bg-background md:hidden">
-          <Container className="flex max-h-[min(70vh,calc(100dvh-5rem))] flex-col gap-1 overflow-y-auto py-3">
+        <div id="mobile-nav" className="max-h-[min(78vh,calc(100dvh-5rem))] overflow-y-auto border-t border-black/5 bg-[var(--cream)] md:hidden">
+          <Container className="flex flex-col gap-1 py-3">
             <form action="/urunler" className="mb-2" role="search">
               <label className="sr-only" htmlFor="mobile-site-search">
                 Ürün ara
@@ -131,59 +111,40 @@ export function Header() {
                 id="mobile-site-search"
                 name="q"
                 placeholder="Ürün ara"
-                className="min-h-[46px] w-full rounded-[var(--radius-input)] border border-black/10 bg-surface px-3 font-sans text-base"
+                className="min-h-[46px] w-full rounded-[var(--radius-input)] border border-black/10 bg-[var(--paper)] px-3 font-sans text-base"
               />
             </form>
-            <p className="px-1 font-sans text-xs font-semibold uppercase tracking-wide text-muted">Menü</p>
-            {marketTabs.map((item) => (
+            <Link href="/" className="min-h-[48px] rounded-md px-2 py-3 font-sans font-medium hover:bg-surface/80" onClick={() => setOpen(false)}>
+              Ana Sayfa
+            </Link>
+            <p className="mt-2 px-2 font-sans text-xs font-bold uppercase tracking-wide text-muted">Antep fıstığı</p>
+            {megaMenuAntep.flatMap((col) =>
+              col.links.map((link) => (
+                <Link
+                  key={link.href + link.label}
+                  href={link.href}
+                  className="min-h-[44px] rounded-md px-3 py-2.5 pl-4 font-sans text-sm hover:bg-surface/80"
+                  onClick={() => setOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              )),
+            )}
+            {stripLinks.map((item) => (
               <Link
-                key={item.href}
+                key={item.href + item.label}
                 href={item.href}
-                className="min-h-[48px] rounded-[var(--radius-button)] px-3 py-3 font-sans text-base font-medium text-foreground hover:bg-surface"
+                className="min-h-[48px] rounded-md px-2 py-3 font-sans font-medium hover:bg-surface/80"
                 onClick={() => setOpen(false)}
               >
                 {item.label}
               </Link>
             ))}
-            <div className="mt-2 flex flex-col gap-2 border-t border-black/5 pt-3">
-              <Link
-                href="/iletisim"
-                className="min-h-[48px] rounded-[var(--radius-button)] px-3 py-3 font-sans text-base font-medium text-foreground hover:bg-surface"
-                onClick={() => setOpen(false)}
-              >
-                İletişim
-              </Link>
-              <Link
-                href="/iletisim"
-                className="min-h-[48px] rounded-[var(--radius-button)] px-3 py-3 font-sans text-base font-medium text-foreground hover:bg-surface"
-                onClick={() => setOpen(false)}
-              >
-                Hesabım
-              </Link>
-              <Link
-                href="/urunler"
-                className="min-h-[48px] rounded-[var(--radius-button)] px-3 py-3 font-sans text-base font-medium text-foreground hover:bg-surface"
-                onClick={() => setOpen(false)}
-              >
-                Favorilerim
-              </Link>
+            <div className="mt-3 flex flex-col gap-2 border-t border-black/5 pt-3">
               <CartLink className="w-full" onClick={() => setOpen(false)} />
-              <Button variant="secondary" href="/urunler" className="w-full justify-center" onClick={() => setOpen(false)}>
-                Perakende ürünleri gör
-              </Button>
               {site.whatsappE164 ? (
-                <Button
-                  variant="primary"
-                  href={waLink(h.waMessage)}
-                  className="w-full justify-center"
-                  aria-label={h.waLabel}
-                  onClick={() => setOpen(false)}
-                >
-                  {h.waLabel}
-                </Button>
-              ) : site.phoneE164 ? (
-                <Button variant="primary" href={`tel:${site.phoneE164}`} className="w-full justify-center" onClick={() => setOpen(false)}>
-                  Telefonu ara
+                <Button variant="cta" href={waLink(h.waMessage)} className="w-full justify-center" onClick={() => setOpen(false)}>
+                  WhatsApp
                 </Button>
               ) : null}
             </div>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Container } from "@/components/ui/Container";
 import { RetailStore } from "@/components/shop/RetailStore";
 
@@ -51,7 +52,9 @@ export default function ProductsPage() {
             </p>
           </div>
           <div className="mt-8">
-            <RetailStore />
+            <Suspense fallback={<div className="min-h-[320px] animate-pulse rounded-[var(--radius-xl)] bg-[var(--paper)] ring-1 ring-[var(--border-subtle)]" />}>
+              <RetailStore />
+            </Suspense>
           </div>
         </Container>
       </section>

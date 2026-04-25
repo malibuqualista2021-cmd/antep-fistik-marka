@@ -3,6 +3,8 @@ import { BottomCta } from "@/components/page-sections/BottomCta";
 import { CategoryDiscovery } from "@/components/page-sections/CategoryDiscovery";
 import { FaqHome } from "@/components/page-sections/FaqHome";
 import { HeroHome } from "@/components/page-sections/HeroHome";
+import { HomeBoutiqueWhy } from "@/components/page-sections/HomeBoutiqueWhy";
+import { HomeReviewSamples } from "@/components/page-sections/HomeReviewSamples";
 import { HomeShoppingJourney } from "@/components/page-sections/HomeShoppingJourney";
 import { MarketplaceProductRail } from "@/components/page-sections/MarketplaceProductRail";
 import { MarketplacePromoStrip } from "@/components/page-sections/MarketplacePromoStrip";
@@ -16,9 +18,11 @@ export default function HomePage() {
       <MarketplacePromoStrip />
       <CategoryDiscovery />
       <MarketplaceProductRail />
+      <HomeBoutiqueWhy />
+      <RetailTrustStrip />
+      <HomeReviewSamples />
       <AudienceChoice />
       <HomeShoppingJourney />
-      <RetailTrustStrip />
       <FaqHome />
       <WholesaleMiniCta />
       <BottomCta />

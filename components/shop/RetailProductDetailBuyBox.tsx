@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { RetailProduct } from "@/lib/shop-products";
-import { formatMoney, stockLabel } from "@/lib/shop-products";
+import { formatMoney, kgUnitPriceLine, stockLabel } from "@/lib/shop-products";
 import { useCart } from "@/components/shop/CartProvider";
 import { Button } from "@/components/ui/Button";
 import { site, waLink } from "@/lib/site";
@@ -32,6 +32,11 @@ export function RetailProductDetailBuyBox({ product }: Props) {
   );
 
   const gramajLabel = selectedVariant?.label ?? product.weight;
+  const kgLine = useMemo(
+    () => kgUnitPriceLine(selectedProduct.price, selectedProduct.weight, product.currency),
+    [selectedProduct.price, selectedProduct.weight, product.currency],
+  );
+
   const waQuestionHref = site.whatsappE164
     ? waLink(cta.retailProductDetailQuestion(product.name, gramajLabel))
     : "/iletisim";
@@ -41,37 +46,46 @@ export function RetailProductDetailBuyBox({ product }: Props) {
   }
 
   return (
-    <div className="rounded-[var(--radius-card)] bg-background p-5 ring-1 ring-black/[0.08] md:p-6">
+    <div className="rounded-[var(--radius-card)] bg-[var(--cream)] p-5 ring-1 ring-[var(--border-subtle)] md:p-6">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <p className="font-sans text-sm font-semibold text-muted">{stockLabel(product.stockStatus)}</p>
-        <p className="font-serif text-3xl font-bold text-primary md:text-[2rem]">
-          {formatMoney(selectedProduct.price, product.currency)}
-        </p>
+        <p className="font-serif text-3xl font-bold text-primary md:text-[2rem]">{formatMoney(selectedProduct.price, product.currency)}</p>
       </div>
+      {kgLine ? <p className="mt-1 font-sans text-sm text-muted">{kgLine}</p> : null}
+
+      <p className="mt-3 font-sans text-sm leading-relaxed text-muted">
+        Taze paketleme, net gramaj ve güvenli ambalaj ile gönderim.
+      </p>
 
       {product.variants?.length ? (
-        <label className="mt-5 block font-sans text-sm font-medium text-foreground">
-          Gramaj seçimi
-          <select
-            value={variantId}
-            onChange={(e) => setVariantId(e.target.value)}
-            className="mt-2 w-full min-h-[48px] rounded-[var(--radius-input)] border border-black/15 bg-surface/60 px-3 font-sans text-base text-foreground"
-          >
+        <div className="mt-5">
+          <span className="font-sans text-sm font-semibold text-foreground">Gramaj seçimi</span>
+          <div className="mt-2 flex flex-wrap gap-2" role="group" aria-label="Gramaj">
             {product.variants.map((v) => (
-              <option key={v.id} value={v.id}>
-                {v.label} — {formatMoney(v.price, product.currency)}
-              </option>
+              <button
+                key={v.id}
+                type="button"
+                onClick={() => setVariantId(v.id)}
+                className={`min-h-[44px] rounded-full px-4 py-2 font-sans text-sm font-semibold ring-1 transition ${
+                  variantId === v.id
+                    ? "bg-primary text-[var(--cream)] ring-primary"
+                    : "bg-background text-foreground ring-black/10 hover:ring-primary/25"
+                }`}
+              >
+                {v.label}
+                <span className="ml-1.5 text-xs font-bold opacity-95">{formatMoney(v.price, product.currency)}</span>
+              </button>
             ))}
-          </select>
-        </label>
+          </div>
+        </div>
       ) : null}
 
       <div className="mt-5">
-        <span className="font-sans text-sm font-medium text-foreground">Adet</span>
-        <div className="mt-2 flex max-w-[220px] items-center gap-2">
+        <span className="font-sans text-sm font-semibold text-foreground">Adet</span>
+        <div className="mt-2 flex max-w-[240px] items-center gap-2">
           <button
             type="button"
-            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-button)] border border-black/15 bg-surface font-sans text-lg font-semibold text-foreground hover:bg-background"
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-button)] border border-black/15 bg-background font-sans text-lg font-semibold text-foreground hover:bg-surface"
             onClick={() => bumpQuantity(-1)}
             aria-label="Adeti azalt"
           >
@@ -92,7 +106,7 @@ export function RetailProductDetailBuyBox({ product }: Props) {
           />
           <button
             type="button"
-            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-button)] border border-black/15 bg-surface font-sans text-lg font-semibold text-foreground hover:bg-background"
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-button)] border border-black/15 bg-background font-sans text-lg font-semibold text-foreground hover:bg-surface"
             onClick={() => bumpQuantity(1)}
             aria-label="Adeti artır"
           >
@@ -102,20 +116,24 @@ export function RetailProductDetailBuyBox({ product }: Props) {
       </div>
 
       <p className="mt-4 font-sans text-sm text-muted">
-        <span className="font-semibold text-foreground">Kargo:</span>{" "}
-        {product.shippingNote || "1–3 iş günü içinde kargo"}
+        <span className="font-semibold text-foreground">Kargo:</span> {product.shippingNote || "1–3 iş günü içinde kargo"}
       </p>
 
-      <ul className="mt-4 grid gap-2 font-sans text-xs text-muted sm:grid-cols-3" aria-label="Güven rozetleri">
-        <li className="rounded-[10px] bg-surface/80 px-3 py-2 text-center ring-1 ring-black/[0.06]">Güvenli sipariş</li>
-        <li className="rounded-[10px] bg-surface/80 px-3 py-2 text-center ring-1 ring-black/[0.06]">Taze paketleme</li>
-        <li className="rounded-[10px] bg-surface/80 px-3 py-2 text-center ring-1 ring-black/[0.06]">Türkiye geneli kargo</li>
+      <ul className="mt-4 grid gap-2 font-sans text-xs text-[var(--ink-soft)] sm:grid-cols-2" aria-label="Güven">
+        <li className="rounded-[10px] bg-[var(--paper)] px-3 py-2 ring-1 ring-black/[0.05]">Güvenli ödeme</li>
+        <li className="rounded-[10px] bg-[var(--paper)] px-3 py-2 ring-1 ring-black/[0.05]">Taze paketleme</li>
+        <li className="rounded-[10px] bg-[var(--paper)] px-3 py-2 ring-1 ring-black/[0.05]">Hızlı kargo</li>
+        <li className="rounded-[10px] bg-[var(--paper)] px-3 py-2 ring-1 ring-black/[0.05]">
+          <a href="/iade-degisim" className="font-medium text-primary underline-offset-2 hover:underline">
+            İade / değişim bilgisi
+          </a>
+        </li>
       </ul>
 
       <div className="mt-6 flex flex-col gap-3">
         <Button
           type="button"
-          variant="primary"
+          variant="cta"
           className="w-full justify-center"
           disabled={disabled}
           onClick={() => {

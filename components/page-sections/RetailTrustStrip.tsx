@@ -21,12 +21,16 @@ const items = [
 
 export function RetailTrustStrip() {
   return (
-    <section className="border-b border-black/5 bg-background py-9 md:py-12" aria-labelledby="retail-trust-heading">
+    <section className="border-b border-[var(--border-subtle)] bg-[var(--paper)]/40 py-9 md:py-12" aria-labelledby="retail-trust-heading">
       <Container>
-        <h2 id="retail-trust-heading" className="sr-only">
-          Perakende alışveriş güven unsurları
+        <h2 id="retail-trust-heading" className="font-serif text-xl font-semibold text-foreground md:text-2xl">
+          Paketleme ve güven
         </h2>
-        <ul className="grid gap-4 md:grid-cols-4">
+        <p className="mt-2 max-w-2xl font-sans text-sm text-muted">
+          Yakın çekim ürün görselleri, paketleme disiplini ve kargo hazırlığı; gerçek satıcı hissi için vitrin ile aynı
+          dili konuşuruz.
+        </p>
+        <ul className="mt-8 grid gap-4 md:grid-cols-4">
           {items.map((item) => (
             <li key={item.title} className="card-elevated rounded-[var(--radius-card)] p-5">
               <h3 className="font-serif text-xl text-foreground">{item.title}</h3>

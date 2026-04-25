@@ -1,18 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f4f0e6;
-  --foreground: #1f1e1c;
-  --surface: #ebe3d4;
-  --surface-2: #e2d8c6;
-  --primary: #2a5247;
-  --primary-hover: #1f3d35;
-  --secondary: #5c7234;
-  --accent: #b8832e;
-  --muted: #575249;
-  --cream: #f7f3ea;
-  --pistachio-light: #a8b884;
-  --border-subtle: rgb(31 30 28 / 0.08);
+  /* Kırık beyaz / krem / açık bej — butik gıda mağazası */
+  --background: #faf8f4;
+  --foreground: #2a2620;
+  --paper: #f6f3ec;
+  --surface: #efe8dc;
+  --surface-2: #e5dccf;
+  --cream: #fdfaf5;
+  /* Fıstık yeşili + kahve / altın */
+  --primary: #2d6a4f;
+  --primary-hover: #245540;
+  --secondary: #4a5d2e;
+  --accent: #b8892a;
+  --gold-muted: #c4a35a;
+  --walnut: #4a3728;
+  --ink-soft: #5c5348;
+  --muted: #5c5348;
+  --pistachio-light: #8fb69a;
+  --cta: #d97736;
+  --cta-hover: #c45f2a;
+  --border-subtle: rgb(42 38 32 / 0.09);
   --section-y: 3.25rem;
   --section-y-lg: 5rem;
   --radius-card: 16px;
@@ -35,6 +43,10 @@
   --color-accent: var(--accent);
   --color-muted: var(--muted);
   --color-pistachio-light: var(--pistachio-light);
+  --color-paper: var(--paper);
+  --color-walnut: var(--walnut);
+  --color-cta: var(--cta);
+  --color-cta-hover: var(--cta-hover);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-cormorant), ui-serif, Georgia, "Times New Roman",
@@ -96,5 +108,22 @@
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-lift);
     border: 1px solid var(--border-subtle);
+  }
+}
+
+@keyframes fade-announce {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .animate-fade-announce {
+    animation: fade-announce 0.45s ease-out;
   }
 }
