@@ -1,12 +1,54 @@
-/** Ana vitrin — butik gıda mağazası tonu: sade, güvenilir, iştah açıcı */
+/** Ana vitrin — üretici odaklı, sade ve güvenilir ton */
+
 export const heroCopy = {
-  kicker: "Yeni mahsul · Gaziantep",
-  title: "Yeni Mahsul Antep Fıstığı Çeşitleri",
+  kicker: "Doğrudan üretici · Gaziantep Nizip",
+  title: "Gaziantep'ten doğrudan üreticiden sofranıza Antep fıstığı.",
   subtitle:
-    "Kavrulmuş, çiğ, baklavalık ve iç Antep fıstığı seçeneklerini gramajına göre seçin; taze paketlenmiş şekilde kapınıza gelsin.",
+    "Aracı katmanı olmadan; siparişinize göre paketlenen yeni mahsul. Gramajlı perakende veya toptan parti — aynı üretici kontrolü, şeffaf fiyat.",
+  producerBadges: [
+    "Doğrudan Üreticiden",
+    "Gaziantep Menşeli",
+    "Taze Paketleme",
+    "Aracısız Fiyat Avantajı",
+    "Toptan ve Perakende Satış",
+  ] as const,
   trustMicro: [
-    { label: "Gramaj", text: "250 g · 500 g · 1 kg seçenekleri" },
-    { label: "Kargo", text: "Türkiye geneli; 1–3 iş günü hedefi" },
-    { label: "Güven", text: "Net fiyat ve stok bilgisi" },
+    { label: "Menşe", text: "Gaziantep Nizip — üretici hattı" },
+    { label: "Paketleme", text: "Siparişe göre günlük hazırlık" },
+    { label: "Fiyat", text: "Aracısız, görünür tutarlar" },
+  ],
+} as const;
+
+/** Ürün detayı ve güven metinleri */
+export const producerCopy = {
+  pdpPackagingLine:
+    "Bu ürün Gaziantep'te üretici kontrolünde hazırlanır ve siparişinize göre taze paketlenir.",
+} as const;
+
+export function footerProducerNote(brandName: string): string {
+  return `${brandName} olarak Antep fıstığını Gaziantep Nizip'te üretici hattımızdan doğrudan sunuyoruz. Aracı değil, ürünün kaynağıyız; perakende ve toptanda aynı kalite disiplini geçer.`;
+}
+
+export const producerWhySection = {
+  title: "Neden Üreticiden Almalısınız?",
+  subtitle:
+    "Aracı yok; ürünü bilen ekip ve net fiyat. Eviniz, ikramınız veya işletmeniz için aynı tazelik ve kontrol standardı.",
+  cards: [
+    {
+      title: "Aracısız satış",
+      text: "Fıstık size ulaşmadan önce gereksiz katmanlardan geçmez. Maliyet ve tazelik lehinize çalışır.",
+    },
+    {
+      title: "Tazelik disiplini",
+      text: "Partiyi ve paketlemeyi sipariş ritmine göre yürütürüz. Raf stoku için değil, sizin çıkış tarihiniz için hazırlanır.",
+    },
+    {
+      title: "Üretici kalite kontrolü",
+      text: "Ayıklama, kavurma ve gramaj hattı üretici gözetiminde. Ne gönderdiğimizi net ve tekrarlanabilir tutarız.",
+    },
+    {
+      title: "Toptan avantajı",
+      text: "Aynı ürün hattından koli ve palet. Miktar ve teslim ili netleşince yazılı teklif; sürpriz maliyet yok.",
+    },
   ],
 } as const;

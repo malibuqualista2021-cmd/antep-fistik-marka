@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
+import { footerProducerNote } from "@/lib/copy";
 import { mapsEmbedUrl, mapsLink, site, waLink } from "@/lib/site";
 
 const alisveris = [
@@ -39,6 +40,7 @@ export function Footer() {
         <div className="lg:col-span-2">
           <p className="font-serif text-xl font-semibold text-primary">{site.name}</p>
           <p className="mt-2 max-w-sm font-sans text-sm leading-relaxed text-muted">{site.footerBlurb}</p>
+          <p className="mt-3 max-w-sm font-sans text-xs leading-relaxed text-[var(--ink-soft)]">{footerProducerNote(site.name)}</p>
           <p className="mt-3 font-sans text-xs font-semibold uppercase tracking-wide text-[var(--walnut)]">
             Gaziantep · İnal Fıstık
           </p>

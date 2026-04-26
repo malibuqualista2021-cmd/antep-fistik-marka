@@ -65,10 +65,10 @@ export const site = {
   shortName: publicEnv("NEXT_PUBLIC_SITE_SHORT_NAME") || "İnal Fıstık",
   description:
     publicEnv("NEXT_PUBLIC_SITE_DESCRIPTION") ||
-    "Gaziantep merkezli Antep fıstığı: perakende paketler ve toptan parti tedariki.",
+    "Gaziantep Nizip'ten doğrudan üreticiden Antep fıstığı: perakende gramaj ve toptan parti, taze paketleme ve aracısız fiyat.",
   footerBlurb:
     publicEnv("NEXT_PUBLIC_SITE_FOOTER_BLURB") ||
-    "Gaziantep merkezli Antep fıstığı tedariki. Perakende paket ve toptan parti; teklif ve sevkiyat bilgisi net iletişimle paylaşılır.",
+    "Gaziantep Nizip'te üretici hattından doğrudan Antep fıstığı. Aracısız fiyat, siparişe göre taze paketleme; perakende gramaj ve toptan parti aynı kalite disipliniyle.",
   url: publicEnv("NEXT_PUBLIC_SITE_URL").trim(),
   /** Yalnızca .env ile verilirse gösterilir (varsayılan yok). */
   yearsInBusiness: parseYearsInBusiness(),

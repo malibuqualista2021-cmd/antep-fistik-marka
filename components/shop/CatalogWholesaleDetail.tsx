@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Product } from "@/lib/products";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { ProducerPackagingNote } from "@/components/shop/ProducerPackagingNote";
 
 type Props = { product: Product };
 
@@ -30,6 +31,7 @@ export function CatalogWholesaleDetail({ product }: Props) {
             {product.name}
           </h1>
           <p className="mt-3 font-sans text-base leading-relaxed text-muted md:text-lg">{product.excerpt}</p>
+          <ProducerPackagingNote className="mt-5" />
           <p className="mt-6 font-sans text-sm leading-relaxed text-muted md:text-base">{product.detail}</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Button variant="primary" href="/toptan-satis#teklif">

@@ -4,6 +4,7 @@ import { CategoryDiscovery } from "@/components/page-sections/CategoryDiscovery"
 import { FaqHome } from "@/components/page-sections/FaqHome";
 import { HeroHome } from "@/components/page-sections/HeroHome";
 import { HomeBoutiqueWhy } from "@/components/page-sections/HomeBoutiqueWhy";
+import { HomeProducerWhy } from "@/components/page-sections/HomeProducerWhy";
 import { HomeReviewSamples } from "@/components/page-sections/HomeReviewSamples";
 import { HomeShoppingJourney } from "@/components/page-sections/HomeShoppingJourney";
 import { MarketplaceProductRail } from "@/components/page-sections/MarketplaceProductRail";
@@ -15,6 +16,7 @@ export default function HomePage() {
   return (
     <main id="icerik">
       <HeroHome />
+      <HomeProducerWhy />
       <MarketplacePromoStrip />
       <CategoryDiscovery />
       <MarketplaceProductRail />

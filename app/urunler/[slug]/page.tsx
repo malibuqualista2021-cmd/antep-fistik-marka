@@ -8,6 +8,7 @@ import { FaqAccordion } from "@/components/page-sections/FaqAccordion";
 import { faqItems } from "@/lib/faq";
 import { getProductBySlug, products } from "@/lib/products";
 import { formatMoney, getRetailProductByDetailSlug, getSimilarRetailProducts } from "@/lib/shop-products";
+import { ProducerPackagingNote } from "@/components/shop/ProducerPackagingNote";
 import { RetailProductDetailBuyBox } from "@/components/shop/RetailProductDetailBuyBox";
 import { RetailProductCard } from "@/components/shop/RetailProductCard";
 import { CatalogWholesaleDetail } from "@/components/shop/CatalogWholesaleDetail";
@@ -94,6 +95,8 @@ export default async function ProductDetailPage({ params }: Props) {
           </div>
 
           <RetailProductDetailBuyBox product={retail} />
+
+          <ProducerPackagingNote className="mt-2" />
 
           <aside
             className="rounded-[var(--radius-card)] border border-black/[0.08] bg-surface/50 p-4 md:p-5"

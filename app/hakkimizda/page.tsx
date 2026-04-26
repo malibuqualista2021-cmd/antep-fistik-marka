@@ -23,8 +23,8 @@ export default function AboutPage() {
             Gaziantep’ten çıkan ürünün modern ticari vitrini: net parti, net teslim
           </h1>
           <p className="mt-4 max-w-2xl font-sans text-base leading-relaxed text-muted md:text-lg">
-            {site.name}, Antep fıstığında perakende paket ile toptan parti satışını aynı
-            operasyon üzerinden yürütür. Amacımız gösterişli vaat değil; doğru ürün kodunu
+            {site.name}, Gaziantep Nizip&apos;te üretici olarak Antep fıstığını aracısız sunar; perakende paket ile
+            toptan parti satışını aynı operasyon üzerinden yürütür. Amacımız gösterişli vaat değil; doğru ürün kodunu
             doğru kullanıma bağlamak ve çıkışı sürpriz yaşatmadan tamamlamaktır.
           </p>
         </Container>

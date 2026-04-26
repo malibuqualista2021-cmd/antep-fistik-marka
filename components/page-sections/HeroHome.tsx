@@ -16,7 +16,7 @@ export function HeroHome() {
     >
       <Container className="grid gap-8 py-10 md:grid-cols-[1.02fr_0.98fr] md:items-center md:gap-12 md:py-14 lg:py-[3.75rem]">
         <div className="order-2 flex min-w-0 flex-col md:order-1">
-          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--walnut)] sm:text-xs">
+          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-primary sm:text-xs">
             {heroCopy.kicker}
           </p>
           <h1 id="hero-heading" className="heading-hero mt-3 max-w-[22ch] sm:max-w-none">
@@ -25,6 +25,20 @@ export function HeroHome() {
           <p className="mt-4 max-w-xl font-sans text-[0.9375rem] font-normal leading-relaxed text-muted sm:text-base">
             {heroCopy.subtitle}
           </p>
+
+          <ul
+            className="mt-5 flex flex-wrap gap-2"
+            aria-label="Üretici ve menşe rozetleri"
+          >
+            {heroCopy.producerBadges.map((label) => (
+              <li
+                key={label}
+                className="rounded-full border border-primary/25 bg-[color-mix(in_srgb,var(--primary)_8%,var(--cream))] px-3 py-1.5 font-sans text-[11px] font-semibold uppercase tracking-wide text-[var(--walnut)] sm:text-xs"
+              >
+                {label}
+              </li>
+            ))}
+          </ul>
 
           <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Button variant="cta" href={h.primaryHref} className="w-full justify-center sm:w-auto sm:min-w-[200px]">
