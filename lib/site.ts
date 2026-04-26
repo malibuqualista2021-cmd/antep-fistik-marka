@@ -51,9 +51,14 @@ function parseTestimonials(): Testimonial[] {
   }
 }
 
+const DEFAULT_ADDRESS_LINE1 = "Fırat Mahallesi Caddesi, Demirbilek Sokak No:7, Daire:5";
+const DEFAULT_ADDRESS_LINE2 = "Nizip / Gaziantep";
+const DEFAULT_MAPS_QUERY = "Fırat Mahallesi, Demirbilek Sokak No:7, Nizip, Gaziantep, Türkiye";
+const DEFAULT_PHONE_DISPLAY = "+90 543 383 18 73";
+const DEFAULT_PHONE_E164 = "905433831873";
+
 /**
- * İletişim bilgileri .env ile doldurulur; boş alanlar arayüzde gösterilmez.
- * Sahte örnek telefon / adres kullanılmaz.
+ * İletişim: .env ile üzerine yazılabilir; tanımlı değilse Nizip mağaza adresi ve WhatsApp varsayılanı kullanılır.
  */
 export const site = {
   name: publicEnv("NEXT_PUBLIC_SITE_NAME") || "İnal Fıstık",
@@ -67,13 +72,19 @@ export const site = {
   url: publicEnv("NEXT_PUBLIC_SITE_URL").trim(),
   /** Yalnızca .env ile verilirse gösterilir (varsayılan yok). */
   yearsInBusiness: parseYearsInBusiness(),
-  phone: publicEnv("NEXT_PUBLIC_PHONE_DISPLAY").trim(),
-  phoneE164: publicEnv("NEXT_PUBLIC_PHONE_E164").replace(/\s/g, ""),
-  whatsappE164: publicEnv("NEXT_PUBLIC_WHATSAPP_E164").replace(/\s/g, ""),
+  phone: publicEnv("NEXT_PUBLIC_PHONE_DISPLAY").trim() || DEFAULT_PHONE_DISPLAY,
+  phoneE164: (() => {
+    const raw = publicEnv("NEXT_PUBLIC_PHONE_E164").replace(/\s/g, "");
+    return raw || DEFAULT_PHONE_E164;
+  })(),
+  whatsappE164: (() => {
+    const raw = publicEnv("NEXT_PUBLIC_WHATSAPP_E164").replace(/\s/g, "");
+    return raw || DEFAULT_PHONE_E164;
+  })(),
   email: publicEnv("NEXT_PUBLIC_EMAIL").trim(),
   address: {
-    line1: publicEnv("NEXT_PUBLIC_ADDRESS_LINE1").trim(),
-    line2: publicEnv("NEXT_PUBLIC_ADDRESS_LINE2").trim(),
+    line1: publicEnv("NEXT_PUBLIC_ADDRESS_LINE1").trim() || DEFAULT_ADDRESS_LINE1,
+    line2: publicEnv("NEXT_PUBLIC_ADDRESS_LINE2").trim() || DEFAULT_ADDRESS_LINE2,
   } satisfies SiteAddress,
   hours: publicEnv("NEXT_PUBLIC_HOURS").trim(),
   /** Ortalama dönüş süresi — boşsa bileşen varsayılan metin kullanır */
@@ -86,7 +97,7 @@ export const site = {
     publicEnv("NEXT_PUBLIC_WHOLESALE_FORM_INTRO").trim() ||
     "İşletme adı, ürün ve yaklaşık miktar yeterlidir. Teklif hazırlığı için ek sorular gerektiğinde aynı kanaldan döneriz.",
   mapsUrl: publicEnv("NEXT_PUBLIC_MAPS_URL").trim(),
-  mapsQuery: publicEnv("NEXT_PUBLIC_MAPS_QUERY").trim(),
+  mapsQuery: publicEnv("NEXT_PUBLIC_MAPS_QUERY").trim() || DEFAULT_MAPS_QUERY,
   socialInstagram: publicEnv("NEXT_PUBLIC_INSTAGRAM_URL").trim(),
   heroImages: {
     main:
@@ -127,4 +138,11 @@ export function mapsLink(): string {
   const q = site.mapsQuery || `${site.address.line1} ${site.address.line2}`.trim();
   if (!q) return "";
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
+}
+
+/** Google Haritalar gömülü harita (API anahtarı gerekmez). */
+export function mapsEmbedUrl(): string {
+  const q = site.mapsQuery || `${site.address.line1} ${site.address.line2}`.trim();
+  if (!q) return "";
+  return `https://maps.google.com/maps?q=${encodeURIComponent(q)}&hl=tr&z=16&output=embed`;
 }

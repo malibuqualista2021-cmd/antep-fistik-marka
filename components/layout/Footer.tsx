@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { mapsLink, site, waLink } from "@/lib/site";
+import { mapsEmbedUrl, mapsLink, site, waLink } from "@/lib/site";
 
 const alisveris = [
   { href: "/urunler", label: "Antep fıstığı mağazası" },
@@ -155,6 +155,50 @@ export function Footer() {
           <p className="mt-4 font-sans text-xs text-muted">Güvenli ödeme · Taze paketleme · SSL ile korunan iletişim</p>
         </div>
       </Container>
+
+      <div className="border-t border-[var(--border-subtle)] bg-[var(--paper)]/90">
+        <Container className="grid gap-8 py-10 md:grid-cols-2 md:items-stretch md:gap-10">
+          <div>
+            <h2 className="font-serif text-xl font-semibold text-foreground md:text-2xl">Adres</h2>
+            <p className="mt-2 font-sans text-sm text-muted">Gaziantep, Nizip</p>
+            <address className="mt-4 not-italic font-sans text-sm leading-relaxed text-foreground">
+              <p>{site.address.line1}</p>
+              <p className="mt-1">{site.address.line2}</p>
+            </address>
+            <p className="mt-5 font-sans text-sm font-semibold text-foreground">WhatsApp</p>
+            <p className="mt-1 font-sans text-sm">
+              <a href={waLink()} className="font-medium text-primary underline-offset-2 hover:underline" target="_blank" rel="noopener noreferrer">
+                {site.phone}
+              </a>
+            </p>
+            {mapsLink() ? (
+              <p className="mt-4">
+                <a
+                  className="inline-flex font-sans text-sm font-semibold text-[var(--walnut)] underline-offset-2 hover:text-primary hover:underline"
+                  href={mapsLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Google Haritalar’da aç
+                </a>
+              </p>
+            ) : null}
+          </div>
+          <div className="min-h-[220px] overflow-hidden rounded-[var(--radius-card)] ring-1 ring-[var(--border-subtle)] md:min-h-[280px]">
+            {mapsEmbedUrl() ? (
+              <iframe
+                title={`${site.name} — Nizip mağaza konumu`}
+                src={mapsEmbedUrl()}
+                className="h-[min(55vh,22rem)] w-full border-0 md:h-full md:min-h-[280px]"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
+            ) : null}
+          </div>
+        </Container>
+      </div>
+
       <div className="border-t border-black/5 bg-[var(--cream)]/90">
         <Container className="flex flex-col gap-2 py-4 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
           <p>
