@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import { Container } from "@/components/ui/Container";
 import { footerProducerNote } from "@/lib/copy";
 import { mapsEmbedUrl, mapsLink, site, waLink } from "@/lib/site";
@@ -38,7 +39,8 @@ export function Footer() {
     <footer className="mt-auto border-t border-[var(--border-subtle)] bg-[var(--surface)]/80">
       <Container className="grid gap-10 py-12 md:grid-cols-2 lg:grid-cols-6">
         <div className="lg:col-span-2">
-          <p className="font-serif text-xl font-semibold text-primary">{site.name}</p>
+          <BrandLogo variant="footer" className="max-w-full" />
+          <p className="sr-only">{site.name}</p>
           <p className="mt-2 max-w-sm font-sans text-sm leading-relaxed text-muted">{site.footerBlurb}</p>
           <p className="mt-3 max-w-sm font-sans text-xs leading-relaxed text-[var(--ink-soft)]">{footerProducerNote(site.name)}</p>
           <p className="mt-3 font-sans text-xs font-semibold uppercase tracking-wide text-[var(--walnut)]">

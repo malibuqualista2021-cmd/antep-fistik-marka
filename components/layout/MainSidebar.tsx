@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import { NavColumnList } from "@/components/layout/NavColumnList";
-import { site } from "@/lib/site";
 import { topNavItems } from "@/lib/store-navigation";
 
 /**
@@ -25,12 +25,7 @@ export function MainSidebar() {
       aria-label="Site menüsü"
     >
       <div className="flex flex-col gap-1 px-2.5 py-4 pb-8">
-        <Link
-          href="/"
-          className="font-serif text-[1.5rem] font-semibold leading-[1.12] tracking-[-0.02em] text-primary hover:opacity-90"
-        >
-          {site.shortName}
-        </Link>
+        <BrandLogo variant="sidebar" className="min-h-[44px]" />
 
         <nav className="mt-4 flex flex-col gap-0.5" aria-label="Ana menü">
           {topNavItems.map((item) => {

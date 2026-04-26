@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { site, waLink } from "@/lib/site";
 import { cta } from "@/lib/cta";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import { CartLink } from "@/components/shop/CartLink";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { MegaNav } from "@/components/layout/MegaNav";
@@ -21,13 +22,9 @@ export function Header() {
       <AnnouncementBar />
 
       <Container className="flex h-[3.65rem] items-center justify-between gap-2 md:h-[4.1rem] md:gap-4">
-        <Link
-          href="/"
-          className="min-h-[44px] shrink-0 font-serif text-[1.05rem] font-semibold leading-tight tracking-tight text-primary min-[380px]:text-lg md:text-xl lg:hidden"
-          onClick={() => setOpen(false)}
-        >
-          {site.shortName}
-        </Link>
+        <div className="shrink-0 lg:hidden">
+          <BrandLogo variant="header" priority onClick={() => setOpen(false)} />
+        </div>
 
         <form action="/urunler" className="hidden max-w-2xl flex-1 md:block" role="search">
           <label className="sr-only" htmlFor="site-search">
