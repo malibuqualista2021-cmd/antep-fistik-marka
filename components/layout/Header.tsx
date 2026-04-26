@@ -90,7 +90,12 @@ export function Header() {
             {topNavItems.map((item) => {
               if (item.kind === "link") {
                 return (
-                  <Link key={item.href + item.label} href={item.href} className="shrink-0 py-2 hover:text-primary" title={item.hint ?? undefined}>
+                  <Link
+                    key={item.href + item.label}
+                    href={item.href}
+                    className="nav-label shrink-0 py-2 text-foreground/90 hover:text-primary"
+                    title={item.hint ?? undefined}
+                  >
                     {item.label}
                   </Link>
                 );

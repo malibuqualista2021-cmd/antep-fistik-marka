@@ -1,26 +1,37 @@
 @import "tailwindcss";
 
+/*
+  Tipografi token’ları (istek):
+  --color-text, --color-muted, --color-accent
+  Başlık / gövde aileleri: next/font → html’de --font-heading, --font-body
+*/
+
 :root {
-  /* Kırık beyaz / krem / açık bej — butik gıda mağazası */
+  /* --font-heading / --font-body: next/font ile <html> sınıfında tanımlanır */
+  --color-text: #2b1a12;
+  --color-muted: #6b5a4a;
+  --color-accent: #2f7d32;
+
+  /* Kırık beyaz / krem — arka plan */
   --background: #faf8f4;
-  --foreground: #2a2620;
+  --foreground: var(--color-text);
   --paper: #f6f3ec;
   --surface: #efe8dc;
   --surface-2: #e5dccf;
   --cream: #fdfaf5;
-  /* Fıstık yeşili + kahve / altın */
-  --primary: #2d6a4f;
-  --primary-hover: #245540;
+  /* Antep yeşili (vurgu + fiyat) */
+  --primary: var(--color-accent);
+  --primary-hover: #256628;
   --secondary: #4a5d2e;
-  --accent: #b8892a;
-  --gold-muted: #c4a35a;
-  --walnut: #4a3728;
-  --ink-soft: #5c5348;
-  --muted: #5c5348;
+  --accent: #a67c2a;
+  --gold-muted: #b69852;
+  --walnut: #3d2d22;
+  --ink-soft: #5a4f43;
+  --muted: var(--color-muted);
   --pistachio-light: #8fb69a;
   --cta: #d97736;
   --cta-hover: #c45f2a;
-  --border-subtle: rgb(42 38 32 / 0.09);
+  --border-subtle: rgb(43 26 18 / 0.1);
   --section-y: 3.25rem;
   --section-y-lg: 5rem;
   --radius-card: 16px;
@@ -48,9 +59,8 @@
   --color-cta: var(--cta);
   --color-cta-hover: var(--cta-hover);
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-cormorant), ui-serif, Georgia, "Times New Roman",
-    serif;
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-heading), ui-serif, Georgia, "Times New Roman", serif;
 }
 
 @layer base {
@@ -60,10 +70,22 @@
 
   body {
     background: var(--background);
-    color: var(--foreground);
+    color: var(--color-text);
     font-family: var(--font-sans);
     font-size: 1rem;
-    line-height: 1.62;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: color-mix(in srgb, var(--color-text) 94%, #000 6%);
+    line-height: 1.18;
   }
 
   :focus-visible {
@@ -108,6 +130,40 @@
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-lift);
     border: 1px solid var(--border-subtle);
+  }
+
+  /** Ürün / sepet / özet fiyatları — gövde fontu, kalın, tabular */
+  .text-price {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.03em;
+    color: var(--primary);
+  }
+
+  /** Ana sayfa kahraman başlığı — mobilde aşırı büyümesin */
+  .heading-hero {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.12;
+    color: color-mix(in srgb, var(--color-text) 92%, #000 8%);
+    font-size: clamp(1.5rem, 2.6vw + 0.85rem, 2.7rem);
+  }
+
+  /** Menü satırları — Inter, net, güvenilir */
+  .nav-label {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    letter-spacing: 0.01em;
+    line-height: 1.35;
+  }
+
+  @media (min-width: 768px) {
+    .nav-label {
+      font-size: 0.875rem;
+    }
   }
 }
 

@@ -45,12 +45,14 @@ export function RetailProductCard({ product }: { product: RetailProduct }) {
             ))}
           </ul>
         ) : null}
-        <h3 className="mt-2 font-serif text-lg leading-snug text-foreground group-hover:text-primary">{product.name}</h3>
+        <h3 className="mt-2 font-serif text-base font-semibold leading-snug tracking-tight text-foreground sm:text-lg group-hover:text-primary">
+          {product.name}
+        </h3>
         <p className="mt-1 font-sans text-xs text-muted">{weightLabel}</p>
         <dl className="mt-3 grid grid-cols-2 gap-2 rounded-[10px] bg-[var(--paper)] p-2.5 ring-1 ring-black/[0.06]">
           <div>
             <dt className="font-sans text-[10px] font-semibold uppercase tracking-wide text-muted">Fiyat</dt>
-            <dd className="font-sans text-sm font-bold text-primary">{formatMoney(price, product.currency)}</dd>
+            <dd className="text-price text-sm">{formatMoney(price, product.currency)}</dd>
           </div>
           <div>
             <dt className="font-sans text-[10px] font-semibold uppercase tracking-wide text-muted">Kg fiyatı</dt>
@@ -66,7 +68,7 @@ export function RetailProductCard({ product }: { product: RetailProduct }) {
           </div>
         </dl>
         <div className="mt-2 flex flex-wrap items-baseline justify-between gap-2">
-          <p className="font-serif text-xl font-bold text-primary">{formatMoney(price, product.currency)}</p>
+          <p className="text-price text-lg sm:text-xl">{formatMoney(price, product.currency)}</p>
           {kgLine ? <p className="max-w-[12rem] text-right font-sans text-[11px] text-muted">{kgLine}</p> : null}
         </div>
         <p className="mt-2 font-sans text-xs text-muted">Henüz yorum yok</p>

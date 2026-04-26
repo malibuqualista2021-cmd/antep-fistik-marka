@@ -19,13 +19,10 @@ export function HeroHome() {
           <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--walnut)] sm:text-xs">
             {heroCopy.kicker}
           </p>
-          <h1
-            id="hero-heading"
-            className="mt-3 max-w-[22ch] font-serif text-[1.9rem] font-semibold leading-[1.1] tracking-tight text-foreground sm:max-w-none sm:text-[2.2rem] md:text-[2.55rem] lg:text-[2.75rem]"
-          >
+          <h1 id="hero-heading" className="heading-hero mt-3 max-w-[22ch] sm:max-w-none">
             {heroCopy.title}
           </h1>
-          <p className="mt-4 max-w-xl font-sans text-[0.95rem] leading-relaxed text-muted sm:text-base md:text-[1.05rem]">
+          <p className="mt-4 max-w-xl font-sans text-[0.9375rem] font-normal leading-relaxed text-muted sm:text-base">
             {heroCopy.subtitle}
           </p>
 

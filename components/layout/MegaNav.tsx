@@ -29,7 +29,7 @@ export function MegaNav({
     <div className="group relative">
       <Link
         href={href}
-        className="inline-flex min-h-[42px] items-center whitespace-nowrap py-2 font-sans text-sm font-semibold text-foreground/90 hover:text-primary"
+        className="nav-label inline-flex min-h-[42px] items-center whitespace-nowrap py-2 text-foreground/90 hover:text-primary"
       >
         {label}
         <span className="ml-1 text-[10px] text-muted group-hover:text-primary" aria-hidden>
@@ -55,7 +55,7 @@ export function MegaNav({
                   <li key={link.href + link.label}>
                     <Link
                       href={link.href}
-                      className="block rounded-md py-1.5 font-sans text-sm text-foreground/90 hover:bg-surface/80 hover:text-primary"
+                      className="block rounded-md py-1.5 font-sans text-sm font-medium text-foreground/90 hover:bg-surface/80 hover:text-primary"
                       title={link.hint ?? undefined}
                     >
                       {link.label}

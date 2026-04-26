@@ -18,7 +18,7 @@ export function AnnouncementBar() {
   return (
     <div className="border-b border-[var(--border-subtle)] bg-[var(--paper)] text-center">
       <p
-        className="mx-auto max-w-5xl px-3 py-2 font-sans text-[11px] font-medium leading-snug text-[var(--ink-soft)] md:text-xs"
+        className="mx-auto max-w-5xl px-3 py-2 font-sans text-[11px] font-medium leading-snug text-muted md:text-xs"
         role="status"
         aria-live="polite"
       >

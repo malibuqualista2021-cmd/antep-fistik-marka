@@ -13,7 +13,7 @@ export function MainSidebar() {
   const [openId, setOpenId] = useState<string | null>(null);
 
   const linkClass =
-    "block min-h-[44px] rounded-[10px] px-3 py-2.5 font-sans text-sm font-semibold text-foreground/90 hover:bg-[var(--paper)] hover:text-primary";
+    "nav-label block min-h-[44px] rounded-[10px] px-3 py-2.5 text-foreground/90 hover:bg-[var(--paper)] hover:text-primary";
 
   function toggle(id: string) {
     setOpenId((cur) => (cur === id ? null : id));
@@ -48,7 +48,7 @@ export function MainSidebar() {
                 <div key={item.id} className="rounded-[10px] ring-1 ring-transparent">
                   <button
                     type="button"
-                    className="flex w-full min-h-[44px] items-center justify-between rounded-[10px] px-3 py-2.5 text-left font-sans text-sm font-semibold text-foreground/90 hover:bg-[var(--paper)] hover:text-primary"
+                    className="nav-label flex w-full min-h-[44px] items-center justify-between rounded-[10px] px-3 py-2.5 text-left text-foreground/90 hover:bg-[var(--paper)] hover:text-primary"
                     aria-expanded={expanded}
                     aria-controls={`sidebar-panel-${item.id}`}
                     id={`sidebar-trigger-${item.id}`}
@@ -83,7 +83,7 @@ export function MainSidebar() {
               <div key={item.id} className="rounded-[10px] ring-1 ring-transparent">
                 <button
                   type="button"
-                  className="flex w-full min-h-[44px] items-center justify-between rounded-[10px] px-3 py-2.5 text-left font-sans text-sm font-semibold text-foreground/90 hover:bg-[var(--paper)] hover:text-primary"
+                  className="nav-label flex w-full min-h-[44px] items-center justify-between rounded-[10px] px-3 py-2.5 text-left text-foreground/90 hover:bg-[var(--paper)] hover:text-primary"
                   aria-expanded={expanded}
                   aria-controls={`sidebar-panel-${item.id}`}
                   id={`sidebar-trigger-${item.id}`}

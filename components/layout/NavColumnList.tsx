@@ -13,7 +13,7 @@ export function NavColumnList({
 }) {
   const cls =
     linkClassName ??
-    "block rounded-md py-1.5 pl-2 pr-1 font-sans text-[13px] text-foreground/85 hover:bg-[var(--paper)] hover:text-primary";
+    "block rounded-md py-1.5 pl-2 pr-1 font-sans text-[13px] font-medium leading-snug text-foreground/90 hover:bg-[var(--paper)] hover:text-primary";
 
   return (
     <>

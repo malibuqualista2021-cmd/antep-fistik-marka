@@ -49,7 +49,7 @@ export function RetailProductDetailBuyBox({ product }: Props) {
     <div className="rounded-[var(--radius-card)] bg-[var(--cream)] p-5 ring-1 ring-[var(--border-subtle)] md:p-6">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <p className="font-sans text-sm font-semibold text-muted">{stockLabel(product.stockStatus)}</p>
-        <p className="font-serif text-3xl font-bold text-primary md:text-[2rem]">{formatMoney(selectedProduct.price, product.currency)}</p>
+        <p className="text-price text-2xl sm:text-3xl md:text-[2.1rem]">{formatMoney(selectedProduct.price, product.currency)}</p>
       </div>
       {kgLine ? <p className="mt-1 font-sans text-sm text-muted">{kgLine}</p> : null}
 

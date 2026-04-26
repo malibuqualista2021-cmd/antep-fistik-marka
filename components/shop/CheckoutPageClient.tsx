@@ -132,15 +132,13 @@ export function CheckoutPageClient() {
           {items.map((item) => (
             <li key={item.product.id} className="flex justify-between gap-3 font-sans text-sm">
               <span className="text-muted">{item.product.name} × {item.quantity}</span>
-              <span className="font-semibold text-foreground">
-                {formatMoney(item.product.price * item.quantity, item.product.currency)}
-              </span>
+              <span className="text-price text-sm">{formatMoney(item.product.price * item.quantity, item.product.currency)}</span>
             </li>
           ))}
         </ul>
         <div className="mt-4 flex justify-between border-t border-black/10 pt-4 font-sans">
           <span className="text-muted">Toplam</span>
-          <strong className="text-lg text-primary">{formatMoney(total)}</strong>
+          <strong className="text-price text-lg">{formatMoney(total)}</strong>
         </div>
       </aside>
     </div>

@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 type Variant = "primary" | "secondary" | "ghost" | "cream" | "outlineLight" | "cta";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-[var(--radius-button)] px-5 py-3 text-base font-medium transition-colors duration-200 min-h-[48px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:scale-[0.99]";
+  "inline-flex items-center justify-center gap-2 rounded-[var(--radius-button)] px-5 py-3 font-sans text-sm font-semibold tracking-tight transition-colors duration-200 min-h-[48px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:scale-[0.99] sm:text-base";
 
 const variants: Record<Variant, string> = {
   primary:

@@ -60,9 +60,7 @@ export function CartPageClient() {
                   <h2 className="font-serif text-xl text-foreground">{item.product.name}</h2>
                   <p className="mt-1 font-sans text-sm text-muted">{item.product.weight}</p>
                 </div>
-                <p className="font-sans text-base font-bold text-primary">
-                  {formatMoney(item.product.price * item.quantity, item.product.currency)}
-                </p>
+                <p className="text-price text-base">{formatMoney(item.product.price * item.quantity, item.product.currency)}</p>
               </div>
               <div className="mt-4 flex flex-wrap items-center gap-3">
                 <label className="font-sans text-sm text-muted">
@@ -92,7 +90,7 @@ export function CartPageClient() {
         <h2 className="font-serif text-2xl text-foreground">Sipariş özeti</h2>
         <div className="mt-4 flex items-center justify-between border-t border-black/10 pt-4 font-sans">
           <span className="text-muted">Toplam</span>
-          <strong className="text-lg text-primary">{formatMoney(total)}</strong>
+          <strong className="text-price text-lg">{formatMoney(total)}</strong>
         </div>
         <p className="mt-3 font-sans text-xs leading-relaxed text-muted">
           Kargo bedeli ve tahmini çıkış bilgisi teslimat adresiyle birlikte netleşir.

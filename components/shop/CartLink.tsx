@@ -16,7 +16,7 @@ export function CartLink({ className = "", onClick }: { className?: string; onCl
     >
       <span>Sepetim</span>
       {count > 0 ? (
-        <span className="text-xs font-bold text-[var(--walnut)] sm:text-sm">
+        <span className="text-price text-xs sm:text-sm">
           {count} ürün · {formatMoney(total)}
         </span>
       ) : (
