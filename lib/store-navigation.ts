@@ -54,18 +54,43 @@ export const megaMenuAntep: MegaColumn[] = [
   },
 ];
 
-export type MainNavLink = { href: string; label: string; hint?: string };
+/** Kurumsal — hover / akordeon alt menü */
+export const corporateMega: MegaColumn[] = [
+  {
+    title: "Sayfalar",
+    links: [
+      { href: "/hakkimizda", label: "Hakkımızda" },
+      { href: "/iletisim", label: "İletişim" },
+      { href: "/sikca-sorulan-sorular", label: "Sık sorulan sorular" },
+    ],
+  },
+];
 
-/** Masaüstü ana menü (mega hariç düz linkler) */
-export const mainNavLinks: MainNavLink[] = [
-  { href: "/", label: "Ana Sayfa" },
-  { href: "/urunler?kategori=kabuklu", label: "Kabuklu Fıstık" },
-  { href: "/urunler?kategori=ic", label: "İç Antep Fıstığı" },
-  { href: "/urunler?kullanim=baklavalik", label: "Baklavalık Fıstık", hint: "İç ve boz iç vitrin" },
-  { href: "/urunler?kategori=kabuklu&islem=kavrulmus", label: "Kavrulmuş Fıstık" },
-  { href: "/urunler?kategori=kabuklu&islem=cig", label: "Çiğ / Tuzsuz Fıstık", hint: "Kabuklu çiğ seri" },
-  { href: "/urunler", label: "Kuruyemiş Çeşitleri", hint: "Antep fıstığı vitrinimiz" },
-  { href: "/#vitrin-urunler", label: "Kampanyalar", hint: "Öne çıkan ürünler" },
-  { href: "/hakkimizda", label: "Hakkımızda" },
-  { href: "/iletisim", label: "İletişim" },
+export type TopNavLink = { kind: "link"; href: string; label: string; hint?: string };
+
+export type TopNavMega = {
+  kind: "mega";
+  id: string;
+  label: string;
+  href: string;
+  columns: MegaColumn[];
+};
+
+export type TopNavAccordion = {
+  kind: "accordion";
+  id: string;
+  label: string;
+  columns: MegaColumn[];
+};
+
+export type TopNavItem = TopNavLink | TopNavMega | TopNavAccordion;
+
+/** Üst menü: az sayıda ana satır; filtreler Antep fıstığı altında toplanır. */
+export const topNavItems: TopNavItem[] = [
+  { kind: "link", href: "/", label: "Ana Sayfa" },
+  { kind: "mega", id: "antep", label: "Antep fıstığı", href: "/urunler", columns: megaMenuAntep },
+  { kind: "link", href: "/urunler", label: "Mağaza", hint: "Tüm ürünler" },
+  { kind: "link", href: "/#vitrin-urunler", label: "Çok satanlar", hint: "Öne çıkan ürünler" },
+  { kind: "link", href: "/toptan-satis", label: "Toptan satış" },
+  { kind: "accordion", id: "kurumsal", label: "Kurumsal", columns: corporateMega },
 ];
