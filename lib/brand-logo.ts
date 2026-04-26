@@ -1,7 +1,8 @@
 /**
- * Marka logosu — `public/images/brand/inal-logo.webp` (scripts/generate-brand-assets.mjs).
- * Şeffaf zeminli kaynak için `inal-logo-source.png` kullanın; siyah blok varsa bu PNG’yi değiştirin.
- * Oran: kaynak PNG ile aynı (güncel: 1024×496 — `npm run generate:brand` çıktısına göre).
+ * Marka logosu — `public/images/brand/inal-logo.webp` (`npm run generate:brand`).
+ * Kaynak: `public/images/brand/inal-logo-source.png`. Görselde koyu zemin varsa WebP’de de öyle kalır;
+ * açık header’da “kutu” istemiyorsan şeffaf zeminli aynı kompozisyonu PNG olarak kaynağa koyup yeniden üret.
+ * Oran: kaynak PNG ile aynı (1024×496).
  */
 export const brandLogo = {
   fullSrc: "/images/brand/inal-logo.webp",
