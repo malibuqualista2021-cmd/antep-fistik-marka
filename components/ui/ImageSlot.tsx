@@ -4,6 +4,8 @@ type Props = {
   src: string;
   alt: string;
   className?: string;
+  /** `next/image` fill görseli — örn. object-position */
+  imageClassName?: string;
   /** Tailwind aspect wrapper: e.g. "aspect-[16/11] w-full" */
   wrapperClassName: string;
   sizes: string;
@@ -18,6 +20,7 @@ export function ImageSlot({
   src,
   alt,
   className = "",
+  imageClassName = "object-cover",
   wrapperClassName,
   sizes,
   priority,
@@ -39,7 +42,7 @@ export function ImageSlot({
         src={src}
         alt={alt}
         fill
-        className="object-cover"
+        className={imageClassName}
         sizes={sizes}
         priority={priority}
         unoptimized={!isLocal}

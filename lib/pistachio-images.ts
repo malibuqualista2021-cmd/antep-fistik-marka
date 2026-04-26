@@ -20,11 +20,18 @@ const stock = {
   paketleme: `${base}/kutu-taze-hasat.png`,
 } as const;
 
+/** Hero kolajı: net, iştah açıcı ürün görselleri (Next `images.remotePatterns` ile uyumlu). .env ile tek tek üzerine yazılabilir. */
+const heroUnsplash = {
+  main: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=88&w=2000",
+  packaging: "https://images.unsplash.com/photo-1526318896980-cf78c088247c?auto=format&fit=crop&q=88&w=1400",
+  logistics: "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&q=88&w=1400",
+} as const;
+
 export const pistachioImages = {
   hero: {
-    main: stock.kabukluKavrulmus,
-    packaging: stock.icFistikKase,
-    logistics: stock.toptanCuval,
+    main: heroUnsplash.main,
+    packaging: heroUnsplash.packaging,
+    logistics: heroUnsplash.logistics,
   },
   trust: {
     depot: stock.toptanCuval,

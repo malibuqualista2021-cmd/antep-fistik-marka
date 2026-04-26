@@ -13,7 +13,7 @@ export function MainSidebar() {
   const [openId, setOpenId] = useState<string | null>(null);
 
   const linkClass =
-    "nav-label block min-h-[44px] rounded-[10px] px-3 py-2.5 text-foreground/90 hover:bg-[var(--paper)] hover:text-primary";
+    "nav-label block min-h-[44px] rounded-[10px] px-2.5 py-2.5 text-foreground/90 hover:bg-[var(--paper)] hover:text-primary";
 
   function toggle(id: string) {
     setOpenId((cur) => (cur === id ? null : id));
@@ -21,18 +21,18 @@ export function MainSidebar() {
 
   return (
     <aside
-      className="hidden w-[min(17.5rem,20vw)] max-w-[280px] shrink-0 flex-col border-r border-[var(--border-subtle)] bg-[var(--cream)] lg:flex lg:sticky lg:top-0 lg:h-[100dvh] lg:min-h-0 lg:overflow-y-auto"
+      className="hidden w-[min(13.75rem,16vw)] max-w-[220px] shrink-0 flex-col border-r border-[var(--border-subtle)] bg-[var(--cream)] lg:flex lg:sticky lg:top-0 lg:h-[100dvh] lg:min-h-0 lg:overflow-y-auto"
       aria-label="Site menüsü"
     >
-      <div className="flex flex-col gap-1 p-4 pb-8">
+      <div className="flex flex-col gap-1 px-2.5 py-4 pb-8">
         <Link
           href="/"
-          className="font-serif text-[1.35rem] font-semibold leading-tight tracking-tight text-primary hover:opacity-90"
+          className="font-serif text-[1.5rem] font-semibold leading-[1.12] tracking-[-0.02em] text-primary hover:opacity-90"
         >
           {site.shortName}
         </Link>
 
-        <nav className="mt-5 flex flex-col gap-0.5" aria-label="Ana menü">
+        <nav className="mt-4 flex flex-col gap-0.5" aria-label="Ana menü">
           {topNavItems.map((item) => {
             if (item.kind === "link") {
               return (
@@ -48,7 +48,7 @@ export function MainSidebar() {
                 <div key={item.id} className="rounded-[10px] ring-1 ring-transparent">
                   <button
                     type="button"
-                    className="nav-label flex w-full min-h-[44px] items-center justify-between rounded-[10px] px-3 py-2.5 text-left text-foreground/90 hover:bg-[var(--paper)] hover:text-primary"
+                    className="nav-label flex w-full min-h-[44px] items-center justify-between rounded-[10px] px-2.5 py-2.5 text-left text-foreground/90 hover:bg-[var(--paper)] hover:text-primary"
                     aria-expanded={expanded}
                     aria-controls={`sidebar-panel-${item.id}`}
                     id={`sidebar-trigger-${item.id}`}
@@ -83,7 +83,7 @@ export function MainSidebar() {
               <div key={item.id} className="rounded-[10px] ring-1 ring-transparent">
                 <button
                   type="button"
-                  className="nav-label flex w-full min-h-[44px] items-center justify-between rounded-[10px] px-3 py-2.5 text-left text-foreground/90 hover:bg-[var(--paper)] hover:text-primary"
+                  className="nav-label flex w-full min-h-[44px] items-center justify-between rounded-[10px] px-2.5 py-2.5 text-left text-foreground/90 hover:bg-[var(--paper)] hover:text-primary"
                   aria-expanded={expanded}
                   aria-controls={`sidebar-panel-${item.id}`}
                   id={`sidebar-trigger-${item.id}`}

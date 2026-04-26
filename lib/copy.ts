@@ -14,8 +14,27 @@ export const heroCopy = {
   ] as const,
   trustMicro: [
     { label: "Menşe", text: "Gaziantep Nizip — üretici hattı" },
-    { label: "Paketleme", text: "Siparişe göre günlük hazırlık" },
-    { label: "Fiyat", text: "Aracısız, görünür tutarlar" },
+    { label: "Paketleme", text: "Siparişe göre taze hazırlanır" },
+    { label: "Fiyat", text: "Aracısız, şeffaf fiyatlandırma" },
+  ],
+} as const;
+
+/** Hero sonrası — kaynak ve güven özeti (3 kart) */
+export const producerSourceTrustSection = {
+  title: "Biz üreticiyiz, ürünü kaynağından gönderiyoruz.",
+  cards: [
+    {
+      title: "Bahçeden seçilen ürün",
+      text: "Mahsul seçiminden işleme hattına kadar aynı üretici disiplini; neyin sofranıza gittiği net kalır.",
+    },
+    {
+      title: "Siparişe göre taze paketleme",
+      text: "Stok bekletmeden, çıkışınıza yakın hazırlık. Perakende gramaj ve toptan parti aynı tazelik ritmiyle.",
+    },
+    {
+      title: "Aracısız doğrudan satış",
+      text: "Gereksiz katman yok; maliyet ve iletişim üretici hattında. Sorunuz olursa doğrudan bize yazarsınız.",
+    },
   ],
 } as const;
 
