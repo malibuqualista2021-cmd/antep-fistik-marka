@@ -107,22 +107,24 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-[var(--border-subtle)] bg-[var(--cream)]/95 backdrop-blur-md">
       <AnnouncementBar />
 
-      {/* Marka alanı: tam genişlik kapak — logo görseli cover gibi doldurur */}
+      {/* Marka şeridi: kırpma yok (contain) — görseldeki yazılar her ekranda okunabilir ölçekte */}
       <Link
         href="/"
         onClick={close}
-        className="relative isolate block w-full overflow-hidden border-b border-black/15 outline-none ring-inset focus-visible:ring-2 focus-visible:ring-primary"
+        className="relative isolate block w-full overflow-hidden border-b border-black/20 bg-[#0c0c0c] outline-none ring-inset focus-visible:ring-2 focus-visible:ring-primary"
       >
-        <div className="relative h-[clamp(5.5rem,20vw,10.5rem)] w-full sm:h-[clamp(6rem,18vw,11.5rem)] lg:h-[clamp(6.75rem,14vw,12.5rem)]">
-          <Image
-            src={brandLogo.fullSrc}
-            alt={brandLogo.alt}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-[center_42%]"
-          />
-        </div>
+        <Container className="py-2.5 sm:py-3 md:py-3.5">
+          <div className="relative h-[clamp(7.25rem,28vw,12.25rem)] w-full sm:h-[clamp(7.75rem,24vw,13rem)] md:h-[clamp(8rem,20vw,13.5rem)] lg:h-[clamp(8.5rem,17vw,14.25rem)]">
+            <Image
+              src={brandLogo.fullSrc}
+              alt={brandLogo.alt}
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 90vw, 1152px"
+              className="object-contain object-center"
+            />
+          </div>
+        </Container>
       </Link>
 
       <Container className="py-2.5 md:py-3">
