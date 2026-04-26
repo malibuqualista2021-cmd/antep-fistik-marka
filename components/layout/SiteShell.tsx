@@ -2,20 +2,16 @@ import type { ReactNode } from "react";
 import { FloatingWhatsapp } from "@/components/layout/FloatingWhatsapp";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
-import { MainSidebar } from "@/components/layout/MainSidebar";
 import { CartProvider } from "@/components/shop/CartProvider";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 
 export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <CartProvider>
-      <div className="flex min-h-0 flex-1 flex-col lg:flex-row">
-        <MainSidebar />
-        <div className="flex min-w-0 flex-1 flex-col">
-          <Header />
-          <div className="flex flex-1 flex-col pb-24 md:pb-0">{children}</div>
-          <Footer />
-        </div>
+      <div className="flex min-h-0 flex-1 flex-col">
+        <Header />
+        <div className="flex flex-1 flex-col pb-24 md:pb-0">{children}</div>
+        <Footer />
       </div>
       <FloatingWhatsapp />
       <MobileBottomNav />

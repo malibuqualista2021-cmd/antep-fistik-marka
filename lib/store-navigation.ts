@@ -85,6 +85,18 @@ export type TopNavAccordion = {
 
 export type TopNavItem = TopNavLink | TopNavMega | TopNavAccordion;
 
+/** Üst header altı — yatay kategori şeridi (sidebar kaldırıldıktan sonra). */
+export const headerCategoryStrip: { href: string; label: string }[] = [
+  { href: "/", label: "Ana Sayfa" },
+  { href: "/urunler?kategori=ic", label: "İç Fıstık" },
+  { href: "/urunler?kategori=kabuklu", label: "Kabuklu Fıstık" },
+  { href: "/urunler?kategori=boz", label: "Boz İç" },
+  { href: "/urunler?islem=kavrulmus", label: "Kavrulmuş Fıstık" },
+  { href: "/#vitrin-urunler", label: "Çok Satanlar" },
+  { href: "/toptan-satis", label: "Toptan Satış" },
+  { href: "/hakkimizda", label: "Kurumsal" },
+];
+
 /** Üst menü: az sayıda ana satır; filtreler Antep fıstığı altında toplanır. */
 export const topNavItems: TopNavItem[] = [
   { kind: "link", href: "/", label: "Ana Sayfa" },
