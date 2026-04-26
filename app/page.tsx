@@ -2,6 +2,7 @@ import { AudienceChoice } from "@/components/page-sections/AudienceChoice";
 import { BottomCta } from "@/components/page-sections/BottomCta";
 import { CategoryDiscovery } from "@/components/page-sections/CategoryDiscovery";
 import { FaqHome } from "@/components/page-sections/FaqHome";
+import { HomeBestsellers } from "@/components/page-sections/HomeBestsellers";
 import { HeroHome } from "@/components/page-sections/HeroHome";
 import { HomeBoutiqueWhy } from "@/components/page-sections/HomeBoutiqueWhy";
 import { HomeProducerSourceTrust } from "@/components/page-sections/HomeProducerSourceTrust";
@@ -17,6 +18,7 @@ export default function HomePage() {
   return (
     <main id="icerik">
       <HeroHome />
+      <HomeBestsellers />
       <HomeProducerSourceTrust />
       <HomeProducerWhy />
       <MarketplacePromoStrip />
