@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { site, waLink } from "@/lib/site";
 import { cta } from "@/lib/cta";
-import { BrandLogo } from "@/components/brand/BrandLogo";
+import { brandLogo } from "@/lib/brand-logo";
 import { CartLink } from "@/components/shop/CartLink";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { headerCategoryStrip } from "@/lib/store-navigation";
@@ -106,31 +107,59 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-[color-mix(in_srgb,var(--walnut)_8%,transparent)] bg-[var(--cream)]/95 backdrop-blur-md">
       <AnnouncementBar />
 
-      {/* Tek krem header: sol logo — orta arama — sağ aksiyonlar */}
-      <Container className="py-2.5 md:py-3">
+      {/* Geniş marka alanı: toprak tonlu zemin, altta kreme yumuşayan geçiş; logo ortada büyük */}
+      <Link
+        href="/"
+        onClick={close}
+        className="header-brand-banner relative isolate block w-full border-b border-[color-mix(in_srgb,var(--walnut)_7%,transparent)] outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cream)]"
+      >
+        <Container className="py-4 sm:py-5 md:py-6">
+          <div
+            className="relative mx-auto w-full max-w-[min(100%,26rem)] sm:max-w-[min(100%,32rem)] md:max-w-[min(100%,40rem)] lg:max-w-[min(100%,44rem)]"
+            style={{ aspectRatio: `${brandLogo.width} / ${brandLogo.height}` }}
+          >
+            <Image
+              src={brandLogo.fullSrc}
+              alt={brandLogo.alt}
+              fill
+              priority
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 640px"
+              className="object-contain object-center"
+            />
+          </div>
+        </Container>
+      </Link>
+
+      {/* Araç satırı: ortada arama, sağda aksiyonlar; üst şeritle aynı krem zemin */}
+      <Container className="bg-[var(--cream)] py-2.5 md:py-3">
         <div className="flex w-full flex-col gap-2">
-          <div className="flex w-full min-w-0 items-center gap-2.5 sm:gap-3 md:min-h-[3rem] md:gap-4 md:items-center">
-            <BrandLogo variant="header" priority onClick={close} className="overflow-hidden rounded-sm py-0.5" />
-            <SiteSearch id="site-search-desktop" className="hidden min-w-0 flex-1 md:block" />
-            <HeaderActionsBar />
-            <button
-              type="button"
-              className="ml-auto inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-[var(--radius-button)] border border-primary/20 bg-[var(--paper)] md:hidden"
-              aria-expanded={open}
-              aria-controls="mobile-nav"
-              onClick={() => setOpen((v) => !v)}
-            >
-              <span className="sr-only">Menüyü aç veya kapat</span>
-              <span aria-hidden className="text-lg text-primary">
-                {open ? "✕" : "☰"}
-              </span>
-            </button>
+          <div className="flex w-full min-w-0 items-center justify-end gap-2 md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-4">
+            <span className="hidden md:block" aria-hidden />
+            <SiteSearch
+              id="site-search-desktop"
+              className="hidden min-w-0 md:block md:w-full md:min-w-[18rem] md:max-w-2xl md:justify-self-center"
+            />
+            <div className="flex w-full min-w-0 items-center justify-end gap-2 md:col-start-3 md:row-start-1 md:flex md:justify-end">
+              <HeaderActionsBar />
+              <button
+                type="button"
+                className="inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-[var(--radius-button)] border border-primary/20 bg-[var(--paper)] md:hidden"
+                aria-expanded={open}
+                aria-controls="mobile-nav"
+                onClick={() => setOpen((v) => !v)}
+              >
+                <span className="sr-only">Menüyü aç veya kapat</span>
+                <span aria-hidden className="text-lg text-primary">
+                  {open ? "✕" : "☰"}
+                </span>
+              </button>
+            </div>
           </div>
           <SiteSearch id="site-search-mobile" className="w-full min-w-0 md:hidden" />
         </div>
       </Container>
 
-      <div className="hidden border-t border-[color-mix(in_srgb,var(--walnut)_7%,transparent)] md:block">
+      <div className="hidden border-t border-[color-mix(in_srgb,var(--walnut)_7%,transparent)] bg-[var(--cream)] md:block">
         <Container>
           <nav
             className="flex min-h-[48px] flex-wrap items-center justify-center gap-x-5 gap-y-2 py-2 sm:gap-x-6 md:gap-x-7"
