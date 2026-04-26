@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
-import { pistachioImages } from "@/lib/pistachio-images";
+import { brandPhotoAlts, brandPhotos } from "@/lib/site-images";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -91,11 +91,12 @@ export default function AboutPage() {
         </div>
         <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-card)] bg-surface shadow-[var(--shadow-soft)] ring-1 ring-black/5">
           <Image
-            src={pistachioImages.about.story}
-            alt="Antep fıstığı — üretim ve ticaret bağlamında parti ve sevkiyat düşüncesi"
+            src={brandPhotos.heroOrchard}
+            alt={brandPhotoAlts.aboutProducer}
             fill
-            className="object-cover"
+            className="object-cover object-center"
             sizes="(max-width: 768px) 100vw, 50vw"
+            loading="lazy"
           />
         </div>
       </Container>

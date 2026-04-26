@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { WholesaleLeadForm } from "@/components/forms/WholesaleLeadForm";
 import { Container } from "@/components/ui/Container";
@@ -6,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { ProcessRail } from "@/components/ui/ProcessRail";
 import { b2bProcessSteps } from "@/lib/b2b-process";
 import { cta } from "@/lib/cta";
+import { brandPhotoAlts, brandPhotos } from "@/lib/site-images";
 import { site, waLink } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -64,6 +66,16 @@ export default function WholesalePage() {
                 {w.phoneLabel}
               </Button>
             ) : null}
+          </div>
+          <div className="relative mt-10 aspect-[16/10] w-full max-w-4xl overflow-hidden rounded-[var(--radius-xl)] ring-2 ring-white/15 md:aspect-[2/1]">
+            <Image
+              src={brandPhotos.wholesaleDepo}
+              alt={brandPhotoAlts.wholesaleDepo}
+              fill
+              className="object-cover object-center"
+              sizes="(max-width: 768px) 100vw, min(896px, 90vw)"
+              loading="lazy"
+            />
           </div>
         </Container>
       </section>

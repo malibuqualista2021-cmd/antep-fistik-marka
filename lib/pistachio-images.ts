@@ -1,46 +1,29 @@
 /**
- * Marka görselleri: `public/images/pistachio/`.
- * Kullanıcının verdiği ürün fotoğrafları yerel dosya olarak tutulur.
- * Ortam değişkeni (`NEXT_PUBLIC_*`) doluysa site.ts üzerinden üzerine yazılır.
+ * Site genelinde kullanılan ürün / vitrin görselleri.
+ * Kaynak dosyalar: `public/images/site/` — `lib/site-images.ts`.
  */
-const base = "/images/pistachio";
-
-const stock = {
-  /** İç fıstık - parçalı yeşil ürün dokusu */
-  icFistikParca: `${base}/ic-fistik-parca.png`,
-  /** İç fıstık / perakende sunum - kase kompozisyonu */
-  icFistikKase: `${base}/ic-fistik-kase.png`,
-  /** Boz iç - bütün iç ürün dokusu */
-  bozIcButun: `${base}/boz-ic-butun.png`,
-  /** Kabuklu / kavrulmuş fıstık yakın plan */
-  kabukluKavrulmus: `${base}/kabuklu-kavrulmus.png`,
-  /** Toptan / sevkiyat görseli */
-  toptanCuval: `${base}/toptan-cuval-dukkan.png`,
-  /** Paketleme / raf hissi */
-  paketleme: `${base}/kutu-taze-hasat.png`,
-} as const;
+import { brandPhotos } from "@/lib/site-images";
 
 export const pistachioImages = {
-  /** Yalnızca marka fıstık görselleri — stok dışı URL kullanmayın (yanlış ürün riski). .env `NEXT_PUBLIC_HERO_IMAGE_*` ile üzerine yazılır. */
   hero: {
-    main: stock.kabukluKavrulmus,
-    packaging: stock.icFistikKase,
-    logistics: stock.paketleme,
+    main: brandPhotos.heroOrchard,
+    packaging: brandPhotos.categoryKabuklu,
+    logistics: brandPhotos.packagingTaze,
   },
   trust: {
-    depot: stock.toptanCuval,
-    packaging: stock.paketleme,
-    product: stock.kabukluKavrulmus,
-    quality: stock.bozIcButun,
+    depot: brandPhotos.wholesaleDepo,
+    packaging: brandPhotos.packagingTaze,
+    product: brandPhotos.categoryKabuklu,
+    quality: brandPhotos.categoryBozBaklavalik,
   },
   about: {
-    story: stock.icFistikKase,
+    story: brandPhotos.heroOrchard,
   },
   products: {
-    ic: stock.icFistikParca,
-    kabuklu: stock.kabukluKavrulmus,
-    boz: stock.bozIcButun,
-    perakende: stock.icFistikKase,
-    toptan: stock.toptanCuval,
+    ic: brandPhotos.categoryIc,
+    kabuklu: brandPhotos.categoryKabuklu,
+    boz: brandPhotos.categoryBozBaklavalik,
+    perakende: brandPhotos.storeRange,
+    toptan: brandPhotos.wholesaleDepo,
   },
 } as const;

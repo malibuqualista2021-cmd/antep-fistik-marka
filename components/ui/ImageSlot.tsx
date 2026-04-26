@@ -10,6 +10,8 @@ type Props = {
   wrapperClassName: string;
   sizes: string;
   priority?: boolean;
+  /** Varsayılan: priority değilse lazy */
+  loading?: "eager" | "lazy";
 };
 
 /**
@@ -24,7 +26,9 @@ export function ImageSlot({
   wrapperClassName,
   sizes,
   priority,
+  loading,
 }: Props) {
+  const load = loading ?? (priority ? "eager" : "lazy");
   if (!src.trim()) {
     return (
       <div
@@ -45,6 +49,7 @@ export function ImageSlot({
         className={imageClassName}
         sizes={sizes}
         priority={priority}
+        loading={load}
         unoptimized={!isLocal}
       />
     </div>

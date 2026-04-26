@@ -3,6 +3,7 @@ import { Container } from "@/components/ui/Container";
 import { ImageSlot } from "@/components/ui/ImageSlot";
 import { cta } from "@/lib/cta";
 import { heroCopy } from "@/lib/copy";
+import { brandPhotoAlts } from "@/lib/site-images";
 import { site, waLink } from "@/lib/site";
 
 export function HeroHome() {
@@ -78,7 +79,7 @@ export function HeroHome() {
             <div className="overflow-hidden rounded-[calc(var(--radius-xl)-6px)] ring-1 ring-black/[0.05]">
               <ImageSlot
                 src={heroImages.main}
-                alt="Kavrulmuş Antep fıstığı — vitrin görseli"
+                alt={brandPhotoAlts.heroOrchard}
                 wrapperClassName="aspect-[4/3] w-full md:aspect-[16/11]"
                 sizes="(max-width: 768px) 100vw, 46vw"
                 priority
@@ -88,14 +89,14 @@ export function HeroHome() {
             <div className="mt-2 grid grid-cols-2 gap-2">
               <ImageSlot
                 src={heroImages.packaging}
-                alt="Kasede iç Antep fıstığı sunumu"
+                alt={brandPhotoAlts.heroThumbKabuklu}
                 wrapperClassName="aspect-[4/3] w-full rounded-[12px]"
                 sizes="(max-width: 768px) 50vw, 23vw"
                 imageClassName="object-cover object-center"
               />
               <ImageSlot
                 src={heroImages.logistics}
-                alt="Taze hasat Antep fıstığı paketlemesi"
+                alt={brandPhotoAlts.heroThumbPackaging}
                 wrapperClassName="aspect-[4/3] w-full rounded-[12px]"
                 sizes="(max-width: 768px) 50vw, 23vw"
                 imageClassName="object-cover object-center"

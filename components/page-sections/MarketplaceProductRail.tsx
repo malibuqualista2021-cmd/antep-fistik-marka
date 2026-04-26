@@ -1,6 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
-import { Container } from "@/components/ui/Container";
 import { RetailProductCard } from "@/components/shop/RetailProductCard";
+import { Container } from "@/components/ui/Container";
+import { brandPhotoAlts, brandPhotos } from "@/lib/site-images";
 import { retailProducts } from "@/lib/shop-products";
 
 export function MarketplaceProductRail() {
@@ -17,6 +19,16 @@ export function MarketplaceProductRail() {
             <Link href="/urunler" className="font-sans text-sm font-semibold text-primary hover:underline">
               Tümünü gör
             </Link>
+          </div>
+          <div className="relative mt-4 aspect-[2/1] w-full min-h-0 overflow-hidden rounded-[var(--radius-card)] ring-1 ring-[var(--border-subtle)] md:aspect-[21/9]">
+            <Image
+              src={brandPhotos.bestsellersVariety}
+              alt={brandPhotoAlts.bestsellersVariety}
+              fill
+              className="object-cover object-center"
+              sizes="(max-width: 768px) 100vw, 92vw"
+              loading="lazy"
+            />
           </div>
           <div className="mt-4 flex gap-4 overflow-x-auto pb-2">
             {products.map((product) => (

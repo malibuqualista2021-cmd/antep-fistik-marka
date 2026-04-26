@@ -40,7 +40,7 @@ export const products: Product[] = [
     forWho:
       "Baklavacılar, üreticiler, premium kuruyemiş rafları ve düzenli mutfak kullanımı.",
     imageSrc: pistachioImages.products.ic,
-    imageAlt: "Yeşil Antep iç fıstığı çekimi",
+    imageAlt: "Taze ayıklanmış yeşil iç Antep fıstığı — baklava ve tatlılık için",
     badge: "Çok talep görür",
     tags: ["Baklavacılar için", "Toptan uygun", "Premium kalite", "Perakende paketlenebilir"],
     minOrder:
@@ -84,7 +84,7 @@ export const products: Product[] = [
       "Öğütme ve karıştırma davranışı tutarlı boz iç; numune ve teknik bilgi ile üretim denemesine uygun sunulur. Parti değişiminde önceden bilgilendirme yapılır.",
     forWho: "Pastaneler, dondurma üreticileri ve dolgu kullanan gıda işletmeleri.",
     imageSrc: pistachioImages.products.boz,
-    imageAlt: "Boz iç fıstık doku yakın çekim",
+    imageAlt: "Baklavalık ve pastalık için ince öğütülmüş yeşil Antep fıstığı",
     tags: ["Endüstriyel kullanım", "Baklavacılar için", "Toptan uygun"],
     minOrder:
       "Genelde endüstriyel kullanımda minimum miktar ürün ve ambalaja göre teklifle netleşir. Numune talebi ürün grubuna göre değerlendirilir.",
@@ -105,7 +105,7 @@ export const products: Product[] = [
       "Paketleme bilgisi ve son kullanma takibi ile düzenli seri. Görünür pencere veya tam kapak gibi satış kanalınıza uygun seçenekler konuşulur.",
     forWho: "Bireysel müşteriler, marketler ve küçük işletme hediyeleri.",
     imageSrc: pistachioImages.products.perakende,
-    imageAlt: "Kavanozda perakende Antep fıstığı sunumu",
+    imageAlt: "Kabuklu, iç ve hediye paketleriyle perakende Antep fıstığı serisi",
     tags: ["Perakende satışa uygun", "İkramlık"],
     minOrder:
       "Hazır paketlerde tek ürün satın alımı mümkündür. Toplu kampanya alımlarında iskonto yapısı miktara göre tekliflenir.",
@@ -126,7 +126,7 @@ export const products: Product[] = [
       "Minimum miktar ve teslimat ili teklifle netleşir. Sevkiyat öncesi çıkış teyidi ve yükleme fotoğrafı ihtiyaca göre paylaşılır.",
     forWho: "Baklavacılar, kuruyemiş toptancıları ve üretim hatları.",
     imageSrc: pistachioImages.products.toptan,
-    imageAlt: "Toptan satış — çuval ve dükkân stoğu",
+    imageAlt: "Gaziantep tesiste toplu Antep fıstığı kalite kontrolü ve sevkiyat hazırlığı",
     tags: ["Toptan uygun", "Baklavacılar için", "Endüstriyel kullanım"],
     minOrder:
       "Ürün ve ambalaj tipine göre değişir; yaklaşık aylık veya seferlik miktarı yazmanız doğru teklif için yeterlidir.",

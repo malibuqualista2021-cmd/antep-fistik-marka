@@ -1,6 +1,6 @@
 import { Container } from "@/components/ui/Container";
 import { ImageSlot } from "@/components/ui/ImageSlot";
-import { pistachioImages } from "@/lib/pistachio-images";
+import { brandPhotoAlts, brandPhotos } from "@/lib/site-images";
 
 const items = [
   {
@@ -24,12 +24,12 @@ const items = [
 const badges = ["Müşteri yorumu", "İade / değişim", "Hızlı kargo", "Güvenli ödeme", "WhatsApp destek"] as const;
 
 const gallery = [
-  { src: pistachioImages.products.kabuklu, alt: "Kabuklu Antep fıstığı ürün görseli" },
-  { src: pistachioImages.products.ic, alt: "İç Antep fıstığı ürün görseli" },
-  { src: pistachioImages.products.boz, alt: "Boz iç ürün görseli" },
-  { src: pistachioImages.products.perakende, alt: "Perakende paket görseli" },
-  { src: pistachioImages.hero.packaging, alt: "Paketleme istasyonu görseli" },
-  { src: pistachioImages.hero.logistics, alt: "Depo ve sevkiyat görseli" },
+  { src: brandPhotos.categoryKabuklu, alt: brandPhotoAlts.categoryKabuklu },
+  { src: brandPhotos.categoryIc, alt: brandPhotoAlts.categoryIc },
+  { src: brandPhotos.categoryBozBaklavalik, alt: brandPhotoAlts.categoryBozBaklavalik },
+  { src: brandPhotos.storeRange, alt: brandPhotoAlts.storeRange },
+  { src: brandPhotos.packagingTaze, alt: brandPhotoAlts.packagingTaze },
+  { src: brandPhotos.wholesaleDepo, alt: brandPhotoAlts.wholesaleDepo },
 ] as const;
 
 export function RetailTrustStrip() {
@@ -61,6 +61,7 @@ export function RetailTrustStrip() {
               alt={image.alt}
               wrapperClassName="aspect-[4/3] w-full rounded-[12px]"
               sizes="(max-width: 768px) 50vw, 22vw"
+              imageClassName="object-cover object-center"
             />
           ))}
         </div>

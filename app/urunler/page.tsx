@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Suspense } from "react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { RetailStore } from "@/components/shop/RetailStore";
+import { brandPhotoAlts, brandPhotos } from "@/lib/site-images";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -30,6 +32,17 @@ export default function ProductsPage() {
             <div className="rounded-[12px] bg-background px-4 py-3 ring-1 ring-black/5">Güvenli sipariş</div>
             <div className="rounded-[12px] bg-background px-4 py-3 ring-1 ring-black/5">1-3 iş günü kargo</div>
             <div className="rounded-[12px] bg-background px-4 py-3 ring-1 ring-black/5">WhatsApp destek</div>
+          </div>
+
+          <div className="relative mt-8 aspect-[2/1] w-full max-h-[min(26rem,48vh)] min-h-0 overflow-hidden rounded-[var(--radius-xl)] ring-1 ring-[var(--border-subtle)] md:aspect-[21/9]">
+            <Image
+              src={brandPhotos.storeRange}
+              alt={brandPhotoAlts.storeRange}
+              fill
+              className="object-cover object-center"
+              sizes="(max-width: 768px) 100vw, min(1200px, 92vw)"
+              loading="lazy"
+            />
           </div>
 
           <div className="mt-8 flex flex-col gap-4 rounded-[var(--radius-card)] bg-[var(--paper)] p-5 ring-1 ring-[var(--border-subtle)] md:flex-row md:items-center md:justify-between md:p-6">

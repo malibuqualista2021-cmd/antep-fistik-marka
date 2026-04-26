@@ -2,50 +2,57 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
-import { pistachioImages } from "@/lib/pistachio-images";
+import { brandPhotoAlts, brandPhotos } from "@/lib/site-images";
 
 const categories = [
   {
     title: "Kabuklu Antep Fıstığı",
     blurb: "Kavrulmuş ve tuzlu kabuklu seriler.",
     href: "/urunler?kategori=kabuklu",
-    image: pistachioImages.products.kabuklu,
+    image: brandPhotos.categoryKabuklu,
+    imageAlt: brandPhotoAlts.categoryKabuklu,
   },
   {
     title: "İç Antep Fıstığı",
     blurb: "Baklava ve tatlı için yeşil iç.",
     href: "/urunler?kategori=ic",
-    image: pistachioImages.products.ic,
+    image: brandPhotos.categoryIc,
+    imageAlt: brandPhotoAlts.categoryIc,
   },
   {
     title: "Boz İç",
     blurb: "Pastalık ve dolgu için homojen doku.",
     href: "/urunler?kategori=boz",
-    image: pistachioImages.products.boz,
+    image: brandPhotos.categoryBozBaklavalik,
+    imageAlt: brandPhotoAlts.categoryBozBaklavalik,
   },
   {
     title: "Baklavalık seçimi",
     blurb: "İç ve boz içte baklava üretimine uygun parti.",
     href: "/urunler?kullanim=baklavalik",
-    image: pistachioImages.products.ic,
+    image: brandPhotos.categoryBozBaklavalik,
+    imageAlt: brandPhotoAlts.categoryBozBaklavalik,
   },
   {
     title: "Kavrulmuş tuzlu",
     blurb: "İkram ve günlük tüketim.",
     href: "/urunler?kategori=kabuklu&islem=kavrulmus",
-    image: pistachioImages.products.kabuklu,
+    image: brandPhotos.categoryKabuklu,
+    imageAlt: brandPhotoAlts.categoryKabuklu,
   },
   {
     title: "Çiğ / tuzsuz",
     blurb: "İç ve boz iç çiğ seriler.",
     href: "/urunler?islem=cig",
-    image: pistachioImages.products.boz,
+    image: brandPhotos.categoryIc,
+    imageAlt: brandPhotoAlts.categoryIc,
   },
   {
     title: "Hediye ve paket",
     blurb: "Hazır paket ve sunum.",
     href: "/urunler?kategori=paket",
-    image: pistachioImages.products.perakende,
+    image: brandPhotos.storeRange,
+    imageAlt: brandPhotoAlts.storeRange,
   },
 ] as const;
 
@@ -63,15 +70,16 @@ export function CategoryDiscovery() {
           {categories.map((category) => (
             <article
               key={category.title}
-              className="flex flex-col overflow-hidden rounded-[var(--radius-card)] bg-[var(--cream)] ring-1 ring-[var(--border-subtle)]"
+              className="flex min-h-0 flex-col overflow-hidden rounded-[var(--radius-card)] bg-[var(--cream)] ring-1 ring-[var(--border-subtle)]"
             >
-              <Link href={category.href} className="group relative aspect-[4/3] bg-[var(--paper)]">
+              <Link href={category.href} className="group relative aspect-[4/3] min-h-0 shrink-0 bg-[var(--paper)]">
                 <Image
                   src={category.image}
-                  alt={category.title}
+                  alt={category.imageAlt}
                   fill
-                  className="object-cover transition duration-300 group-hover:scale-[1.02]"
-                  sizes="(max-width:640px) 100vw, 33vw"
+                  className="object-cover object-center transition duration-300 group-hover:opacity-95"
+                  sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 25vw"
+                  loading="lazy"
                 />
               </Link>
               <div className="flex flex-1 flex-col p-4">

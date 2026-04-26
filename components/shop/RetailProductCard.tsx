@@ -16,14 +16,15 @@ export function RetailProductCard({ product }: { product: RetailProduct }) {
   const kgLine = useMemo(() => kgUnitPriceLine(price, weightLabel, product.currency), [price, weightLabel, product.currency]);
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] bg-[var(--cream)] shadow-[var(--shadow-soft)] ring-1 ring-[var(--border-subtle)] transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-lift)]">
+    <article className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] bg-[var(--cream)] shadow-[var(--shadow-soft)] ring-1 ring-[var(--border-subtle)] transition-shadow hover:shadow-[var(--shadow-lift)]">
       <div className="relative aspect-[4/3] bg-[var(--paper)]">
         <Image
           src={product.imageSrc}
           alt={product.imageAlt}
           fill
-          className="object-cover"
+          className="object-cover object-center"
           sizes="(max-width: 768px) 100vw, 33vw"
+          loading="lazy"
         />
         <span className="absolute left-3 top-3 max-w-[85%] rounded-full bg-background/95 px-3 py-1 font-sans text-[11px] font-semibold text-[var(--walnut)] ring-1 ring-black/10">
           {stockLabel(product.stockStatus)}
