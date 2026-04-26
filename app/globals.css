@@ -117,12 +117,15 @@
     border: 1px solid var(--border-subtle);
   }
 
+  /* Üstü header ile aynı krem ailesinden başlar; aşağı doğal bej / zemin tonlarına geçer */
   .hero-wash {
     background: linear-gradient(
-      165deg,
-      color-mix(in srgb, var(--surface) 55%, var(--background)) 0%,
-      var(--background) 48%,
-      color-mix(in srgb, var(--cream) 80%, var(--background)) 100%
+      180deg,
+      var(--cream) 0%,
+      color-mix(in srgb, var(--cream) 35%, var(--background)) 14%,
+      var(--background) 38%,
+      color-mix(in srgb, var(--surface) 52%, var(--background)) 62%,
+      color-mix(in srgb, var(--cream) 78%, var(--background)) 100%
     );
   }
 

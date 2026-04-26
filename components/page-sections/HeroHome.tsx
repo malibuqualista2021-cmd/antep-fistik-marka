@@ -12,10 +12,10 @@ export function HeroHome() {
 
   return (
     <section
-      className="hero-wash relative overflow-hidden border-b border-[var(--border-subtle)]"
+      className="hero-wash relative overflow-hidden border-b border-[color-mix(in_srgb,var(--walnut)_8%,transparent)]"
       aria-labelledby="hero-heading"
     >
-      <Container className="grid gap-6 pt-5 pb-10 md:grid-cols-[1.08fr_0.92fr] md:items-center md:gap-10 md:pt-7 md:pb-12 lg:gap-12 lg:pt-8 lg:pb-14">
+      <Container className="grid gap-6 pt-4 pb-10 md:grid-cols-[1.08fr_0.92fr] md:items-center md:gap-10 md:pt-6 md:pb-12 lg:gap-12 lg:pt-7 lg:pb-14">
         <div className="order-2 flex min-w-0 flex-col md:order-1">
           <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-primary sm:text-xs">
             {heroCopy.kicker}

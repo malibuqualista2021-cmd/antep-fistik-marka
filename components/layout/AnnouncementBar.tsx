@@ -17,7 +17,7 @@ export function AnnouncementBar() {
   }, []);
 
   return (
-    <div className="border-b border-[var(--border-subtle)] bg-[var(--paper)]">
+    <div className="border-b border-[color-mix(in_srgb,var(--walnut)_7%,transparent)] bg-[color-mix(in_srgb,var(--cream)_45%,var(--paper))]">
       <Container className="py-2 text-center">
         <p
           className="font-sans text-[11px] font-medium leading-snug text-muted md:text-xs"

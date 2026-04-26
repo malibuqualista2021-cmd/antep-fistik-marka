@@ -21,7 +21,7 @@ function SiteSearch({ id, className = "" }: { id: string; className?: string }) 
         id={id}
         name="q"
         placeholder="Antep fıstığı, boz iç, kavrulmuş fıstık ara…"
-        className="h-11 w-full rounded-full border border-black/10 bg-[var(--paper)] px-4 font-sans text-sm text-foreground placeholder:text-muted/65 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+        className="h-11 w-full rounded-full border border-[color-mix(in_srgb,var(--walnut)_10%,transparent)] bg-[color-mix(in_srgb,var(--paper)_92%,var(--cream))] px-4 font-sans text-sm text-foreground placeholder:text-muted/65 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
       />
     </form>
   );
@@ -66,7 +66,7 @@ function HeaderActionsBar() {
 function HeaderDrawerUtilities({ onNavigate }: { onNavigate: () => void }) {
   const { waMessage } = cta.header;
   return (
-    <div className="flex flex-col gap-2 border-b border-black/5 pb-3">
+    <div className="flex flex-col gap-2 border-b border-[color-mix(in_srgb,var(--walnut)_8%,transparent)] pb-3">
       {site.phoneE164 ? (
         <a
           href={`tel:${site.phoneE164}`}
@@ -103,19 +103,14 @@ export function Header() {
   const close = () => setOpen(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--border-subtle)] bg-[var(--cream)]/95 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-[color-mix(in_srgb,var(--walnut)_8%,transparent)] bg-[var(--cream)]/95 backdrop-blur-md">
       <AnnouncementBar />
 
       {/* Tek krem header: sol logo — orta arama — sağ aksiyonlar */}
       <Container className="py-2.5 md:py-3">
         <div className="flex w-full flex-col gap-2">
           <div className="flex w-full min-w-0 items-center gap-2.5 sm:gap-3 md:min-h-[3rem] md:gap-4 md:items-center">
-            <BrandLogo
-              variant="header"
-              priority
-              onClick={close}
-              className="overflow-hidden rounded-md bg-[var(--paper)] px-1.5 py-1 ring-1 ring-[color-mix(in_srgb,var(--walnut)_12%,transparent)] shadow-[0_1px_0_rgb(43_26_18_/0.04)]"
-            />
+            <BrandLogo variant="header" priority onClick={close} className="overflow-hidden rounded-sm py-0.5" />
             <SiteSearch id="site-search-desktop" className="hidden min-w-0 flex-1 md:block" />
             <HeaderActionsBar />
             <button
@@ -135,7 +130,7 @@ export function Header() {
         </div>
       </Container>
 
-      <div className="hidden border-t border-[var(--border-subtle)] md:block">
+      <div className="hidden border-t border-[color-mix(in_srgb,var(--walnut)_7%,transparent)] md:block">
         <Container>
           <nav
             className="flex min-h-[48px] flex-wrap items-center justify-center gap-x-5 gap-y-2 py-2 sm:gap-x-6 md:gap-x-7"
@@ -145,7 +140,7 @@ export function Header() {
               <Link
                 key={item.href + item.label}
                 href={item.href}
-                className="nav-label whitespace-nowrap rounded-[10px] px-1 py-2 text-foreground/90 transition-colors hover:bg-[color-mix(in_srgb,var(--primary)_10%,var(--cream))] hover:text-primary"
+                className="nav-label whitespace-nowrap rounded-[10px] px-1 py-2 text-[color-mix(in_srgb,var(--walnut)_88%,var(--foreground))] transition-colors hover:bg-[color-mix(in_srgb,var(--primary)_8%,var(--cream))] hover:text-primary"
               >
                 {item.label}
               </Link>
@@ -155,7 +150,7 @@ export function Header() {
       </div>
 
       {open ? (
-        <div id="mobile-nav" className="max-h-[min(78vh,calc(100dvh-5rem))] overflow-y-auto border-t border-black/5 bg-[var(--cream)] md:hidden">
+        <div id="mobile-nav" className="max-h-[min(78vh,calc(100dvh-5rem))] overflow-y-auto border-t border-[color-mix(in_srgb,var(--walnut)_8%,transparent)] bg-[var(--cream)] md:hidden">
           <Container className="flex flex-col gap-1 py-3">
             <HeaderDrawerUtilities onNavigate={close} />
             <p className="px-1 pt-2 font-sans text-[11px] font-bold uppercase tracking-wide text-muted">Kategoriler</p>
@@ -171,7 +166,7 @@ export function Header() {
                 </Link>
               ))}
             </nav>
-            <div className="mt-3 flex flex-col gap-2 border-t border-black/5 pt-3">
+            <div className="mt-3 flex flex-col gap-2 border-t border-[color-mix(in_srgb,var(--walnut)_8%,transparent)] pt-3">
               <CartLink className="w-full" onClick={close} />
               {site.whatsappE164 ? (
                 <Button variant="cta" href={waLink(cta.header.waMessage)} className="w-full justify-center" onClick={close}>
