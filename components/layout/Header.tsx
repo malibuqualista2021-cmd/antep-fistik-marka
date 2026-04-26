@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { site, waLink } from "@/lib/site";
 import { cta } from "@/lib/cta";
-import { BrandLogo } from "@/components/brand/BrandLogo";
+import { brandLogo } from "@/lib/brand-logo";
 import { CartLink } from "@/components/shop/CartLink";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { headerCategoryStrip } from "@/lib/store-navigation";
@@ -106,11 +107,28 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-[var(--border-subtle)] bg-[var(--cream)]/95 backdrop-blur-md">
       <AnnouncementBar />
 
+      {/* Marka alanı: tam genişlik kapak — logo görseli cover gibi doldurur */}
+      <Link
+        href="/"
+        onClick={close}
+        className="relative isolate block w-full overflow-hidden border-b border-black/15 outline-none ring-inset focus-visible:ring-2 focus-visible:ring-primary"
+      >
+        <div className="relative h-[clamp(5.5rem,20vw,10.5rem)] w-full sm:h-[clamp(6rem,18vw,11.5rem)] lg:h-[clamp(6.75rem,14vw,12.5rem)]">
+          <Image
+            src={brandLogo.fullSrc}
+            alt={brandLogo.alt}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[center_42%]"
+          />
+        </div>
+      </Link>
+
       <Container className="py-2.5 md:py-3">
-        {/* Üst şerit: sol logo — orta arama — sağ aksiyonlar (masaüstü); mobilde alt satırda arama */}
+        {/* Araç şeridi: arama — sağ aksiyonlar; logo kapak şeridinde */}
         <div className="flex w-full flex-col gap-2">
           <div className="flex w-full min-w-0 items-center gap-2 sm:gap-3 md:min-h-[2.75rem] md:items-center">
-            <BrandLogo variant="header" priority onClick={close} />
             <SiteSearch id="site-search-desktop" className="hidden min-w-0 flex-1 md:block" />
             <HeaderActionsBar />
             <button
