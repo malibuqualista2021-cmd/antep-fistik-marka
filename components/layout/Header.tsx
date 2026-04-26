@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { site, waLink } from "@/lib/site";
 import { cta } from "@/lib/cta";
-import { brandLogo } from "@/lib/brand-logo";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import { CartLink } from "@/components/shop/CartLink";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { headerCategoryStrip } from "@/lib/store-navigation";
@@ -107,30 +106,16 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-[var(--border-subtle)] bg-[var(--cream)]/95 backdrop-blur-md">
       <AnnouncementBar />
 
-      {/* Marka şeridi: kırpma yok (contain) — görseldeki yazılar her ekranda okunabilir ölçekte */}
-      <Link
-        href="/"
-        onClick={close}
-        className="relative isolate block w-full overflow-hidden border-b border-black/20 bg-[#0c0c0c] outline-none ring-inset focus-visible:ring-2 focus-visible:ring-primary"
-      >
-        <Container className="py-2.5 sm:py-3 md:py-3.5">
-          <div className="relative h-[clamp(7.25rem,28vw,12.25rem)] w-full sm:h-[clamp(7.75rem,24vw,13rem)] md:h-[clamp(8rem,20vw,13.5rem)] lg:h-[clamp(8.5rem,17vw,14.25rem)]">
-            <Image
-              src={brandLogo.fullSrc}
-              alt={brandLogo.alt}
-              fill
-              priority
-              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 90vw, 1152px"
-              className="object-contain object-center"
-            />
-          </div>
-        </Container>
-      </Link>
-
+      {/* Tek krem header: sol logo — orta arama — sağ aksiyonlar */}
       <Container className="py-2.5 md:py-3">
-        {/* Araç şeridi: arama — sağ aksiyonlar; logo kapak şeridinde */}
         <div className="flex w-full flex-col gap-2">
-          <div className="flex w-full min-w-0 items-center gap-2 sm:gap-3 md:min-h-[2.75rem] md:items-center">
+          <div className="flex w-full min-w-0 items-center gap-2.5 sm:gap-3 md:min-h-[3rem] md:gap-4 md:items-center">
+            <BrandLogo
+              variant="header"
+              priority
+              onClick={close}
+              className="overflow-hidden rounded-md bg-[var(--paper)] px-1.5 py-1 ring-1 ring-[color-mix(in_srgb,var(--walnut)_12%,transparent)] shadow-[0_1px_0_rgb(43_26_18_/0.04)]"
+            />
             <SiteSearch id="site-search-desktop" className="hidden min-w-0 flex-1 md:block" />
             <HeaderActionsBar />
             <button
@@ -150,17 +135,17 @@ export function Header() {
         </div>
       </Container>
 
-      <div className="hidden border-t border-[var(--border-subtle)] bg-[var(--paper)] md:block">
+      <div className="hidden border-t border-[var(--border-subtle)] md:block">
         <Container>
           <nav
-            className="flex min-h-[44px] items-center gap-x-1 overflow-x-auto py-1.5 [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-x-2 [&::-webkit-scrollbar]:hidden"
+            className="flex min-h-[48px] flex-wrap items-center justify-center gap-x-5 gap-y-2 py-2 sm:gap-x-6 md:gap-x-7"
             aria-label="Kategoriler"
           >
             {headerCategoryStrip.map((item) => (
               <Link
                 key={item.href + item.label}
                 href={item.href}
-                className="nav-label shrink-0 whitespace-nowrap rounded-[10px] px-2.5 py-2 text-foreground/90 hover:bg-[color-mix(in_srgb,var(--cream)_70%,var(--paper))] hover:text-primary sm:px-3"
+                className="nav-label whitespace-nowrap rounded-[10px] px-1 py-2 text-foreground/90 transition-colors hover:bg-[color-mix(in_srgb,var(--primary)_10%,var(--cream))] hover:text-primary"
               >
                 {item.label}
               </Link>

@@ -8,8 +8,9 @@ const ratioStyle = { aspectRatio: `${brandLogo.width} / ${brandLogo.height}` } a
 
 /** Yükseklik + max genişlik; oran `brandLogo` piksel oranı — esnetme / gölge yok */
 const variantClass: Record<BrandLogoVariant, string> = {
+  /** Üst şerit: ~120–160px genişlik, yükseklik orandan (1024×576) */
   header:
-    "relative block h-10 max-h-10 w-auto max-w-[min(12.5rem,50vw)] md:h-11 md:max-h-11 md:max-w-[min(15.5rem,32vw)] lg:max-w-[min(17rem,24vw)]",
+    "relative block min-h-0 min-w-0 w-[clamp(7.5rem,22vw,10rem)] max-w-[10rem] shrink-0",
   sidebar:
     "relative block h-9 max-h-9 w-auto max-w-[11rem] md:h-10 md:max-h-10",
   footer:
@@ -39,8 +40,8 @@ export function BrandLogo({ variant, priority = false, className = "", onClick }
         alt={brandLogo.alt}
         fill
         priority={priority}
-        sizes="(max-width: 768px) 160px, 220px"
-        className="object-contain object-left"
+        sizes="(max-width: 768px) 128px, 160px"
+        className="object-contain object-center"
       />
     </Link>
   );

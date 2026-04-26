@@ -15,12 +15,12 @@ export function HeroHome() {
       className="hero-wash relative overflow-hidden border-b border-[var(--border-subtle)]"
       aria-labelledby="hero-heading"
     >
-      <Container className="grid gap-8 py-10 md:grid-cols-[1.08fr_0.92fr] md:items-center md:gap-10 md:py-14 lg:gap-12 lg:py-[3.75rem]">
+      <Container className="grid gap-6 pt-5 pb-10 md:grid-cols-[1.08fr_0.92fr] md:items-center md:gap-10 md:pt-7 md:pb-12 lg:gap-12 lg:pt-8 lg:pb-14">
         <div className="order-2 flex min-w-0 flex-col md:order-1">
           <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-primary sm:text-xs">
             {heroCopy.kicker}
           </p>
-          <h1 id="hero-heading" className="heading-hero mt-3 max-w-[22ch] sm:max-w-none">
+          <h1 id="hero-heading" className="heading-hero mt-3 max-w-[min(100%,42rem)]">
             {heroCopy.title}
           </h1>
           <p className="mt-4 max-w-xl font-sans text-[0.9375rem] font-normal leading-relaxed text-muted sm:text-base">
