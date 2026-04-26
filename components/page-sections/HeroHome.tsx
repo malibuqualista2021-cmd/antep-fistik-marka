@@ -88,14 +88,14 @@ export function HeroHome() {
             <div className="mt-2 grid grid-cols-2 gap-2">
               <ImageSlot
                 src={heroImages.packaging}
-                alt="Yeşil Antep fıstığı içi — yakın çekim"
+                alt="Kasede iç Antep fıstığı sunumu"
                 wrapperClassName="aspect-[4/3] w-full rounded-[12px]"
                 sizes="(max-width: 768px) 50vw, 23vw"
                 imageClassName="object-cover object-center"
               />
               <ImageSlot
                 src={heroImages.logistics}
-                alt="Antep fıstığı ürün sunumu"
+                alt="Taze hasat Antep fıstığı paketlemesi"
                 wrapperClassName="aspect-[4/3] w-full rounded-[12px]"
                 sizes="(max-width: 768px) 50vw, 23vw"
                 imageClassName="object-cover object-center"

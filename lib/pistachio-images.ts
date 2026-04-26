@@ -20,18 +20,12 @@ const stock = {
   paketleme: `${base}/kutu-taze-hasat.png`,
 } as const;
 
-/** Hero kolajı: net, iştah açıcı ürün görselleri (Next `images.remotePatterns` ile uyumlu). .env ile tek tek üzerine yazılabilir. */
-const heroUnsplash = {
-  main: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=88&w=2000",
-  packaging: "https://images.unsplash.com/photo-1526318896980-cf78c088247c?auto=format&fit=crop&q=88&w=1400",
-  logistics: "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&q=88&w=1400",
-} as const;
-
 export const pistachioImages = {
+  /** Yalnızca marka fıstık görselleri — stok dışı URL kullanmayın (yanlış ürün riski). .env `NEXT_PUBLIC_HERO_IMAGE_*` ile üzerine yazılır. */
   hero: {
-    main: heroUnsplash.main,
-    packaging: heroUnsplash.packaging,
-    logistics: heroUnsplash.logistics,
+    main: stock.kabukluKavrulmus,
+    packaging: stock.icFistikKase,
+    logistics: stock.paketleme,
   },
   trust: {
     depot: stock.toptanCuval,
