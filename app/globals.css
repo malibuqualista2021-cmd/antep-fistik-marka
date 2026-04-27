@@ -149,7 +149,7 @@
    * Mat ton → krem: yalnızca alt şerit (logo üstüne yok) — sınırda yumuşak geçiş.
    */
   .header-brand-heel {
-    height: clamp(1.5rem, 4vw, 2.5rem);
+    height: clamp(0.75rem, 2.2vw, 1.25rem);
     background: linear-gradient(
       180deg,
       var(--brand-logo-matte) 0%,

@@ -115,9 +115,9 @@ export function Header() {
       >
         <div className="header-brand-announcement-bridge h-2.5 w-full shrink-0" aria-hidden />
         <div className="header-brand-matte-block">
-          <Container className="py-4 sm:py-5 md:py-6">
+          <Container className="py-2 sm:py-2.5 md:py-3">
             <div
-              className="relative mx-auto w-full max-w-[min(100%,26rem)] overflow-hidden rounded-sm bg-[var(--brand-logo-matte)] sm:max-w-[min(100%,32rem)] md:max-w-[min(100%,40rem)] lg:max-w-[min(100%,44rem)]"
+              className="relative mx-auto w-full max-w-[min(100%,15rem)] overflow-hidden rounded-sm bg-[var(--brand-logo-matte)] sm:max-w-[min(100%,18rem)] md:max-w-[min(100%,21rem)] lg:max-w-[min(100%,23rem)]"
               style={{ aspectRatio: `${brandLogo.width} / ${brandLogo.height}` }}
             >
               <Image
@@ -125,7 +125,7 @@ export function Header() {
                 alt={brandLogo.alt}
                 fill
                 priority
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 640px"
+                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 22rem, 24rem"
                 className="object-contain object-center"
               />
             </div>
