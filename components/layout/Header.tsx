@@ -107,27 +107,31 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-[color-mix(in_srgb,var(--walnut)_6%,transparent)] bg-[var(--cream)]">
       <AnnouncementBar />
 
-      {/* Geniş marka alanı: toprak tonlu zemin, altta kreme yumuşayan geçiş; logo ortada büyük */}
+      {/* Marka: duyuru→mat köprü; logo alanı tek mat (raster zeminle aynı); alt şerit sadece kreme yumuşatır */}
       <Link
         href="/"
         onClick={close}
-        className="header-brand-banner relative isolate block w-full border-b border-[color-mix(in_srgb,var(--walnut)_4%,var(--cream))] outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cream)]"
+        className="relative isolate block w-full outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cream)]"
       >
-        <Container className="py-4 sm:py-5 md:py-6">
-          <div
-            className="relative mx-auto w-full max-w-[min(100%,26rem)] sm:max-w-[min(100%,32rem)] md:max-w-[min(100%,40rem)] lg:max-w-[min(100%,44rem)]"
-            style={{ aspectRatio: `${brandLogo.width} / ${brandLogo.height}` }}
-          >
-            <Image
-              src={brandLogo.fullSrc}
-              alt={brandLogo.alt}
-              fill
-              priority
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 640px"
-              className="object-contain object-center"
-            />
-          </div>
-        </Container>
+        <div className="header-brand-announcement-bridge h-2.5 w-full shrink-0" aria-hidden />
+        <div className="header-brand-matte-block">
+          <Container className="py-4 sm:py-5 md:py-6">
+            <div
+              className="relative mx-auto w-full max-w-[min(100%,26rem)] overflow-hidden rounded-sm bg-[var(--brand-logo-matte)] sm:max-w-[min(100%,32rem)] md:max-w-[min(100%,40rem)] lg:max-w-[min(100%,44rem)]"
+              style={{ aspectRatio: `${brandLogo.width} / ${brandLogo.height}` }}
+            >
+              <Image
+                src={brandLogo.fullSrc}
+                alt={brandLogo.alt}
+                fill
+                priority
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 640px"
+                className="object-contain object-center"
+              />
+            </div>
+          </Container>
+        </div>
+        <div className="header-brand-heel w-full shrink-0" aria-hidden />
       </Link>
 
       {/* Araç satırı: ortada arama, sağda aksiyonlar; üst şeritle aynı krem zemin */}

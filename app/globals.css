@@ -32,6 +32,8 @@
   --cta: #d97736;
   --cta-hover: #c45f2a;
   --border-subtle: rgb(43 26 18 / 0.1);
+  /* Logo WebP/PNG gömülü koyu zeytin siyah — banner boşlukları bu tona birebir oturur (dikiş azalır) */
+  --brand-logo-matte: #131611;
   --section-y: 3.25rem;
   --section-y-lg: 5rem;
   --radius-card: 16px;
@@ -129,21 +131,30 @@
     );
   }
 
-  /**
-   * Üst marka şeridi: duyuru şeridiyle aynı üst renk (0%) → kademeli derinlik → saf krem (100%).
-   * 180° dikey geçiş: yanlarda renk kayması yok; alt %’lerde paper→cream ara duraklar bandı önler.
-   */
-  .header-brand-banner {
+  /** Logo bölgesi: tek düz mat — raster ile aynı aile. Gradyan logo kutusuna bindirilmez (yatay çizgi olmaz). */
+  .header-brand-matte-block {
+    background: var(--brand-logo-matte);
+  }
+
+  /** Duyuru (krem+paper) → mat zemin; yalnızca ~10px köprü. */
+  .header-brand-announcement-bridge {
     background: linear-gradient(
       180deg,
       color-mix(in srgb, var(--cream) 45%, var(--paper)) 0%,
-      color-mix(in srgb, var(--paper) 62%, var(--walnut) 16%) 12%,
-      color-mix(in srgb, var(--surface) 28%, var(--walnut) 20%) 28%,
-      color-mix(in srgb, var(--paper) 48%, var(--walnut) 12%) 44%,
-      color-mix(in srgb, var(--cream) 12%, var(--paper)) 58%,
-      color-mix(in srgb, var(--cream) 38%, var(--paper)) 72%,
-      color-mix(in srgb, var(--cream) 68%, var(--paper)) 84%,
-      color-mix(in srgb, var(--cream) 88%, var(--paper)) 93%,
+      var(--brand-logo-matte) 100%
+    );
+  }
+
+  /**
+   * Mat ton → krem: yalnızca alt şerit (logo üstüne yok) — sınırda yumuşak geçiş.
+   */
+  .header-brand-heel {
+    height: clamp(1.5rem, 4vw, 2.5rem);
+    background: linear-gradient(
+      180deg,
+      var(--brand-logo-matte) 0%,
+      color-mix(in srgb, var(--cream) 32%, var(--brand-logo-matte)) 45%,
+      color-mix(in srgb, var(--cream) 78%, var(--brand-logo-matte)) 78%,
       var(--cream) 100%
     );
   }
