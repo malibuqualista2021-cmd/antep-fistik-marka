@@ -131,11 +131,6 @@
     );
   }
 
-  /** Tam genişlik üstte Link zeminini doldurur; burada tekrar boyama yok (çift mat). */
-  .header-brand-matte-block {
-    background: transparent;
-  }
-
   /** Duyuru (krem+paper) → mat zemin; yalnızca ~10px köprü. */
   .header-brand-announcement-bridge {
     background: linear-gradient(

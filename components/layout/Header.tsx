@@ -107,14 +107,14 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-[color-mix(in_srgb,var(--walnut)_6%,transparent)] bg-[var(--cream)]">
       <AnnouncementBar />
 
-      {/* Marka: duyuru→mat köprü; logo alanı tek mat (raster zeminle aynı); alt şerit sadece kreme yumuşatır */}
+      {/* Marka: krem gövde; mat zemin yalnızca içerik genişliğinde (tam ekran siyah “dev banner” algısı kalkar) */}
       <Link
         href="/"
         onClick={close}
-        className="relative isolate block w-full bg-[var(--brand-logo-matte)] outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cream)]"
+        className="relative isolate block w-full bg-[var(--cream)] outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cream)]"
       >
         <div className="header-brand-announcement-bridge h-1.5 w-full shrink-0 sm:h-2" aria-hidden />
-        <div className="header-brand-matte-block">
+        <div className="mx-auto w-full max-w-6xl bg-[var(--brand-logo-matte)]">
           <Container className="py-1 sm:py-1 md:py-1.5">
             <div
               className="relative mx-auto w-full max-w-[min(100%,9.5rem)] overflow-hidden rounded-sm bg-[var(--brand-logo-matte)] sm:max-w-[min(100%,11rem)] md:max-w-[min(100%,12.5rem)] lg:max-w-[min(100%,13.5rem)]"
@@ -131,19 +131,19 @@ export function Header() {
             </div>
           </Container>
         </div>
-        <div className="header-brand-heel w-full shrink-0" aria-hidden />
+        <div className="header-brand-heel mx-auto w-full max-w-6xl shrink-0" aria-hidden />
       </Link>
 
       {/* Araç satırı: ortada arama, sağda aksiyonlar; üst şeritle aynı krem zemin */}
       <Container className="bg-[var(--cream)] py-2.5 md:py-3">
         <div className="flex w-full flex-col gap-2">
-          <div className="flex w-full min-w-0 items-center justify-end gap-2 md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-4">
-            <span className="hidden md:block" aria-hidden />
+          <div className="flex w-full min-w-0 items-center justify-end gap-2 md:grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:items-center md:gap-3 md:gap-x-4 lg:gap-x-5">
+            <span className="hidden min-w-0 md:block" aria-hidden />
             <SiteSearch
               id="site-search-desktop"
-              className="hidden min-w-0 md:block md:w-full md:min-w-[18rem] md:max-w-2xl md:justify-self-center"
+              className="hidden min-w-0 md:block md:w-full md:min-w-0 md:max-w-2xl md:justify-self-center lg:min-w-[16rem] xl:min-w-[18rem]"
             />
-            <div className="flex w-full min-w-0 items-center justify-end gap-2 md:col-start-3 md:row-start-1 md:flex md:justify-end">
+            <div className="flex min-w-0 max-w-full items-center justify-end gap-2 md:col-start-3 md:row-start-1 md:flex md:justify-end md:pl-1">
               <HeaderActionsBar />
               <button
                 type="button"
