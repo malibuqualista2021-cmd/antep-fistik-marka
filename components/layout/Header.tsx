@@ -113,11 +113,11 @@ export function Header() {
         onClick={close}
         className="relative isolate block w-full bg-[var(--brand-logo-matte)] outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cream)]"
       >
-        <div className="header-brand-announcement-bridge h-2.5 w-full shrink-0" aria-hidden />
+        <div className="header-brand-announcement-bridge h-1.5 w-full shrink-0 sm:h-2" aria-hidden />
         <div className="header-brand-matte-block">
-          <Container className="py-2 sm:py-2.5 md:py-3">
+          <Container className="py-1 sm:py-1 md:py-1.5">
             <div
-              className="relative mx-auto w-full max-w-[min(100%,15rem)] overflow-hidden rounded-sm bg-[var(--brand-logo-matte)] sm:max-w-[min(100%,18rem)] md:max-w-[min(100%,21rem)] lg:max-w-[min(100%,23rem)]"
+              className="relative mx-auto w-full max-w-[min(100%,9.5rem)] overflow-hidden rounded-sm bg-[var(--brand-logo-matte)] sm:max-w-[min(100%,11rem)] md:max-w-[min(100%,12.5rem)] lg:max-w-[min(100%,13.5rem)]"
               style={{ aspectRatio: `${brandLogo.width} / ${brandLogo.height}` }}
             >
               <Image
@@ -125,7 +125,7 @@ export function Header() {
                 alt={brandLogo.alt}
                 fill
                 priority
-                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 22rem, 24rem"
+                sizes="(max-width: 640px) 42vw, (max-width: 1024px) 12.5rem, 13.5rem"
                 className="object-contain object-center"
               />
             </div>
