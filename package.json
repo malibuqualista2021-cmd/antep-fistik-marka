@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "generate:brand": "node scripts/generate-brand-assets.mjs",
-    "verify:brand-matte": "node scripts/verify-brand-matte.mjs"
+    "verify:brand-matte": "node scripts/verify-brand-matte.mjs",
+    "deploy:netlify": "netlify deploy --prod"
   },
   "dependencies": {
     "next": "16.2.4",

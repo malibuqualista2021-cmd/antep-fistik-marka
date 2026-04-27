@@ -1,4 +1,5 @@
-# Netlify arayüzünde Publish directory "." olmasın; boş bırakın veya bu repo ile Git deploy kullanın.
+# Next.js: publish dizinini eklentiye bırakın. Üretim deploy: Netlify’da bu repo (Git) bağlıysa push yeterlidir;
+# yerel: önce `npx netlify login` + `npx netlify link`, sonra `npm run deploy:netlify` (Blobs 401: oturum yenile / tekrar dene).
 [build]
   command = "npm run build"
 
