@@ -104,14 +104,14 @@ export function Header() {
   const close = () => setOpen(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[color-mix(in_srgb,var(--walnut)_8%,transparent)] bg-[var(--cream)]/95 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-[color-mix(in_srgb,var(--walnut)_6%,transparent)] bg-[var(--cream)]">
       <AnnouncementBar />
 
       {/* Geniş marka alanı: toprak tonlu zemin, altta kreme yumuşayan geçiş; logo ortada büyük */}
       <Link
         href="/"
         onClick={close}
-        className="header-brand-banner relative isolate block w-full border-b border-[color-mix(in_srgb,var(--walnut)_7%,transparent)] outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cream)]"
+        className="header-brand-banner relative isolate block w-full border-b border-[color-mix(in_srgb,var(--walnut)_4%,var(--cream))] outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cream)]"
       >
         <Container className="py-4 sm:py-5 md:py-6">
           <div

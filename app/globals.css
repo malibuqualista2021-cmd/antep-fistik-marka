@@ -130,16 +130,20 @@
   }
 
   /**
-   * Üst marka şeridi: düz siyah blok yerine ceviz + Antep yeşili + kağıt/krem karışımı.
-   * Alt durak var(--cream) → hemen altındaki header satırı ile renk sürekliliği (sınırda sıçrama yok).
+   * Üst marka şeridi: duyuru şeridiyle aynı üst renk (0%) → kademeli derinlik → saf krem (100%).
+   * 180° dikey geçiş: yanlarda renk kayması yok; alt %’lerde paper→cream ara duraklar bandı önler.
    */
   .header-brand-banner {
     background: linear-gradient(
-      168deg,
-      color-mix(in srgb, var(--walnut) 52%, var(--paper)) 0%,
-      color-mix(in srgb, var(--walnut) 38%, var(--secondary)) 26%,
-      color-mix(in srgb, var(--surface) 40%, var(--walnut)) 52%,
-      color-mix(in srgb, var(--cream) 35%, var(--paper)) 78%,
+      180deg,
+      color-mix(in srgb, var(--cream) 45%, var(--paper)) 0%,
+      color-mix(in srgb, var(--paper) 62%, var(--walnut) 16%) 12%,
+      color-mix(in srgb, var(--surface) 28%, var(--walnut) 20%) 28%,
+      color-mix(in srgb, var(--paper) 48%, var(--walnut) 12%) 44%,
+      color-mix(in srgb, var(--cream) 12%, var(--paper)) 58%,
+      color-mix(in srgb, var(--cream) 38%, var(--paper)) 72%,
+      color-mix(in srgb, var(--cream) 68%, var(--paper)) 84%,
+      color-mix(in srgb, var(--cream) 88%, var(--paper)) 93%,
       var(--cream) 100%
     );
   }
