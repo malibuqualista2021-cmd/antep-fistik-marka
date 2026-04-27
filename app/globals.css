@@ -155,14 +155,14 @@
     color: var(--primary);
   }
 
-  /** Ana sayfa kahraman başlığı — mobilde aşırı büyümesin */
+  /** Ana sayfa kahraman başlığı — fold içinde daha dengeli ölçek */
   .heading-hero {
     font-family: var(--font-serif);
     font-weight: 600;
     letter-spacing: -0.03em;
     line-height: 1.12;
     color: color-mix(in srgb, var(--color-text) 92%, #000 8%);
-    font-size: clamp(1.5rem, 2.6vw + 0.85rem, 2.7rem);
+    font-size: clamp(1.35rem, 2.1vw + 0.72rem, 2.35rem);
   }
 
   /** Menü satırları — Inter, net, güvenilir */

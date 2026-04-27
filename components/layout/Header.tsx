@@ -35,7 +35,7 @@ const utilityLinkClass =
 function HeaderActionsBar() {
   const { waMessage } = cta.header;
   return (
-    <div className="hidden shrink-0 flex-wrap items-center justify-end gap-x-2 gap-y-1 md:flex md:gap-x-3">
+    <div className="hidden shrink-0 flex-wrap items-center justify-end gap-x-2.5 gap-y-1 md:flex md:gap-x-2.5 lg:gap-x-3">
       {site.phoneE164 ? (
         <a
           href={`tel:${site.phoneE164}`}
@@ -132,7 +132,7 @@ export function Header() {
       {/* Araç satırı: ortada arama, sağda aksiyonlar; üst şeritle aynı krem zemin */}
       <Container className="bg-[var(--cream)] py-2.5 md:py-3">
         <div className="flex w-full flex-col gap-2">
-          <div className="flex w-full min-w-0 items-center justify-end gap-2 md:grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:items-center md:gap-3 md:gap-x-4 lg:gap-x-5">
+          <div className="flex w-full min-w-0 items-center justify-end gap-2 md:grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:items-center md:gap-x-5 lg:gap-x-6">
             <span className="hidden min-w-0 md:block" aria-hidden />
             <SiteSearch
               id="site-search-desktop"
@@ -161,7 +161,7 @@ export function Header() {
       <div className="hidden border-t border-[color-mix(in_srgb,var(--walnut)_7%,transparent)] bg-[var(--cream)] md:block">
         <Container>
           <nav
-            className="flex min-h-[48px] flex-wrap items-center justify-center gap-x-5 gap-y-2 py-2 sm:gap-x-6 md:gap-x-7"
+            className="flex min-h-[44px] flex-wrap items-center justify-center gap-x-4 gap-y-1.5 py-1.5 sm:gap-x-5 sm:py-2 md:gap-x-6"
             aria-label="Kategoriler"
           >
             {headerCategoryStrip.map((item) => (
