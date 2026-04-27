@@ -107,31 +107,26 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-[color-mix(in_srgb,var(--walnut)_6%,transparent)] bg-[var(--cream)]">
       <AnnouncementBar />
 
-      {/* Marka: krem gövde; mat zemin yalnızca içerik genişliğinde (tam ekran siyah “dev banner” algısı kalkar) */}
+      {/* Logo: sabit yükseklik + object-contain (16:9 tuval letterbox’u); mat yalnızca chip — eski fill+aspect dev siyah üretirdi */}
       <Link
         href="/"
         onClick={close}
-        className="relative isolate block w-full bg-[var(--cream)] outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cream)]"
+        className="relative isolate block w-full border-b border-[color-mix(in_srgb,var(--walnut)_7%,transparent)] bg-[var(--cream)] outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cream)]"
       >
-        <div className="header-brand-announcement-bridge h-1.5 w-full shrink-0 sm:h-2" aria-hidden />
-        <div className="mx-auto w-full max-w-6xl bg-[var(--brand-logo-matte)]">
-          <Container className="py-1 sm:py-1 md:py-1.5">
-            <div
-              className="relative mx-auto w-full max-w-[min(100%,9.5rem)] overflow-hidden rounded-sm bg-[var(--brand-logo-matte)] sm:max-w-[min(100%,11rem)] md:max-w-[min(100%,12.5rem)] lg:max-w-[min(100%,13.5rem)]"
-              style={{ aspectRatio: `${brandLogo.width} / ${brandLogo.height}` }}
-            >
-              <Image
-                src={brandLogo.fullSrc}
-                alt={brandLogo.alt}
-                fill
-                priority
-                sizes="(max-width: 640px) 42vw, (max-width: 1024px) 12.5rem, 13.5rem"
-                className="object-contain object-center"
-              />
-            </div>
-          </Container>
+        <div className="header-brand-announcement-bridge h-1 w-full shrink-0 sm:h-1.5" aria-hidden />
+        <div className="flex justify-center px-4 py-1.5 sm:py-2">
+          <span className="inline-flex items-center justify-center rounded-md bg-[var(--brand-logo-matte)] px-2 py-1 ring-1 ring-black/15">
+            <Image
+              src={brandLogo.fullSrc}
+              alt={brandLogo.alt}
+              width={brandLogo.width}
+              height={brandLogo.height}
+              priority
+              sizes="(max-width: 768px) 150px, 190px"
+              className="h-[2.35rem] w-auto max-w-[min(100%,9rem)] object-contain sm:h-[2.55rem] sm:max-w-[min(100%,10rem)] md:h-[2.75rem] md:max-w-[min(100%,11rem)]"
+            />
+          </span>
         </div>
-        <div className="header-brand-heel mx-auto w-full max-w-6xl shrink-0" aria-hidden />
       </Link>
 
       {/* Araç satırı: ortada arama, sağda aksiyonlar; üst şeritle aynı krem zemin */}

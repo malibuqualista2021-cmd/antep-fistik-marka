@@ -140,20 +140,6 @@
     );
   }
 
-  /**
-   * Mat ton → krem: yalnızca alt şerit (logo üstüne yok) — sınırda yumuşak geçiş.
-   */
-  .header-brand-heel {
-    height: clamp(0.35rem, 1.2vw, 0.65rem);
-    background: linear-gradient(
-      180deg,
-      var(--brand-logo-matte) 0%,
-      color-mix(in srgb, var(--cream) 32%, var(--brand-logo-matte)) 45%,
-      color-mix(in srgb, var(--cream) 78%, var(--brand-logo-matte)) 78%,
-      var(--cream) 100%
-    );
-  }
-
   .image-frame {
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-lift);
