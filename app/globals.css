@@ -32,8 +32,8 @@
   --cta: #d97736;
   --cta-hover: #c45f2a;
   --border-subtle: rgb(43 26 18 / 0.1);
-  /* Logo WebP/PNG gömülü koyu zeytin siyah — banner boşlukları bu tona birebir oturur (dikiş azalır) */
-  --brand-logo-matte: #131611;
+  /* `inal-logo.webp` kenar pikselleri ortalaması (scripts/verify-brand-matte.mjs) — tüm siyah yok; #01 köşe içte kalır */
+  --brand-logo-matte: #12110b;
   --section-y: 3.25rem;
   --section-y-lg: 5rem;
   --radius-card: 16px;
@@ -131,9 +131,9 @@
     );
   }
 
-  /** Logo bölgesi: tek düz mat — raster ile aynı aile. Gradyan logo kutusuna bindirilmez (yatay çizgi olmaz). */
+  /** Tam genişlik üstte Link zeminini doldurur; burada tekrar boyama yok (çift mat). */
   .header-brand-matte-block {
-    background: var(--brand-logo-matte);
+    background: transparent;
   }
 
   /** Duyuru (krem+paper) → mat zemin; yalnızca ~10px köprü. */

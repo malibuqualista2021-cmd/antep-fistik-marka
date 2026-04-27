@@ -111,7 +111,7 @@ export function Header() {
       <Link
         href="/"
         onClick={close}
-        className="relative isolate block w-full outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cream)]"
+        className="relative isolate block w-full bg-[var(--brand-logo-matte)] outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cream)]"
       >
         <div className="header-brand-announcement-bridge h-2.5 w-full shrink-0" aria-hidden />
         <div className="header-brand-matte-block">
