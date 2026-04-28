@@ -111,7 +111,7 @@ export function Header() {
             <Link
               href="/"
               onClick={close}
-              className="site-wordmark shrink-0 outline-none transition-colors duration-300 hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cream)] md:justify-self-start"
+              className="shrink-0 font-serif text-xl font-semibold leading-none tracking-tight text-foreground outline-none hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cream)] sm:text-2xl md:justify-self-start md:text-[1.65rem] lg:text-[1.75rem]"
             >
               {site.name}
             </Link>
