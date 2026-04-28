@@ -34,6 +34,15 @@
   --border-subtle: rgb(43 26 18 / 0.1);
   /* `inal-logo.webp` kenar pikselleri ortalaması (scripts/verify-brand-matte.mjs) — tüm siyah yok; #01 köşe içte kalır */
   --brand-logo-matte: #12110b;
+  /**
+   * Üst marka şeridi — 8px grid; logo yüksekliği fluid clamp (≈32–44px, büyük marka vitrinleriyle uyumlu).
+   * Logo genişlik üst sınırı: 1024/576 oranı + içerik genişliğiyle sınırlı kart (max-w-6xl hizası Header’da).
+   */
+  --header-brand-logo-h: clamp(2rem, 1.45rem + 1.65vw, 2.75rem);
+  --header-brand-row-py: clamp(0.5rem, 0.42rem + 0.28vw, 0.625rem);
+  --header-brand-card-px: clamp(0.75rem, 0.52rem + 0.85vw, 1.125rem);
+  --header-brand-card-py: 0.25rem;
+  --header-brand-card-max: min(100%, min(26rem, 88vw));
   --section-y: 3.25rem;
   --section-y-lg: 5rem;
   --radius-card: 16px;
@@ -131,15 +140,35 @@
     );
   }
 
-  /** Üst marka bandı — site fotoğraflarıyla uyumlu krem/kâğıt, logo kartı üzerinde */
+  /** Üst marka bandı — düz, hafif ayrım (tek saç çizgisi); arka plan neredeyse düz krem */
   .header-brand-banner {
     background: linear-gradient(
       180deg,
-      color-mix(in srgb, var(--cream) 40%, var(--paper)) 0%,
-      var(--cream) 42%,
-      color-mix(in srgb, var(--paper) 28%, var(--cream)) 100%
+      color-mix(in srgb, var(--cream) 55%, var(--paper)) 0%,
+      var(--cream) 48%,
+      color-mix(in srgb, var(--cream) 70%, var(--paper)) 100%
     );
-    border-bottom: 1px solid color-mix(in srgb, var(--walnut) 7%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--walnut) 6%, transparent);
+  }
+
+  .header-brand-banner__shell {
+    display: inline-flex;
+    max-width: var(--header-brand-card-max);
+    align-items: center;
+    justify-content: center;
+    padding: var(--header-brand-card-py) var(--header-brand-card-px);
+    border-radius: 0.625rem;
+    border: 1px solid color-mix(in srgb, var(--walnut) 7%, transparent);
+    background: color-mix(in srgb, var(--paper) 90%, var(--cream));
+    box-shadow: 0 1px 0 rgb(43 26 18 / 0.04);
+  }
+
+  .header-brand-banner__logo {
+    height: var(--header-brand-logo-h);
+    width: auto;
+    max-width: min(100%, calc(var(--header-brand-logo-h) * (1024 / 576)));
+    object-fit: contain;
+    object-position: center;
   }
 
   .image-frame {
