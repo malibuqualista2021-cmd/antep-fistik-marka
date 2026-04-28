@@ -1,13 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { site, waLink } from "@/lib/site";
 import { cta } from "@/lib/cta";
-import { brandLogo } from "@/lib/brand-logo";
 import { CartLink } from "@/components/shop/CartLink";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { headerCategoryStrip } from "@/lib/store-navigation";
@@ -107,34 +105,13 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-[color-mix(in_srgb,var(--walnut)_6%,transparent)] bg-[var(--cream)]">
       <AnnouncementBar />
 
-      {/* Marka bandı: `--header-brand-*` token’ları (globals) — logo oranı 1024/576 ile sabitlenir */}
-      <Link
-        href="/"
-        onClick={close}
-        className="header-brand-banner relative isolate block w-full outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cream)]"
-      >
-        <Container className="flex justify-center py-[var(--header-brand-row-py)]">
-          <span className="header-brand-banner__shell">
-            <Image
-              src={brandLogo.fullSrc}
-              alt={brandLogo.alt}
-              width={brandLogo.width}
-              height={brandLogo.height}
-              priority
-              sizes="(max-width: 640px) 200px, (max-width: 1024px) 240px, 280px"
-              className="header-brand-banner__logo"
-            />
-          </span>
-        </Container>
-      </Link>
-
       <Container className="border-b border-[color-mix(in_srgb,var(--walnut)_7%,transparent)] bg-[var(--cream)] py-2.5 md:py-3">
         <div className="flex w-full flex-col gap-2">
           <div className="flex w-full min-w-0 items-center justify-between gap-2 md:grid md:grid-cols-[auto_minmax(0,1fr)_auto] md:items-center md:gap-x-4 lg:gap-x-6">
             <Link
               href="/"
               onClick={close}
-              className="shrink-0 font-serif text-[1.05rem] font-semibold leading-none tracking-tight text-foreground outline-none hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cream)] sm:text-lg md:justify-self-start"
+              className="shrink-0 font-serif text-xl font-semibold leading-none tracking-tight text-foreground outline-none hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cream)] sm:text-2xl md:justify-self-start md:text-[1.65rem] lg:text-[1.75rem]"
             >
               {site.name}
             </Link>
