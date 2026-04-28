@@ -3,7 +3,7 @@
  * Kaynak: `public/images/brand/inal-logo-source.png`. Üst alanla tam uyum için şeffaf zeminli PNG tercih edilir;
  * koyu zeminli dosyada WebP de koyu kalır — `npm run generate:brand` ile yeniden üret.
  * Oran: kaynak PNG ile aynı (1024×576 — `npm run generate:brand` çıktısı).
- * Header mat rengi: `app/globals.css` `--brand-logo-matte` — logo değişince `npm run verify:brand-matte`.
+ * Mat renk token’ı (isteğe bağlı bileşenler): `app/globals.css` `--brand-logo-matte` — logo değişince `npm run verify:brand-matte`.
  */
 export const brandLogo = {
   fullSrc: "/images/brand/inal-logo.webp",

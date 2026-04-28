@@ -1,13 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { site, waLink } from "@/lib/site";
 import { cta } from "@/lib/cta";
-import { brandLogo } from "@/lib/brand-logo";
 import { CartLink } from "@/components/shop/CartLink";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { headerCategoryStrip } from "@/lib/store-navigation";
@@ -107,36 +105,20 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-[color-mix(in_srgb,var(--walnut)_6%,transparent)] bg-[var(--cream)]">
       <AnnouncementBar />
 
-      {/* Logo: sabit yükseklik + object-contain (16:9 tuval letterbox’u); mat yalnızca chip — eski fill+aspect dev siyah üretirdi */}
-      <Link
-        href="/"
-        onClick={close}
-        className="relative isolate block w-full border-b border-[color-mix(in_srgb,var(--walnut)_7%,transparent)] bg-[var(--cream)] outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cream)]"
-      >
-        <div className="header-brand-announcement-bridge h-1 w-full shrink-0 sm:h-1.5" aria-hidden />
-        <div className="flex justify-center px-4 py-1.5 sm:py-2">
-          <span className="inline-flex items-center justify-center rounded-md bg-[var(--brand-logo-matte)] px-2 py-1 ring-1 ring-black/15">
-            <Image
-              src={brandLogo.fullSrc}
-              alt={brandLogo.alt}
-              width={brandLogo.width}
-              height={brandLogo.height}
-              priority
-              sizes="(max-width: 768px) 150px, 190px"
-              className="h-[2.35rem] w-auto max-w-[min(100%,9rem)] object-contain sm:h-[2.55rem] sm:max-w-[min(100%,10rem)] md:h-[2.75rem] md:max-w-[min(100%,11rem)]"
-            />
-          </span>
-        </div>
-      </Link>
-
-      {/* Araç satırı: ortada arama, sağda aksiyonlar; üst şeritle aynı krem zemin */}
-      <Container className="bg-[var(--cream)] py-2.5 md:py-3">
+      {/* Üst marka görsel şeridi yok; ana sayfa → site adı (araç satırı sol) */}
+      <Container className="border-b border-[color-mix(in_srgb,var(--walnut)_7%,transparent)] bg-[var(--cream)] py-2.5 md:py-3">
         <div className="flex w-full flex-col gap-2">
-          <div className="flex w-full min-w-0 items-center justify-end gap-2 md:grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:items-center md:gap-x-5 lg:gap-x-6">
-            <span className="hidden min-w-0 md:block" aria-hidden />
+          <div className="flex w-full min-w-0 items-center justify-between gap-2 md:grid md:grid-cols-[auto_minmax(0,1fr)_auto] md:items-center md:gap-x-4 lg:gap-x-6">
+            <Link
+              href="/"
+              onClick={close}
+              className="shrink-0 font-serif text-[1.05rem] font-semibold leading-none tracking-tight text-foreground outline-none hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cream)] sm:text-lg md:justify-self-start"
+            >
+              {site.name}
+            </Link>
             <SiteSearch
               id="site-search-desktop"
-              className="hidden min-w-0 md:block md:w-full md:min-w-0 md:max-w-2xl md:justify-self-center lg:min-w-[16rem] xl:min-w-[18rem]"
+              className="hidden min-w-0 md:col-start-2 md:row-start-1 md:block md:w-full md:max-w-2xl md:justify-self-center lg:min-w-[14rem] xl:min-w-[16rem]"
             />
             <div className="flex min-w-0 max-w-full items-center justify-end gap-2 md:col-start-3 md:row-start-1 md:flex md:justify-end md:pl-1">
               <HeaderActionsBar />

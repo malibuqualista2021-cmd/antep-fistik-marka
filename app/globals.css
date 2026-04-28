@@ -131,15 +131,6 @@
     );
   }
 
-  /** Duyuru (krem+paper) → mat zemin; yalnızca ~10px köprü. */
-  .header-brand-announcement-bridge {
-    background: linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--cream) 45%, var(--paper)) 0%,
-      var(--brand-logo-matte) 100%
-    );
-  }
-
   .image-frame {
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-lift);
