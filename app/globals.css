@@ -131,6 +131,28 @@
     );
   }
 
+  /** Üst köşe marka adı — serif, hafif negatif tracking, sıcak ceviz tonu, fluid büyük punto */
+  .site-wordmark {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.04;
+    color: color-mix(in srgb, var(--walnut) 94%, var(--foreground));
+    font-size: clamp(1.5rem, 0.85rem + 3.2vw, 2.35rem);
+  }
+
+  @media (min-width: 768px) {
+    .site-wordmark {
+      font-size: clamp(1.875rem, 1.1rem + 2.1vw, 2.75rem);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .site-wordmark {
+      font-size: clamp(2rem, 1.35rem + 1.4vw, 2.875rem);
+    }
+  }
+
   .image-frame {
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-lift);
