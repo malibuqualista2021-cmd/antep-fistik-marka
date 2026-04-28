@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { site, waLink } from "@/lib/site";
 import { cta } from "@/lib/cta";
+import { brandLogo } from "@/lib/brand-logo";
 import { CartLink } from "@/components/shop/CartLink";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { headerCategoryStrip } from "@/lib/store-navigation";
@@ -105,7 +107,27 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-[color-mix(in_srgb,var(--walnut)_6%,transparent)] bg-[var(--cream)]">
       <AnnouncementBar />
 
-      {/* Üst marka görsel şeridi yok; ana sayfa → site adı (araç satırı sol) */}
+      {/* Marka bandı: site paleti + orantılı logo (`public/images/brand/inal-logo.webp`) */}
+      <Link
+        href="/"
+        onClick={close}
+        className="header-brand-banner relative isolate block w-full outline-none transition-[background-color] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cream)]"
+      >
+        <Container className="flex justify-center py-2 sm:py-2.5 md:py-3">
+          <span className="inline-flex max-w-[min(100%,19rem)] items-center justify-center rounded-[var(--radius-card)] border border-[color-mix(in_srgb,var(--walnut)_10%,transparent)] bg-[color-mix(in_srgb,var(--paper)_88%,var(--cream))] px-3 py-2 shadow-[var(--shadow-soft)] ring-1 ring-[color-mix(in_srgb,var(--walnut)_4%,transparent)] sm:px-4 sm:py-2.5 md:max-w-[min(100%,22rem)] md:px-5">
+            <Image
+              src={brandLogo.fullSrc}
+              alt={brandLogo.alt}
+              width={brandLogo.width}
+              height={brandLogo.height}
+              priority
+              sizes="(max-width: 768px) 220px, 280px"
+              className="h-[2.5rem] w-auto max-w-[min(100%,13rem)] object-contain object-center sm:h-[2.85rem] sm:max-w-[15rem] md:h-[3.1rem] md:max-w-[17rem] lg:h-[3.35rem] lg:max-w-[18rem]"
+            />
+          </span>
+        </Container>
+      </Link>
+
       <Container className="border-b border-[color-mix(in_srgb,var(--walnut)_7%,transparent)] bg-[var(--cream)] py-2.5 md:py-3">
         <div className="flex w-full flex-col gap-2">
           <div className="flex w-full min-w-0 items-center justify-between gap-2 md:grid md:grid-cols-[auto_minmax(0,1fr)_auto] md:items-center md:gap-x-4 lg:gap-x-6">

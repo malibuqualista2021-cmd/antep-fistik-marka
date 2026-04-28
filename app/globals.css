@@ -131,6 +131,17 @@
     );
   }
 
+  /** Üst marka bandı — site fotoğraflarıyla uyumlu krem/kâğıt, logo kartı üzerinde */
+  .header-brand-banner {
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--cream) 40%, var(--paper)) 0%,
+      var(--cream) 42%,
+      color-mix(in srgb, var(--paper) 28%, var(--cream)) 100%
+    );
+    border-bottom: 1px solid color-mix(in srgb, var(--walnut) 7%, transparent);
+  }
+
   .image-frame {
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-lift);
