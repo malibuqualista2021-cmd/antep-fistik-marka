@@ -4,9 +4,9 @@
  */
 
 export const announcementMessages = [
+  "Hafta içi 15:00’a kadar verilen siparişler aynı gün kargoda",
   "500 TL üzeri ücretsiz kargo",
   "Yeni mahsul Antep fıstığı çeşitleri",
-  "Hafta içi 15:00’a kadar verilen siparişler aynı gün kargoda",
   "Güvenli ödeme · Taze paketleme · Kiloluk ve gramajlı satış",
 ] as const;
 

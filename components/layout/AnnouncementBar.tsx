@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { announcementMessages } from "@/lib/store-navigation";
 
-const INTERVAL_MS = 5000;
+const INTERVAL_MS = 6000;
 
 export function AnnouncementBar() {
   const [index, setIndex] = useState(0);
@@ -17,14 +17,14 @@ export function AnnouncementBar() {
   }, []);
 
   return (
-    <div className="border-b border-[color-mix(in_srgb,var(--walnut)_7%,transparent)] bg-[color-mix(in_srgb,var(--cream)_45%,var(--paper))]">
-      <Container className="py-2 text-center">
+    <div className="announcement-bar">
+      <Container className="flex min-h-[2rem] items-center justify-center py-1 sm:min-h-[2.25rem]">
         <p
-          className="font-sans text-[11px] font-medium leading-snug text-muted md:text-xs"
+          className="text-center font-sans text-[13px] font-medium leading-tight tracking-wide text-[var(--announcement-fg)]"
           role="status"
           aria-live="polite"
         >
-          <span className="text-[var(--gold-muted)]" aria-hidden>
+          <span className="text-[var(--color-gold)]" aria-hidden>
             ●
           </span>{" "}
           <span key={index} className="inline-block animate-fade-announce">

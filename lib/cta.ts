@@ -6,7 +6,7 @@ export const cta = {
     primaryHref: "/urunler",
     primaryLabel: "Ürünleri İncele",
     secondaryHref: "/toptan-satis#teklif",
-    secondaryLabel: "Toptan teklif al",
+    secondaryLabel: "Toptan Teklif Al",
     waPriceLabel: "WhatsApp destek",
     waPriceMessage:
       "Merhaba, güncel Antep fıstığı fiyatı ve stok durumu hakkında bilgi almak istiyorum.",

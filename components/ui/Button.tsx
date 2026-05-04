@@ -10,7 +10,7 @@ const variants: Record<Variant, string> = {
   primary:
     "bg-primary text-[var(--cream)] shadow-sm hover:bg-primary-hover focus-visible:outline-primary-hover",
   secondary:
-    "border-2 border-primary bg-background text-primary hover:bg-surface",
+    "border-2 border-primary bg-[var(--color-surface)] text-primary hover:bg-[var(--color-green-soft)]",
   ghost: "border border-transparent text-primary hover:bg-surface/80",
   cream:
     "bg-[var(--cream)] text-primary shadow-sm hover:bg-[color-mix(in_srgb,var(--cream)_92%,var(--primary)_8%)]",

@@ -47,7 +47,7 @@ function BestsellerCard({ product, cardTitle }: { product: RetailProduct; cardTi
   const blurb = CARD_BLURB[product.id as keyof typeof CARD_BLURB] ?? product.shortDescription;
 
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] bg-[var(--cream)] ring-1 ring-[var(--border-subtle)]">
+    <article className="flex h-full flex-col overflow-hidden rounded-[18px] border border-[color-mix(in_srgb,var(--color-border)_88%,transparent)] bg-[var(--color-surface)] shadow-[0_2px_12px_rgb(42_27_18_/0.05)]">
       <Link href={`/urunler/${product.detailSlug}`} className="relative block aspect-[4/3] shrink-0 bg-[var(--paper)]">
         <Image
           src={product.imageSrc}
@@ -95,7 +95,7 @@ export function HomeBestsellers() {
   if (!items.length) return null;
 
   return (
-    <section className="border-b border-[color-mix(in_srgb,var(--walnut)_8%,transparent)] bg-background py-8 md:py-10" aria-labelledby="home-bestsellers-heading">
+    <section className="border-b border-[color-mix(in_srgb,var(--color-border)_82%,transparent)] bg-[var(--color-bg)] py-10 md:py-14 lg:py-16" aria-labelledby="home-bestsellers-heading">
       <Container>
         <div className="mx-auto max-w-3xl text-center md:mx-0 md:max-w-none md:text-left">
           <h2 id="home-bestsellers-heading" className="font-serif text-2xl font-semibold tracking-tight text-foreground md:text-[1.65rem]">
@@ -106,7 +106,7 @@ export function HomeBestsellers() {
           </p>
         </div>
 
-        <ul className="mt-8 grid list-none grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <ul className="mt-8 grid list-none grid-cols-1 gap-6 md:mt-10 md:grid-cols-2 md:gap-8 xl:grid-cols-4">
           {items.map((product) => (
             <li key={product.id}>
               <BestsellerCard product={product} cardTitle={CARD_TITLE[product.id as keyof typeof CARD_TITLE] ?? product.name} />

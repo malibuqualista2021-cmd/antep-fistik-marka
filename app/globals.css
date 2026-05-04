@@ -7,35 +7,51 @@
 */
 
 :root {
-  /* --font-heading / --font-body: next/font ile <html> sınıfında tanımlanır */
-  --color-text: #2b1a12;
-  --color-muted: #6b5a4a;
-  --color-accent: #2f7d32;
+  /* Tasarım sistemi — vitrin / güven / CTA yönlendirmesi */
+  --color-bg: #faf7f0;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f5efe4;
+  --color-border: #e4d8c7;
+  --color-text: #2a1b12;
+  --color-muted: #6e6257;
+  --color-green: #1f7a3a;
+  --color-green-dark: #155c2c;
+  --color-green-soft: #eaf4ea;
+  --color-orange: #d9732f;
+  --color-orange-dark: #c85f1f;
+  --color-gold: #b78a35;
+  --color-whatsapp: #25d366;
 
-  /* Kırık beyaz / krem — arka plan */
-  --background: #faf8f4;
+  /* Geriye dönük köprüler */
+  --background: var(--color-bg);
   --foreground: var(--color-text);
-  --paper: #f6f3ec;
-  --surface: #efe8dc;
-  --surface-2: #e5dccf;
-  --cream: #fdfaf5;
-  /* Antep yeşili (vurgu + fiyat) */
-  --primary: var(--color-accent);
-  --primary-hover: #256628;
-  --secondary: #4a5d2e;
-  --accent: #a67c2a;
-  --gold-muted: #b69852;
-  --walnut: #3d2d22;
-  --ink-soft: #5a4f43;
+  --cream: var(--color-bg);
+  --paper: var(--color-surface-alt);
+  --surface: var(--color-surface-alt);
+  --surface-2: color-mix(in srgb, var(--color-surface-alt) 88%, var(--color-border));
   --muted: var(--color-muted);
-  --pistachio-light: #8fb69a;
-  --cta: #d97736;
-  --cta-hover: #c45f2a;
-  --border-subtle: rgb(43 26 18 / 0.1);
-  /* `inal-logo.webp` kenar pikselleri ortalaması (scripts/verify-brand-matte.mjs) — tüm siyah yok; #01 köşe içte kalır */
+  --primary: var(--color-green);
+  --primary-hover: var(--color-green-dark);
+  --secondary: var(--color-green-dark);
+  --accent: var(--color-gold);
+  --gold-muted: var(--color-gold);
+  --walnut: var(--color-text);
+  --ink-soft: var(--color-muted);
+  --pistachio-light: color-mix(in srgb, var(--color-green) 35%, #c8e6c9);
+  --cta: var(--color-orange);
+  --cta-hover: var(--color-orange-dark);
+  --border-subtle: color-mix(in srgb, var(--color-border) 88%, transparent);
+
+  --announcement-bg: #0f5a2c;
+  --announcement-fg: #f4ebdd;
+
+  /* `inal-logo.webp` kenar ortalaması */
   --brand-logo-matte: #12110b;
-  --section-y: 3.25rem;
-  --section-y-lg: 5rem;
+
+  --container-max: 1200px;
+  --section-y: 2.5rem;
+  --section-y-md: 3.5rem;
+  --section-y-lg: clamp(4rem, 3rem + 2.5vw, 5.5rem);
   --radius-card: 16px;
   --radius-button: 12px;
   --radius-input: 10px;
@@ -108,6 +124,13 @@
 
   @media (min-width: 768px) {
     .section-y {
+      padding-top: var(--section-y-md);
+      padding-bottom: var(--section-y-md);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section-y {
       padding-top: var(--section-y-lg);
       padding-bottom: var(--section-y-lg);
     }
@@ -123,12 +146,126 @@
   .hero-wash {
     background: linear-gradient(
       180deg,
-      var(--cream) 0%,
-      color-mix(in srgb, var(--cream) 35%, var(--background)) 14%,
-      var(--background) 38%,
-      color-mix(in srgb, var(--surface) 52%, var(--background)) 62%,
-      color-mix(in srgb, var(--cream) 78%, var(--background)) 100%
+      var(--color-surface) 0%,
+      color-mix(in srgb, var(--color-bg) 55%, var(--color-surface)) 22%,
+      var(--color-bg) 55%,
+      color-mix(in srgb, var(--color-surface-alt) 45%, var(--color-bg)) 100%
     );
+  }
+
+  /** Üst duyuru şeridi — yoğun yeşil, kısa satır */
+  .announcement-bar {
+    min-height: 2rem;
+    background: var(--announcement-bg);
+    color: var(--announcement-fg);
+    border-bottom: 1px solid color-mix(in srgb, var(--announcement-bg) 85%, #000);
+  }
+
+  /** Masaüstü kategori şeridi */
+  .nav-category-link {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 1.35;
+    letter-spacing: 0.01em;
+    color: color-mix(in srgb, var(--color-text) 92%, var(--color-muted));
+    border-radius: 0.5rem;
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .nav-category-link:hover {
+    color: var(--primary);
+    background-color: var(--color-green-soft);
+  }
+
+  .nav-category-link:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+
+  .nav-category-link--active {
+    color: var(--primary);
+    background-color: var(--color-green-soft);
+    box-shadow: inset 0 -2px 0 0 var(--primary);
+  }
+
+  .nav-category-link--wholesale {
+    border: 1px solid color-mix(in srgb, var(--primary) 42%, transparent);
+    border-radius: 999px;
+    padding-inline: 0.65rem;
+  }
+
+  /** Mobil yatay chip kategoriler */
+  .nav-category-chip {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    line-height: 1.3;
+    padding: 0.5rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--color-border) 90%, transparent);
+    background: var(--color-surface);
+    color: color-mix(in srgb, var(--color-text) 90%, var(--color-muted));
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .nav-category-chip:hover {
+    border-color: color-mix(in srgb, var(--primary) 45%, transparent);
+    color: var(--primary);
+    background: var(--color-green-soft);
+  }
+
+  .nav-category-chip:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+
+  .nav-category-chip--active {
+    border-color: color-mix(in srgb, var(--primary) 55%, transparent);
+    background: var(--color-green-soft);
+    color: var(--primary);
+  }
+
+  .nav-category-chip--wholesale {
+    border-color: color-mix(in srgb, var(--primary) 38%, transparent);
+  }
+
+  /** Hero rozetleri — yeşil güven bandı */
+  .hero-trust-pill {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: 0.02em;
+    color: var(--color-green-dark);
+    background: var(--color-green-soft);
+    border: 1px solid color-mix(in srgb, var(--primary) 28%, transparent);
+    border-radius: 999px;
+    padding: 0.35rem 0.75rem;
+  }
+
+  /** Hero güven kartları */
+  .hero-trust-card {
+    border-radius: 16px;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    padding: 1.125rem 1.25rem;
+    box-shadow: 0 1px 2px rgb(42 27 18 / 0.05);
+  }
+
+  @media (min-width: 640px) {
+    .hero-trust-card {
+      padding: 1.125rem 1.25rem;
+    }
   }
 
   .image-frame {
@@ -150,10 +287,17 @@
   .heading-hero {
     font-family: var(--font-serif);
     font-weight: 600;
-    letter-spacing: -0.03em;
-    line-height: 1.12;
-    color: color-mix(in srgb, var(--color-text) 92%, #000 8%);
-    font-size: clamp(1.35rem, 2.1vw + 0.72rem, 2.35rem);
+    letter-spacing: -0.035em;
+    line-height: 1.08;
+    color: var(--color-text);
+    font-size: clamp(1.875rem, 1.05rem + 3.5vw, 2.5rem);
+  }
+
+  @media (min-width: 768px) {
+    .heading-hero {
+      font-size: clamp(2.125rem, 1rem + 3vw, 3.5rem);
+      line-height: 1.1;
+    }
   }
 
   /** Menü satırları — Inter, net, güvenilir */

@@ -1,10 +1,12 @@
 /** Ana vitrin — üretici odaklı, sade ve güvenilir ton */
 
 export const heroCopy = {
-  kicker: "Doğrudan üretici · Gaziantep Nizip",
+  kicker: "DOĞRUDAN ÜRETİCİ · GAZİANTEP NİZİP",
   title: "Gaziantep'ten doğrudan üreticiden sofranıza Antep fıstığı.",
   subtitle:
     "Aracı katmanı olmadan; siparişinize göre paketlenen yeni mahsul. Gramajlı perakende veya toptan parti — aynı üretici kontrolü, şeffaf fiyat.",
+  ctaNote:
+    "Perakende için gramaj seçerek sepete ekleyin. Toptan talepte teklif formundan fiyat alın.",
   producerBadges: [
     "Doğrudan Üreticiden",
     "Gaziantep Menşeli",

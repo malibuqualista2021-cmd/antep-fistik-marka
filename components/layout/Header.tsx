@@ -1,14 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { site, waLink } from "@/lib/site";
 import { cta } from "@/lib/cta";
+import { brandLogo } from "@/lib/brand-logo";
 import { CartLink } from "@/components/shop/CartLink";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { headerCategoryStrip } from "@/lib/store-navigation";
+import { CategoryNavDesktop, MobileCategoryChips } from "@/components/layout/HeaderCategoryNav";
 
 function SiteSearch({ id, className = "" }: { id: string; className?: string }) {
   return (
@@ -19,31 +22,28 @@ function SiteSearch({ id, className = "" }: { id: string; className?: string }) 
       <input
         id={id}
         name="q"
-        placeholder="Antep fıstığı, boz iç, kavrulmuş fıstık ara…"
-        className="h-11 w-full rounded-full border border-[color-mix(in_srgb,var(--walnut)_10%,transparent)] bg-[color-mix(in_srgb,var(--paper)_92%,var(--cream))] px-4 font-sans text-sm text-foreground placeholder:text-muted/65 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
+        placeholder="Antep fıstığı, boz iç, kavrulmuş fıstık ara"
+        className="h-11 w-full rounded-full border border-[color-mix(in_srgb,var(--color-border)_92%,transparent)] bg-[color-mix(in_srgb,var(--color-bg)_40%,var(--color-surface))] px-4 font-sans text-sm text-foreground placeholder:text-muted/65 focus:border-[color-mix(in_srgb,var(--primary)_55%,var(--color-border))] focus:outline-none focus:ring-2 focus:ring-primary/18"
       />
     </form>
   );
 }
 
 const utilityLinkClass =
-  "font-sans text-xs font-semibold text-foreground hover:text-primary min-[380px]:text-[0.8125rem] md:text-xs";
+  "font-sans text-sm font-semibold text-[color-mix(in_srgb,var(--color-text)_93%,var(--color-muted))] transition-colors hover:text-primary";
 
-/** Masaüstü üst sağ — sepet dahil */
+/** Masaüstü üst sağ — gap ~16–20px, 14px tipografi */
 function HeaderActionsBar() {
   const { waMessage } = cta.header;
   return (
-    <div className="hidden shrink-0 flex-wrap items-center justify-end gap-x-2.5 gap-y-1 md:flex md:gap-x-2.5 lg:gap-x-3">
+    <div className="hidden shrink-0 flex-wrap items-center justify-end gap-x-4 lg:gap-x-5 md:flex">
       {site.phoneE164 ? (
-        <a
-          href={`tel:${site.phoneE164}`}
-          className="font-sans text-xs font-semibold text-[var(--walnut)] hover:text-primary min-[380px]:text-[0.8125rem]"
-        >
+        <a href={`tel:${site.phoneE164}`} className={utilityLinkClass}>
           Telefon
         </a>
       ) : null}
       {site.whatsappE164 ? (
-        <a href={waLink(waMessage)} className="font-sans text-xs font-semibold text-primary hover:underline min-[380px]:text-[0.8125rem]">
+        <a href={waLink(waMessage)} className={`${utilityLinkClass} text-primary hover:underline`}>
           WhatsApp
         </a>
       ) : null}
@@ -53,7 +53,7 @@ function HeaderActionsBar() {
       <Link href="/urunler" className={utilityLinkClass}>
         Favoriler
       </Link>
-      <CartLink />
+      <CartLink variant="header" />
       <Link href="/iletisim" className={utilityLinkClass}>
         İletişim
       </Link>
@@ -61,15 +61,14 @@ function HeaderActionsBar() {
   );
 }
 
-/** Mobil menü — sepet hariç (sepet altta ayrı) */
 function HeaderDrawerUtilities({ onNavigate }: { onNavigate: () => void }) {
   const { waMessage } = cta.header;
   return (
-    <div className="flex flex-col gap-2 border-b border-[color-mix(in_srgb,var(--walnut)_8%,transparent)] pb-3">
+    <div className="flex flex-col gap-2 border-b border-[color-mix(in_srgb,var(--color-border)_75%,transparent)] pb-3">
       {site.phoneE164 ? (
         <a
           href={`tel:${site.phoneE164}`}
-          className="min-h-[44px] rounded-md px-2 py-3 font-sans text-sm font-semibold text-[var(--walnut)] hover:bg-surface/80"
+          className="min-h-[44px] rounded-md px-2 py-3 font-sans text-sm font-semibold text-[var(--color-text)] hover:bg-[color-mix(in_srgb,var(--color-green-soft)_55%,var(--color-surface))]"
           onClick={onNavigate}
         >
           Telefon
@@ -78,19 +77,19 @@ function HeaderDrawerUtilities({ onNavigate }: { onNavigate: () => void }) {
       {site.whatsappE164 ? (
         <a
           href={waLink(waMessage)}
-          className="min-h-[44px] rounded-md px-2 py-3 font-sans text-sm font-semibold text-primary hover:bg-surface/80"
+          className="min-h-[44px] rounded-md px-2 py-3 font-sans text-sm font-semibold text-primary hover:bg-[color-mix(in_srgb,var(--color-green-soft)_55%,var(--color-surface))]"
           onClick={onNavigate}
         >
           WhatsApp
         </a>
       ) : null}
-      <Link href="/iletisim" className="min-h-[44px] rounded-md px-2 py-3 font-sans text-sm font-medium hover:bg-surface/80" onClick={onNavigate}>
+      <Link href="/iletisim" className="min-h-[44px] rounded-md px-2 py-3 font-sans text-sm font-medium hover:bg-[color-mix(in_srgb,var(--color-green-soft)_45%,var(--color-surface))]" onClick={onNavigate}>
         Hesabım
       </Link>
-      <Link href="/urunler" className="min-h-[44px] rounded-md px-2 py-3 font-sans text-sm font-medium hover:bg-surface/80" onClick={onNavigate}>
+      <Link href="/urunler" className="min-h-[44px] rounded-md px-2 py-3 font-sans text-sm font-medium hover:bg-[color-mix(in_srgb,var(--color-green-soft)_45%,var(--color-surface))]" onClick={onNavigate}>
         Favoriler
       </Link>
-      <Link href="/iletisim" className="min-h-[44px] rounded-md px-2 py-3 font-sans text-sm font-medium hover:bg-surface/80" onClick={onNavigate}>
+      <Link href="/iletisim" className="min-h-[44px] rounded-md px-2 py-3 font-sans text-sm font-medium hover:bg-[color-mix(in_srgb,var(--color-green-soft)_45%,var(--color-surface))]" onClick={onNavigate}>
         İletişim
       </Link>
     </div>
@@ -102,81 +101,91 @@ export function Header() {
   const close = () => setOpen(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[color-mix(in_srgb,var(--walnut)_6%,transparent)] bg-[var(--cream)]">
+    <header className="sticky top-0 z-50 border-b border-[color-mix(in_srgb,var(--color-border)_78%,transparent)] bg-[var(--color-surface)] shadow-[0_1px_0_rgb(42_27_18_/0.04)]">
       <AnnouncementBar />
 
-      <Container className="border-b border-[color-mix(in_srgb,var(--walnut)_7%,transparent)] bg-[var(--cream)] py-2.5 md:py-3">
-        <div className="flex w-full flex-col gap-2">
-          <div className="flex w-full min-w-0 items-center justify-between gap-2 md:grid md:grid-cols-[auto_minmax(0,1fr)_auto] md:items-center md:gap-x-4 lg:gap-x-6">
+      <Container className="py-3 md:py-3.5">
+        <div className="flex flex-col gap-3">
+          <div className="flex w-full min-w-0 items-center gap-3 lg:gap-6">
             <Link
               href="/"
               onClick={close}
-              className="shrink-0 font-serif text-xl font-semibold leading-none tracking-tight text-foreground outline-none hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--cream)] sm:text-2xl md:justify-self-start md:text-[1.65rem] lg:text-[1.75rem]"
+              className="relative shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface)]"
             >
-              {site.name}
+              <Image
+                src={brandLogo.fullSrc}
+                alt={brandLogo.alt}
+                width={brandLogo.width}
+                height={brandLogo.height}
+                priority
+                sizes="(max-width: 768px) 120px, 130px"
+                className="h-auto w-[clamp(6.875rem,26vw,8.125rem)] max-h-[52px] object-contain object-left md:max-h-[56px]"
+              />
+              <span className="sr-only">{site.name}</span>
             </Link>
-            <SiteSearch
-              id="site-search-desktop"
-              className="hidden min-w-0 md:col-start-2 md:row-start-1 md:block md:w-full md:max-w-2xl md:justify-self-center lg:min-w-[14rem] xl:min-w-[16rem]"
-            />
-            <div className="flex min-w-0 max-w-full items-center justify-end gap-2 md:col-start-3 md:row-start-1 md:flex md:justify-end md:pl-1">
-              <HeaderActionsBar />
+
+            <div className="hidden min-w-0 flex-1 justify-center px-2 md:flex">
+              <SiteSearch
+                id="site-search-desktop"
+                className="w-full min-w-[280px] max-w-[480px] lg:min-w-[320px]"
+              />
+            </div>
+
+            <HeaderActionsBar />
+
+            <div className="ml-auto flex shrink-0 items-center gap-2 md:hidden">
+              <CartLink variant="headerMobile" onClick={close} />
               <button
                 type="button"
-                className="inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-[var(--radius-button)] border border-primary/20 bg-[var(--paper)] md:hidden"
+                className="inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-full border border-[color-mix(in_srgb,var(--primary)_28%,transparent)] bg-[var(--color-surface-alt)] text-primary"
                 aria-expanded={open}
                 aria-controls="mobile-nav"
                 onClick={() => setOpen((v) => !v)}
               >
                 <span className="sr-only">Menüyü aç veya kapat</span>
-                <span aria-hidden className="text-lg text-primary">
+                <span aria-hidden className="text-lg">
                   {open ? "✕" : "☰"}
                 </span>
               </button>
             </div>
           </div>
+
           <SiteSearch id="site-search-mobile" className="w-full min-w-0 md:hidden" />
+
+          <div className="md:hidden">
+            <MobileCategoryChips />
+          </div>
         </div>
       </Container>
 
-      <div className="hidden border-t border-[color-mix(in_srgb,var(--walnut)_7%,transparent)] bg-[var(--cream)] md:block">
+      <div className="hidden border-t border-[color-mix(in_srgb,var(--color-border)_80%,transparent)] bg-[var(--color-surface)] md:block">
         <Container>
-          <nav
-            className="flex min-h-[44px] flex-wrap items-center justify-center gap-x-4 gap-y-1.5 py-1.5 sm:gap-x-5 sm:py-2 md:gap-x-6"
-            aria-label="Kategoriler"
-          >
-            {headerCategoryStrip.map((item) => (
-              <Link
-                key={item.href + item.label}
-                href={item.href}
-                className="nav-label whitespace-nowrap rounded-[10px] px-1 py-2 text-[color-mix(in_srgb,var(--walnut)_88%,var(--foreground))] transition-colors hover:bg-[color-mix(in_srgb,var(--primary)_8%,var(--cream))] hover:text-primary"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+          <CategoryNavDesktop />
         </Container>
       </div>
 
       {open ? (
-        <div id="mobile-nav" className="max-h-[min(78vh,calc(100dvh-5rem))] overflow-y-auto border-t border-[color-mix(in_srgb,var(--walnut)_8%,transparent)] bg-[var(--cream)] md:hidden">
+        <div
+          id="mobile-nav"
+          className="max-h-[min(78vh,calc(100dvh-5rem))] overflow-y-auto border-t border-[color-mix(in_srgb,var(--color-border)_78%,transparent)] bg-[var(--color-surface)] md:hidden"
+        >
           <Container className="flex flex-col gap-1 py-3">
             <HeaderDrawerUtilities onNavigate={close} />
             <p className="px-1 pt-2 font-sans text-[11px] font-bold uppercase tracking-wide text-muted">Kategoriler</p>
-            <nav className="flex flex-col" aria-label="Kategoriler">
+            <nav className="flex flex-col" aria-label="Kategoriler mobil liste">
               {headerCategoryStrip.map((item) => (
                 <Link
                   key={`m-${item.href}-${item.label}`}
                   href={item.href}
-                  className="min-h-[48px] rounded-md px-2 py-3 font-sans text-sm font-medium hover:bg-surface/80"
+                  className="min-h-[48px] rounded-md px-2 py-3 font-sans text-sm font-medium hover:bg-[color-mix(in_srgb,var(--color-green-soft)_45%,var(--color-surface))]"
                   onClick={close}
                 >
                   {item.label}
                 </Link>
               ))}
             </nav>
-            <div className="mt-3 flex flex-col gap-2 border-t border-[color-mix(in_srgb,var(--walnut)_8%,transparent)] pt-3">
-              <CartLink className="w-full" onClick={close} />
+            <div className="mt-3 flex flex-col gap-2 border-t border-[color-mix(in_srgb,var(--color-border)_78%,transparent)] pt-3">
+              <CartLink className="w-full justify-center" onClick={close} />
               {site.whatsappE164 ? (
                 <Button variant="cta" href={waLink(cta.header.waMessage)} className="w-full justify-center" onClick={close}>
                   WhatsApp
