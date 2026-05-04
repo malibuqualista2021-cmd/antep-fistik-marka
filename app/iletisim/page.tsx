@@ -53,7 +53,7 @@ export default function ContactPage() {
 
   return (
     <main id="icerik" className="pb-16">
-      <section className="border-b border-black/5 bg-surface/30 py-10 md:py-12">
+      <section className="border-b border-[var(--line-soft)] bg-surface/30 py-10 md:py-12">
         <Container>
           <h1 className="font-serif text-[2rem] font-semibold text-foreground md:text-[2.75rem]">
             İletişim
@@ -78,7 +78,7 @@ export default function ContactPage() {
                   href={channel.href}
                   target={channel.href.startsWith("http") ? "_blank" : undefined}
                   rel={channel.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className="rounded-[var(--radius-card)] bg-background p-4 font-sans ring-1 ring-black/5 hover:ring-primary/20"
+                  className="rounded-[var(--radius-card)] bg-background p-4 font-sans ring-1 ring-[var(--line-soft)] hover:ring-primary/20"
                 >
                   <span className="block text-xs font-semibold uppercase tracking-wide text-muted">{channel.label}</span>
                   <span className="mt-1 block font-semibold text-primary">{channel.value}</span>
@@ -119,7 +119,7 @@ export default function ContactPage() {
                   ) : null}
                 </div>
               ) : (
-                <p className="rounded-[var(--radius-card)] bg-background p-4 text-sm ring-1 ring-black/5">
+                <p className="rounded-[var(--radius-card)] bg-background p-4 text-sm ring-1 ring-[var(--line-soft)]">
                   Ziyaret ve konum bilgisi randevu/onay sonrası paylaşılır. Hızlı
                   fiyat ve stok için WhatsApp; yazılı teklif için formu
                   kullanabilirsiniz.
@@ -167,7 +167,7 @@ export default function ContactPage() {
           </section>
 
           <section
-            className="rounded-[var(--radius-card)] border border-black/[0.06] bg-background p-5 ring-1 ring-black/[0.04]"
+            className="rounded-[var(--radius-card)] border border-[var(--line-soft)] bg-background p-5 ring-1 ring-[var(--ring-soft)]"
             aria-labelledby="yonlendirme-heading"
           >
             <h2 id="yonlendirme-heading" className="font-serif text-lg text-foreground">
@@ -194,7 +194,7 @@ export default function ContactPage() {
           </section>
         </div>
 
-        <div id="form" className="rounded-[var(--radius-card)] bg-surface/80 p-6 ring-1 ring-black/5 md:p-8 scroll-mt-24">
+        <div id="form" className="rounded-[var(--radius-card)] bg-surface/80 p-6 ring-1 ring-[var(--line-soft)] md:p-8 scroll-mt-24">
           <h2 className="font-serif text-xl text-foreground">Kısa mesaj formu</h2>
           <p className="mt-2 font-sans text-sm text-muted">
             Ad, iletişim ve tek paragraf mesaj yeterlidir. Toptan için mümkünse{" "}

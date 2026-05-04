@@ -1,4 +1,5 @@
 import { site } from "@/lib/site";
+import type { SitePresentation } from "@/lib/site-presentation";
 
 export type MediaSlot = {
   id: string;
@@ -55,9 +56,31 @@ export function mediaSlots(): MediaSlot[] {
     {
       id: "trust-quality",
       title: "Güven bandı kalite",
-      description: "Kalite/eleme anlatan görsel",
+      description: "Kalite / sertifika vitrin görseli",
       envKey: "NEXT_PUBLIC_TRUST_IMAGE_QUALITY",
       currentUrl: site.trustImages.quality,
     },
+    {
+      id: "catalog-product",
+      title: "Ürün kataloğu görseli",
+      description: "Mağaza kartı ve ürün detayında kullanılacak görsel (panelden ürün düzenlerken)",
+      envKey: "(Ürün kaydı imageSrc alanına yapıştırın)",
+      currentUrl: "",
+    },
   ];
+}
+
+/** Admin ve vitrin önizlemesi — site-settings ile birleşik URL */
+export function mediaSlotsResolved(p: SitePresentation): MediaSlot[] {
+  const base = mediaSlots();
+  const byId: Record<string, string> = {
+    "hero-main": p.heroImages.main,
+    "hero-packaging": p.heroImages.packaging,
+    "hero-logistics": p.heroImages.logistics,
+    "trust-depot": p.trustImages.depot,
+    "trust-packaging": p.trustImages.packaging,
+    "trust-product": p.trustImages.product,
+    "trust-quality": p.trustImages.quality,
+  };
+  return base.map((s) => ({ ...s, currentUrl: byId[s.id] ?? s.currentUrl }));
 }

@@ -6,13 +6,13 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Siparişi tamamla",
-  description: `${site.name} perakende sipariş bilgileri ve mock ödeme adımı.`,
+  description: `${site.name} perakende checkout: teslimat, fatura, özet ve ödeme yöntemi seçimi.`,
 };
 
 export default function CheckoutPage() {
   return (
     <main id="icerik" className="pb-16">
-      <section className="border-b border-black/5 bg-surface/30 py-10 md:py-12">
+      <section className="border-b border-[var(--line-soft)] bg-surface/30 py-10 md:py-12">
         <Container>
           <div className="flex flex-col gap-3">
             <BrandLogo variant="checkout" />
@@ -21,8 +21,8 @@ export default function CheckoutPage() {
             </h1>
           </div>
           <p className="mt-3 max-w-2xl font-sans text-base leading-relaxed text-muted">
-            Teslimat bilgilerini girin, sipariş özetini kontrol edin ve güvenli sipariş
-            kaydınızı oluşturun.
+            Sepetinizi kontrol edin; teslimat ve fatura bilgilerini adım adım girin. Ödeme altyapısı
+            anlaşması tamamlanınca tahsilat adımı bağlanacaktır.
           </p>
         </Container>
       </section>

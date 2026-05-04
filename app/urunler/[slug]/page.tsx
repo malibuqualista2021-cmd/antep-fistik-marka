@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
@@ -8,8 +7,10 @@ import { FaqAccordion } from "@/components/page-sections/FaqAccordion";
 import { faqItems } from "@/lib/faq";
 import { getProductBySlug, products } from "@/lib/products";
 import { formatMoney, getRetailProductByDetailSlug, getSimilarRetailProducts } from "@/lib/shop-products";
+import { getRetailProducts } from "@/lib/catalog/get-retail-products";
 import { ProducerPackagingNote } from "@/components/shop/ProducerPackagingNote";
 import { RetailProductDetailBuyBox } from "@/components/shop/RetailProductDetailBuyBox";
+import { RetailProductGallery } from "@/components/shop/RetailProductGallery";
 import { RetailProductCard } from "@/components/shop/RetailProductCard";
 import { CatalogWholesaleDetail } from "@/components/shop/CatalogWholesaleDetail";
 import { ProductDetailTabs } from "@/components/shop/ProductDetailTabs";
@@ -18,15 +19,18 @@ import { buildProductDetailTabs } from "@/lib/build-product-tabs";
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
-  return products.map((p) => ({ slug: p.slug }));
+  const retailCatalog = await getRetailProducts();
+  const slugs = new Set([...products.map((p) => p.slug), ...retailCatalog.map((p) => p.detailSlug)]);
+  return Array.from(slugs).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const retail = getRetailProductByDetailSlug(slug);
-  const catalog = getProductBySlug(slug);
-  const title = retail?.name ?? catalog?.name;
-  const description = retail?.shortDescription ?? catalog?.excerpt;
+  const retailCatalog = await getRetailProducts();
+  const retail = getRetailProductByDetailSlug(retailCatalog, slug);
+  const wholesaleCatalogProduct = getProductBySlug(slug);
+  const title = retail?.name ?? wholesaleCatalogProduct?.name;
+  const description = retail?.shortDescription ?? wholesaleCatalogProduct?.excerpt;
   if (!title) return {};
   return {
     title,
@@ -38,16 +42,19 @@ const detailFaq = faqItems.slice(0, 4);
 
 export default async function ProductDetailPage({ params }: Props) {
   const { slug } = await params;
-  const retail = getRetailProductByDetailSlug(slug);
-  const catalog = getProductBySlug(slug);
+  const retailCatalog = await getRetailProducts();
+  const retail = getRetailProductByDetailSlug(retailCatalog, slug);
+  const wholesaleCatalogProduct = getProductBySlug(slug);
 
-  if (!catalog) notFound();
+  if (!retail && !wholesaleCatalogProduct) notFound();
 
-  if (!retail) {
-    return <CatalogWholesaleDetail product={catalog} />;
+  if (!retail && wholesaleCatalogProduct) {
+    return <CatalogWholesaleDetail product={wholesaleCatalogProduct} />;
   }
 
-  const similar = getSimilarRetailProducts(retail, 4);
+  if (!retail) notFound();
+
+  const similar = getSimilarRetailProducts(retailCatalog, retail, 4);
   const detailTabs = buildProductDetailTabs(retail);
 
   return (
@@ -68,16 +75,7 @@ export default async function ProductDetailPage({ params }: Props) {
 
       <Container className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(300px,380px)] md:items-start md:gap-10 lg:gap-12">
         <div>
-          <div className="relative aspect-square w-full overflow-hidden rounded-[var(--radius-card)] bg-surface shadow-[var(--shadow-soft)] ring-1 ring-black/5 md:aspect-[5/6]">
-            <Image
-              src={retail.imageSrc}
-              alt={retail.imageAlt}
-              fill
-              priority
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 55vw"
-            />
-          </div>
+          <RetailProductGallery imageSrc={retail.imageSrc} imageAlt={retail.imageAlt} extraImages={retail.extraImages} />
         </div>
 
         <div className="min-w-0 space-y-6">
@@ -99,7 +97,7 @@ export default async function ProductDetailPage({ params }: Props) {
           <ProducerPackagingNote className="mt-2" />
 
           <aside
-            className="rounded-[var(--radius-card)] border border-black/[0.08] bg-surface/50 p-4 md:p-5"
+            className="rounded-[var(--radius-card)] border border-[var(--line-medium)] bg-surface/50 p-4 md:p-5"
             aria-labelledby="wholesale-cta-title"
           >
             <h2 id="wholesale-cta-title" className="font-serif text-lg text-foreground">
@@ -128,7 +126,7 @@ export default async function ProductDetailPage({ params }: Props) {
         </div>
       </Container>
 
-      <Container className="mt-12 border-t border-black/5 pt-10 md:mt-14 md:pt-12">
+      <Container className="mt-12 border-t border-[var(--line-soft)] pt-10 md:mt-14 md:pt-12">
         <h2 className="font-serif text-xl text-foreground md:text-2xl">Sık sorulanlar</h2>
         <div className="mt-5 max-w-3xl">
           <FaqAccordion items={detailFaq} />

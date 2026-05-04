@@ -21,7 +21,7 @@ const ITEMS = [
 
 export function WholesaleQuoteChecklist() {
   return (
-    <section className="border-b border-black/[0.06] bg-surface/40 py-10 md:py-12" aria-labelledby="teklif-4-heading">
+    <section className="border-b border-[var(--line-soft)] bg-surface/40 py-10 md:py-12" aria-labelledby="teklif-4-heading">
       <Container>
         <h2 id="teklif-4-heading" className="font-serif text-2xl text-foreground md:text-[2.1rem]">
           Teklif için gereken 4 bilgi

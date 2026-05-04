@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { brandPhotoAlts, brandPhotos } from "@/lib/site-images";
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <main id="icerik" className="pb-16">
-      <section className="border-b border-black/5 bg-surface/30 py-10 md:py-14">
+      <section className="border-b border-[var(--line-soft)] bg-surface/30 py-10 md:py-14">
         <Container>
           <p className="font-sans text-sm font-medium uppercase tracking-wider text-accent">
             Hakkımızda
@@ -89,7 +90,7 @@ export default function AboutPage() {
             alanı ziyareti randevu ve onay ile mümkündür.
           </p>
         </div>
-        <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-card)] bg-surface shadow-[var(--shadow-soft)] ring-1 ring-black/5">
+        <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-card)] bg-surface shadow-[var(--shadow-soft)] ring-1 ring-[var(--line-soft)]">
           <Image
             src={brandPhotos.heroOrchard}
             alt={brandPhotoAlts.aboutProducer}
@@ -127,7 +128,7 @@ export default function AboutPage() {
         </div>
       </Container>
 
-      <Container className="grid gap-8 border-t border-black/5 py-11 md:grid-cols-2 md:gap-12 md:py-14">
+      <Container className="grid gap-8 border-t border-[var(--line-soft)] py-11 md:grid-cols-2 md:gap-12 md:py-14">
         <div className="space-y-4 font-sans leading-relaxed text-muted">
           <h2 className="font-serif text-2xl text-foreground md:text-3xl">
             Neyi farklı yapıyoruz?
@@ -143,7 +144,7 @@ export default function AboutPage() {
             tutarlılıkla kurarız.
           </p>
         </div>
-        <div className="flex flex-col justify-center gap-4 rounded-[var(--radius-card)] border border-black/[0.06] bg-background p-6 md:p-8">
+        <div className="flex flex-col justify-center gap-4 rounded-[var(--radius-card)] border border-[var(--line-soft)] bg-background p-6 md:p-8">
           <p className="font-serif text-lg text-foreground">
             Ürünü görmek veya toptan teklif almak için bir sonraki adım
           </p>
@@ -160,6 +161,57 @@ export default function AboutPage() {
           </div>
         </div>
       </Container>
+
+      <div id="isletme-bilgileri" className="scroll-mt-28 border-t border-[var(--line-soft)]">
+        <Container className="py-11 md:py-14">
+          <h2 className="font-serif text-2xl font-semibold text-foreground md:text-3xl">İşletme bilgileri</h2>
+          <p className="mt-3 max-w-2xl font-sans text-sm leading-relaxed text-muted">
+            Mesafeli satış ve ön bilgilendirme formlarında yer alan satıcı bilgilerinin özeti. Vergi ve ticari ünvan env ile yapılandırıldığında yasal sayfalarda da ayrıntılı gösterilir.
+          </p>
+          <dl className="mt-6 grid gap-4 font-sans text-sm text-foreground md:max-w-xl">
+            <div>
+              <dt className="font-semibold text-muted">Marka / ticari görünen ad</dt>
+              <dd className="mt-1">{site.name}</dd>
+            </div>
+            <div>
+              <dt className="font-semibold text-muted">Adres</dt>
+              <dd className="mt-1">
+                {site.address.line1}
+                <br />
+                {site.address.line2}
+              </dd>
+            </div>
+            <div>
+              <dt className="font-semibold text-muted">İletişim</dt>
+              <dd className="mt-1">
+                {site.phone ? (
+                  <a className="text-primary hover:underline" href={`tel:${site.phoneE164}`}>
+                    {site.phone}
+                  </a>
+                ) : null}
+                {site.email ? (
+                  <>
+                    <br />
+                    <a className="text-primary hover:underline" href={`mailto:${site.email}`}>
+                      {site.email}
+                    </a>
+                  </>
+                ) : null}
+              </dd>
+            </div>
+          </dl>
+          <p className="mt-6 font-sans text-sm text-muted">
+            <Link href="/iletisim" className="font-semibold text-primary hover:underline">
+              İletişim formu
+            </Link>{" "}
+            ve{" "}
+            <Link href="/mesafeli-satis-sozlesmesi" className="font-semibold text-primary hover:underline">
+              mesafeli satış sözleşmesi
+            </Link>{" "}
+            üzerinden güncel satıcı bilgilerine ulaşabilirsiniz.
+          </p>
+        </Container>
+      </div>
     </main>
   );
 }

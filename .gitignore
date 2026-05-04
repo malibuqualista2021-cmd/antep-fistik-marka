@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -45,3 +46,11 @@ next-env.d.ts
 
 # Yerel kopya / yanlışlıkla oluşan klasör
 /Yeni klasör/
+
+# Admin panel verisi (PII / sipariş)
+/data/orders.json
+/data/wholesale-leads.json
+
+# Yerel admin yükleme görselleri (projeye yazılır; repoya dahil edilmez)
+/public/uploads/admin/**
+!/public/uploads/admin/.gitkeep

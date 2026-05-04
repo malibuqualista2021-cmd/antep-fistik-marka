@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { useSitePresentation } from "@/components/layout/SitePresentationContext";
 import { site, waLink } from "@/lib/site";
 import { cta } from "@/lib/cta";
 import { brandLogo } from "@/lib/brand-logo";
@@ -13,18 +14,16 @@ import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { headerCategoryStrip } from "@/lib/store-navigation";
 import { CategoryNavDesktop, MobileCategoryChips } from "@/components/layout/HeaderCategoryNav";
 
-function SiteSearch({ id, className = "" }: { id: string; className?: string }) {
+function SiteSearch({ id, className = "", prominent = false }: { id: string; className?: string; prominent?: boolean }) {
+  const inputCls = prominent
+    ? "h-12 w-full rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-3 font-sans text-base text-foreground shadow-inner placeholder:text-muted/70 focus:border-[var(--color-orange)] focus:outline-none focus:ring-4 focus:ring-[color-mix(in_srgb,var(--color-orange)_22%,transparent)] md:h-[3.25rem] md:text-[1.05rem]"
+    : "h-11 w-full rounded-full border border-[color-mix(in_srgb,var(--color-border)_92%,transparent)] bg-[color-mix(in_srgb,var(--color-bg)_40%,var(--color-surface))] px-4 font-sans text-sm text-foreground placeholder:text-muted/65 focus:border-[color-mix(in_srgb,var(--primary)_55%,var(--color-border))] focus:outline-none focus:ring-2 focus:ring-primary/18";
   return (
     <form action="/urunler" className={className} role="search">
       <label className="sr-only" htmlFor={id}>
         Ürün ara
       </label>
-      <input
-        id={id}
-        name="q"
-        placeholder="Antep fıstığı, boz iç, kavrulmuş fıstık ara"
-        className="h-11 w-full rounded-full border border-[color-mix(in_srgb,var(--color-border)_92%,transparent)] bg-[color-mix(in_srgb,var(--color-bg)_40%,var(--color-surface))] px-4 font-sans text-sm text-foreground placeholder:text-muted/65 focus:border-[color-mix(in_srgb,var(--primary)_55%,var(--color-border))] focus:outline-none focus:ring-2 focus:ring-primary/18"
-      />
+      <input id={id} name="q" placeholder="Ürün, kategori veya gramaj ara…" className={inputCls} />
     </form>
   );
 }
@@ -50,7 +49,7 @@ function HeaderActionsBar() {
       <Link href="/iletisim" className={utilityLinkClass}>
         Hesabım
       </Link>
-      <Link href="/urunler" className={utilityLinkClass}>
+      <Link href="/urunler?favoriler=1" className={utilityLinkClass}>
         Favoriler
       </Link>
       <CartLink variant="header" />
@@ -86,7 +85,7 @@ function HeaderDrawerUtilities({ onNavigate }: { onNavigate: () => void }) {
       <Link href="/iletisim" className="min-h-[44px] rounded-md px-2 py-3 font-sans text-sm font-medium hover:bg-[color-mix(in_srgb,var(--color-green-soft)_45%,var(--color-surface))]" onClick={onNavigate}>
         Hesabım
       </Link>
-      <Link href="/urunler" className="min-h-[44px] rounded-md px-2 py-3 font-sans text-sm font-medium hover:bg-[color-mix(in_srgb,var(--color-green-soft)_45%,var(--color-surface))]" onClick={onNavigate}>
+      <Link href="/urunler?favoriler=1" className="min-h-[44px] rounded-md px-2 py-3 font-sans text-sm font-medium hover:bg-[color-mix(in_srgb,var(--color-green-soft)_45%,var(--color-surface))]" onClick={onNavigate}>
         Favoriler
       </Link>
       <Link href="/iletisim" className="min-h-[44px] rounded-md px-2 py-3 font-sans text-sm font-medium hover:bg-[color-mix(in_srgb,var(--color-green-soft)_45%,var(--color-surface))]" onClick={onNavigate}>
@@ -99,9 +98,10 @@ function HeaderDrawerUtilities({ onNavigate }: { onNavigate: () => void }) {
 export function Header() {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
+  const { branding } = useSitePresentation();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[color-mix(in_srgb,var(--color-border)_78%,transparent)] bg-[var(--color-surface)] shadow-[0_1px_0_rgb(42_27_18_/0.04)]">
+    <header className="sticky top-0 z-50 border-b border-[color-mix(in_srgb,var(--color-border)_78%,transparent)] bg-[var(--color-surface)] shadow-[0_1px_0_rgb(36_23_15_/0.04)]">
       <AnnouncementBar />
 
       <Container className="py-3 md:py-3.5">
@@ -118,17 +118,14 @@ export function Header() {
                 width={brandLogo.width}
                 height={brandLogo.height}
                 priority
-                sizes="(max-width: 768px) 120px, 130px"
-                className="h-auto w-[clamp(6.875rem,26vw,8.125rem)] max-h-[52px] object-contain object-left md:max-h-[56px]"
+                sizes="(max-width: 768px) 100px, 110px"
+                className="h-auto w-[clamp(5.625rem,18vw,6.875rem)] max-h-[48px] object-contain object-left md:max-h-[52px]"
               />
-              <span className="sr-only">{site.name}</span>
+              <span className="sr-only">{branding.name}</span>
             </Link>
 
             <div className="hidden min-w-0 flex-1 justify-center px-2 md:flex">
-              <SiteSearch
-                id="site-search-desktop"
-                className="w-full min-w-[280px] max-w-[480px] lg:min-w-[320px]"
-              />
+              <SiteSearch id="site-search-desktop" prominent className="w-full min-w-[300px] max-w-[580px] lg:min-w-[360px]" />
             </div>
 
             <HeaderActionsBar />
@@ -150,7 +147,7 @@ export function Header() {
             </div>
           </div>
 
-          <SiteSearch id="site-search-mobile" className="w-full min-w-0 md:hidden" />
+          <SiteSearch id="site-search-mobile" prominent className="w-full min-w-0 md:hidden" />
 
           <div className="md:hidden">
             <MobileCategoryChips />

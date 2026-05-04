@@ -66,7 +66,7 @@ export default function FaqPage() {
 
   return (
     <main id="icerik" className="pb-16">
-      <section className="border-b border-black/5 bg-surface/30 py-12 md:py-14">
+      <section className="border-b border-[var(--line-soft)] bg-surface/30 py-12 md:py-14">
         <Container>
           <h1 className="font-serif text-[2.25rem] font-semibold text-foreground md:text-[3rem]">
             Sıkça sorulan sorular

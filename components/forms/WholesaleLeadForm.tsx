@@ -13,11 +13,38 @@ type Props = {
 
 export function WholesaleLeadForm({ source = "page" }: Props) {
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const submitLabel = cta.wholesalePage.formSubmitLabel;
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSent(true);
+    setSubmitError("");
+    setSubmitting(true);
+    const form = e.currentTarget;
+    try {
+      const fd = new FormData(form);
+      const body: Record<string, string> = {};
+      fd.forEach((value, key) => {
+        if (typeof value === "string") body[key] = value;
+      });
+      const res = await fetch("/api/leads/wholesale", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = (await res.json()) as { ok?: boolean; message?: string };
+      if (!res.ok || !data.ok) {
+        setSubmitError(data.message || "Gönderilemedi. Tekrar deneyin.");
+        return;
+      }
+      setSent(true);
+      form.reset();
+    } catch {
+      setSubmitError("Bağlantı hatası.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (sent) {
@@ -139,9 +166,10 @@ export function WholesaleLeadForm({ source = "page" }: Props) {
             placeholder="Ambalaj tercihi, nakliye notu, vade veya özel beklenti yazabilirsiniz."
           />
         </div>
-        <Button type="submit" variant="primary" className="w-full justify-center text-base">
-          {submitLabel}
+        <Button type="submit" variant="primary" className="w-full justify-center text-base" disabled={submitting}>
+          {submitting ? "Gönderiliyor…" : submitLabel}
         </Button>
+        {submitError ? <p className="text-center font-sans text-sm text-red-700">{submitError}</p> : null}
       </form>
       {site.whatsappE164 ? (
         <p className="text-center font-sans text-sm text-muted">

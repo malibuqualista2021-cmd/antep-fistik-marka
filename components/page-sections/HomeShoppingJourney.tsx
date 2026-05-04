@@ -30,19 +30,19 @@ const blocks = [
 
 export function HomeShoppingJourney() {
   return (
-    <section className="border-b border-black/5 bg-background py-11 md:py-14" aria-labelledby="journey-heading">
+    <section className="border-b border-[var(--line-soft)] bg-background py-11 md:py-14" aria-labelledby="journey-heading">
       <Container>
         <h2 id="journey-heading" className="font-serif text-[1.65rem] font-semibold text-foreground md:text-[2.1rem]">
-          Mağazada bilmeniz gerekenler
+          Sipariş süreci
         </h2>
         <p className="mt-2 max-w-2xl font-sans text-sm text-muted md:text-base">
-          Ürün seçiminden teslimata kadar süreci netleştiren kısa rehber; tekrarlayan vitrin yerine tek bilgilendirme bloğu.
+          Ürün seçiminden kargoya kadar adımlar net: gramajı seçin, sepeti tamamlayın, teslimat bilgilerinizi girin. Aşağıdaki başlıklardan ilgili sayfaya geçebilirsiniz.
         </p>
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           {blocks.map((block) => (
             <article
               key={block.title}
-              className="flex flex-col rounded-[var(--radius-card)] bg-surface/60 p-5 ring-1 ring-black/[0.06] md:p-6"
+              className="flex flex-col rounded-[var(--radius-card)] bg-surface/60 p-5 ring-1 ring-[var(--ring-soft)] md:p-6"
             >
               <h3 className="font-serif text-lg text-foreground md:text-xl">{block.title}</h3>
               <p className="mt-2 flex-1 font-sans text-sm leading-relaxed text-muted">{block.body}</p>

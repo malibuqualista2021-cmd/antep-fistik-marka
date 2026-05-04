@@ -1,5 +1,6 @@
-# Next.js: publish dizinini eklentiye bırakın. Üretim deploy: Netlify’da bu repo (Git) bağlıysa push yeterlidir;
-# yerel: önce `npx netlify login` + `npx netlify link`, sonra `npm run deploy:netlify` (Blobs 401: oturum yenile / tekrar dene).
+# Site ayarı / katalog / sipariş / talepler → Netlify Blobs (`inal-shop-runtime-v1`). Yerelde `data/*.json`.
+# RUNTIME_JSON_FORCE_FS=1 ile Netlify’da bile dosya moduna zorlanabilir (önerilmez).
+# Next.js: publish dizinini eklentiye bırakın. Git bağlıysa push yeterlidir.
 [build]
   command = "npm run build"
 

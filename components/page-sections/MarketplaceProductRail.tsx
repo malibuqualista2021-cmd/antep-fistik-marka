@@ -2,11 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { RetailProductCard } from "@/components/shop/RetailProductCard";
 import { Container } from "@/components/ui/Container";
+import type { RetailProduct } from "@/lib/shop-products";
 import { brandPhotoAlts, brandPhotos } from "@/lib/site-images";
-import { retailProducts } from "@/lib/shop-products";
 
-export function MarketplaceProductRail() {
-  const products = retailProducts.filter((product) => product.isActive);
+export function MarketplaceProductRail({ catalog }: { catalog: RetailProduct[] }) {
+  const products = catalog.filter((product) => product.isActive);
 
   return (
     <section id="vitrin-urunler" className="scroll-mt-28 bg-background py-7 md:py-9" aria-labelledby="marketplace-rail-heading">
@@ -30,9 +30,9 @@ export function MarketplaceProductRail() {
               loading="lazy"
             />
           </div>
-          <div className="mt-4 flex gap-4 overflow-x-auto pb-2">
+          <div className="mt-4 flex gap-4 overflow-x-auto pb-3 [-ms-overflow-style:none] [scrollbar-width:none] md:pb-2 [&::-webkit-scrollbar]:hidden">
             {products.map((product) => (
-              <div key={product.id} className="w-[260px] shrink-0">
+              <div key={product.id} className="w-[min(88vw,380px)] shrink-0 sm:w-[300px] md:w-[272px] lg:w-[260px]">
                 <RetailProductCard product={product} />
               </div>
             ))}

@@ -1,101 +1,83 @@
+import { Fragment } from "react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { ImageSlot } from "@/components/ui/ImageSlot";
-import { cta } from "@/lib/cta";
-import { heroCopy } from "@/lib/copy";
 import { brandPhotoAlts } from "@/lib/site-images";
-import { site, waLink } from "@/lib/site";
+import type { SitePresentation } from "@/lib/site-presentation";
+import { waLink } from "@/lib/site";
 
-export function HeroHome() {
-  const { heroImages } = site;
-  const h = cta.home;
+export function HeroHome({ presentation }: { presentation: SitePresentation }) {
+  const { heroImages } = presentation;
+  const h = presentation.heroSection;
 
   return (
-    <section
-      className="hero-wash relative overflow-hidden border-b border-[color-mix(in_srgb,var(--color-border)_85%,transparent)]"
-      aria-labelledby="hero-heading"
-    >
-      <Container className="grid gap-8 pb-12 pt-8 md:grid-cols-[minmax(0,52%)_minmax(0,48%)] md:items-start md:gap-10 md:pb-14 md:pt-10 lg:gap-12 lg:pb-[4.5rem] lg:pt-12">
-        <div className="order-2 flex min-w-0 flex-col md:order-1">
-          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-primary sm:text-xs">
-            {heroCopy.kicker}
-          </p>
-          <h1 id="hero-heading" className="heading-hero mt-3 max-w-[min(100%,40rem)] md:mt-4">
-            {heroCopy.title}
-          </h1>
-          <p className="mt-4 max-w-[620px] font-sans text-[17px] font-normal leading-[1.62] text-[var(--color-muted)] sm:text-[17.5px] md:text-lg">
-            {heroCopy.subtitle}
-          </p>
+    <Fragment>
+      <section
+        className="hero-wash relative overflow-hidden border-b border-[color-mix(in_srgb,var(--color-border)_85%,transparent)]"
+        aria-labelledby="hero-heading"
+      >
+        <Container className="grid gap-6 pb-8 pt-5 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:items-center md:gap-8 md:pb-10 md:pt-6 lg:gap-10">
+          <div className="order-1 flex min-w-0 flex-col md:order-1">
+            <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-primary sm:text-xs">{h.kicker}</p>
+            <h1 id="hero-heading" className="heading-hero heading-hero--compact mt-2 max-w-xl md:mt-3">
+              {h.title}
+            </h1>
+            <p className="mt-3 max-w-[34rem] font-sans text-[15px] font-normal leading-relaxed text-[var(--color-muted)] md:text-base">
+              {h.subtitle}
+            </p>
 
-          <ul className="mt-5 flex flex-wrap gap-2" aria-label="Üretici ve menşe rozetleri">
-            {heroCopy.producerBadges.map((label) => (
-              <li key={label} className="hero-trust-pill">
-                {label}
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <Button variant="cta" href={h.primaryHref} className="w-full justify-center shadow-sm sm:w-auto sm:min-w-[200px]">
-              {h.primaryLabel}
-            </Button>
-            <Button variant="secondary" href={h.secondaryHref} className="w-full justify-center shadow-sm sm:w-auto sm:min-w-[200px]">
-              {h.secondaryLabel}
-            </Button>
+            <div className="mt-5 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap">
+              <Button variant="cta" href={h.primaryHref} className="min-h-[48px] w-full justify-center sm:w-auto sm:min-w-[200px]">
+                {h.primaryLabel}
+              </Button>
+              <Button
+                variant="secondary"
+                href={h.secondaryHref}
+                className="min-h-[48px] w-full justify-center sm:w-auto sm:min-w-[200px]"
+              >
+                {h.secondaryLabel}
+              </Button>
+            </div>
+            <p className="mt-2 font-sans text-xs text-[var(--color-muted)]">
+              <a href={waLink(h.waPriceMessage)} className="font-semibold text-primary underline-offset-4 hover:underline">
+                {h.waPriceLabel}
+              </a>
+            </p>
           </div>
-          <p className="mt-3 max-w-xl font-sans text-[15px] leading-relaxed text-[var(--color-muted)]">
-            {heroCopy.ctaNote}
-          </p>
-          <p className="mt-4 font-sans text-sm text-[var(--color-muted)]">
-            <a href={waLink(h.waPriceMessage)} className="font-semibold text-primary underline-offset-4 hover:underline">
-              {h.waPriceLabel}
-            </a>
-          </p>
 
-          <ul
-            className="mt-8 grid gap-4 border-t border-[color-mix(in_srgb,var(--color-border)_90%,transparent)] pt-8 sm:grid-cols-3 sm:gap-4"
-            aria-label="Menşe, paketleme ve fiyat özeti"
-          >
-            {heroCopy.trustMicro.map((row) => (
-              <li key={row.label} className="hero-trust-card flex flex-col">
-                <span className="font-sans text-[10px] font-bold uppercase tracking-[0.14em] text-primary">{row.label}</span>
-                <span className="mt-2 font-sans text-[15px] font-medium leading-snug text-[var(--color-text)]">{row.text}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="order-1 min-h-0 min-w-0 md:order-2">
-          <div className="rounded-[20px] border border-[color-mix(in_srgb,var(--color-border)_88%,transparent)] bg-[var(--color-surface)] p-2 shadow-[0_8px_28px_rgb(42_27_18_/0.06)] sm:p-2.5 md:p-3">
-            <div className="overflow-hidden rounded-[18px] ring-1 ring-[color-mix(in_srgb,var(--color-border)_70%,transparent)]">
+          <div className="order-2 min-h-0 min-w-0 md:order-2">
+            <div className="overflow-hidden rounded-2xl border border-[var(--color-border)] p-0 shadow-[0_12px_36px_-18px_rgb(var(--ink-shadow)/0.12)] md:rounded-[20px]">
               <ImageSlot
                 src={heroImages.main}
                 alt={brandPhotoAlts.heroOrchard}
-                wrapperClassName="aspect-[5/4] w-full max-h-[min(52vw,16rem)] sm:aspect-[4/3] sm:max-h-[min(48vw,18rem)] md:aspect-[16/11] md:max-h-[min(34vh,17rem)] lg:max-h-[min(36vh,18rem)]"
-                sizes="(max-width: 768px) 100vw, 42vw"
+                wrapperClassName="relative min-h-[200px] w-full md:min-h-[240px] lg:min-h-[260px]"
+                sizes="(max-width: 768px) 100vw, 50vw"
                 priority
                 imageClassName="object-cover object-center"
               />
             </div>
-            <div className="mt-2 grid grid-cols-2 gap-2 sm:mt-2.5 sm:gap-2.5">
-              <ImageSlot
-                src={heroImages.packaging}
-                alt={brandPhotoAlts.heroThumbKabuklu}
-                wrapperClassName="aspect-[3/2] w-full overflow-hidden rounded-[14px] ring-1 ring-[color-mix(in_srgb,var(--color-border)_65%,transparent)] sm:rounded-[16px]"
-                sizes="(max-width: 768px) 50vw, 21vw"
-                imageClassName="object-cover object-center"
-              />
-              <ImageSlot
-                src={heroImages.logistics}
-                alt={brandPhotoAlts.heroThumbPackaging}
-                wrapperClassName="aspect-[3/2] w-full overflow-hidden rounded-[14px] ring-1 ring-[color-mix(in_srgb,var(--color-border)_65%,transparent)] sm:rounded-[16px]"
-                sizes="(max-width: 768px) 50vw, 21vw"
-                imageClassName="object-cover object-center"
-              />
-            </div>
           </div>
-        </div>
-      </Container>
-    </section>
+        </Container>
+      </section>
+
+      <section
+        className="border-b border-[color-mix(in_srgb,var(--color-border)_85%,transparent)] bg-[var(--color-bg)] py-6 md:py-8"
+        aria-label="Menşe, paketleme ve fiyat özeti"
+      >
+        <Container>
+          <ul className="grid gap-3 sm:grid-cols-3 sm:gap-4">
+            {h.trustMicro.map((row) => (
+              <li
+                key={row.label}
+                className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 shadow-[0_1px_3px_rgb(var(--ink-shadow)/0.05)]"
+              >
+                <span className="font-sans text-[10px] font-bold uppercase tracking-[0.14em] text-primary">{row.label}</span>
+                <span className="mt-1 block font-sans text-sm font-medium leading-snug text-[var(--color-text)]">{row.text}</span>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </section>
+    </Fragment>
   );
 }

@@ -3,14 +3,12 @@ import { BrandLogo } from "@/components/brand/BrandLogo";
 import { Container } from "@/components/ui/Container";
 import { footerProducerNote } from "@/lib/copy";
 import { mapsEmbedUrl, mapsLink, site, waLink } from "@/lib/site";
+import type { SitePresentation } from "@/lib/site-presentation";
 
 const alisveris = [
   { href: "/urunler", label: "Antep fıstığı mağazası" },
   { href: "/sepet", label: "Sepet" },
-  { href: "/kargo-teslimat", label: "Kargo ve teslimat" },
-  { href: "/iade-degisim", label: "İade ve değişim" },
-  { href: "/mesafeli-satis-sozlesmesi", label: "Mesafeli satış sözleşmesi" },
-  { href: "/on-bilgilendirme-formu", label: "Ön bilgilendirme formu" },
+  { href: "/odeme", label: "Ödeme" },
 ];
 
 const kurumsal = [
@@ -20,32 +18,33 @@ const kurumsal = [
   { href: "/toptan-satis", label: "Toptan satış" },
 ];
 
-const kategoriler = [
-  { href: "/urunler?kategori=kabuklu", label: "Kabuklu Antep fıstığı" },
-  { href: "/urunler?kategori=ic", label: "İç Antep fıstığı" },
-  { href: "/urunler?kategori=boz", label: "Boz iç" },
-  { href: "/urunler?kullanim=baklavalik", label: "Baklavalık fıstık" },
-  { href: "/urunler?kategori=kabuklu&islem=kavrulmus", label: "Kavrulmuş fıstık" },
-  { href: "/urunler?islem=cig", label: "Çiğ fıstık" },
-];
-
-const guven = [
+/** Kargo, iade, KVKK, mesafeli satış ve işletme — vitrin altı standart bağlantılar */
+const yasalVeIsletme = [
+  { href: "/kargo-teslimat", label: "Kargo ve teslimat" },
+  { href: "/iade-degisim", label: "İade ve değişim" },
   { href: "/kvkk-gizlilik", label: "KVKK / gizlilik" },
-  { href: "/kargo-teslimat", label: "Kargo şartları" },
-];
+  { href: "/mesafeli-satis-sozlesmesi", label: "Mesafeli satış sözleşmesi" },
+  { href: "/on-bilgilendirme-formu", label: "Ön bilgilendirme formu" },
+  { href: "/hakkimizda#isletme-bilgileri", label: "İşletme bilgileri" },
+] as const;
 
-export function Footer() {
+export function Footer({ presentation }: { presentation: SitePresentation }) {
+  const brand = presentation.branding;
+  const categoryLinks = presentation.categories.map((c) => ({
+    href: `/urunler?kategori=${encodeURIComponent(c.id)}`,
+    label: c.label,
+  }));
+  const footerCategoryNav = [...categoryLinks, ...presentation.footerExtraLinks];
+
   return (
     <footer className="mt-auto border-t border-[var(--border-subtle)] bg-[var(--surface)]/80">
-      <Container className="grid gap-10 py-12 md:grid-cols-2 lg:grid-cols-6">
+      <Container className="grid gap-10 py-12 md:grid-cols-2 lg:grid-cols-7">
         <div className="lg:col-span-2">
           <BrandLogo variant="footer" className="max-w-full" />
-          <p className="sr-only">{site.name}</p>
-          <p className="mt-2 max-w-sm font-sans text-sm leading-relaxed text-muted">{site.footerBlurb}</p>
-          <p className="mt-3 max-w-sm font-sans text-xs leading-relaxed text-[var(--ink-soft)]">{footerProducerNote(site.name)}</p>
-          <p className="mt-3 font-sans text-xs font-semibold uppercase tracking-wide text-[var(--walnut)]">
-            Gaziantep · İnal Fıstık
-          </p>
+          <p className="sr-only">{brand.name}</p>
+          <p className="mt-2 max-w-sm font-sans text-sm leading-relaxed text-muted">{brand.footerBlurb}</p>
+          <p className="mt-3 max-w-sm font-sans text-xs leading-relaxed text-[var(--ink-soft)]">{footerProducerNote(brand.name)}</p>
+          <p className="mt-3 font-sans text-xs font-semibold uppercase tracking-wide text-[var(--walnut)]">{presentation.footerTagline}</p>
         </div>
         <div>
           <p className="font-sans text-sm font-semibold text-foreground">Alışveriş</p>
@@ -74,7 +73,19 @@ export function Footer() {
         <div>
           <p className="font-sans text-sm font-semibold text-foreground">Kategoriler</p>
           <ul className="mt-3 space-y-2">
-            {kategoriler.map((l) => (
+            {footerCategoryNav.map((l) => (
+              <li key={`${l.href}-${l.label}`}>
+                <Link href={l.href} className="font-sans text-sm text-muted hover:text-primary">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <p className="font-sans text-sm font-semibold text-foreground">Yasal ve işletme</p>
+          <ul className="mt-3 space-y-2">
+            {yasalVeIsletme.map((l) => (
               <li key={l.href}>
                 <Link href={l.href} className="font-sans text-sm text-muted hover:text-primary">
                   {l.label}
@@ -82,6 +93,7 @@ export function Footer() {
               </li>
             ))}
           </ul>
+          <p className="mt-4 font-sans text-xs leading-relaxed text-muted">Güvenli ödeme · Taze paketleme · Şeffaf gramaj</p>
         </div>
         <div>
           <p className="font-sans text-sm font-semibold text-foreground">İletişim</p>
@@ -145,19 +157,6 @@ export function Footer() {
             {site.hours ? <p>{site.hours}</p> : null}
           </address>
         </div>
-        <div>
-          <p className="font-sans text-sm font-semibold text-foreground">Güven</p>
-          <ul className="mt-3 space-y-2">
-            {guven.map((l) => (
-              <li key={l.href}>
-                <Link href={l.href} className="font-sans text-sm text-muted hover:text-primary">
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-4 font-sans text-xs text-muted">Güvenli ödeme · Taze paketleme · SSL ile korunan iletişim</p>
-        </div>
       </Container>
 
       <div className="border-t border-[var(--border-subtle)] bg-[var(--paper)]/90">
@@ -191,7 +190,7 @@ export function Footer() {
           <div className="min-h-[220px] overflow-hidden rounded-[var(--radius-card)] ring-1 ring-[var(--border-subtle)] md:min-h-[280px]">
             {mapsEmbedUrl() ? (
               <iframe
-                title={`${site.name} — Nizip mağaza konumu`}
+                title={`${brand.name} — Nizip mağaza konumu`}
                 src={mapsEmbedUrl()}
                 className="h-[min(55vh,22rem)] w-full border-0 md:h-full md:min-h-[280px]"
                 loading="lazy"
@@ -203,10 +202,10 @@ export function Footer() {
         </Container>
       </div>
 
-      <div className="border-t border-black/5 bg-[var(--cream)]/90">
+      <div className="border-t border-[var(--line-soft)] bg-[var(--cream)]/90">
         <Container className="flex flex-col gap-2 py-4 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {new Date().getFullYear()} {site.name}. Tüm hakları saklıdır.
+            © {new Date().getFullYear()} {brand.name}. Tüm hakları saklıdır.
           </p>
         </Container>
       </div>

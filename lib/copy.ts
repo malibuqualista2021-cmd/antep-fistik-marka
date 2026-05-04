@@ -51,7 +51,7 @@ export function footerProducerNote(brandName: string): string {
 }
 
 export const producerWhySection = {
-  title: "Neden Üreticiden Almalısınız?",
+  title: "Neden İnal Fıstık?",
   subtitle:
     "Aracı yok; ürünü bilen ekip ve net fiyat. Eviniz, ikramınız veya işletmeniz için aynı tazelik ve kontrol standardı.",
   cards: [

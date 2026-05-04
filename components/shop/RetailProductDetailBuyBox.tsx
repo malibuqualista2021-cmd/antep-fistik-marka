@@ -68,8 +68,8 @@ export function RetailProductDetailBuyBox({ product }: Props) {
                 onClick={() => setVariantId(v.id)}
                 className={`min-h-[44px] rounded-full px-4 py-2 font-sans text-sm font-semibold ring-1 transition ${
                   variantId === v.id
-                    ? "bg-primary text-[var(--cream)] ring-primary"
-                    : "bg-background text-foreground ring-black/10 hover:ring-primary/25"
+                    ? "bg-primary text-[var(--color-fg-on-green)] ring-primary"
+                    : "bg-background text-foreground ring-[var(--line-medium)] hover:ring-primary/25"
                 }`}
               >
                 {v.label}
@@ -85,7 +85,7 @@ export function RetailProductDetailBuyBox({ product }: Props) {
         <div className="mt-2 flex max-w-[240px] items-center gap-2">
           <button
             type="button"
-            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-button)] border border-black/15 bg-background font-sans text-lg font-semibold text-foreground hover:bg-surface"
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-button)] border border-[var(--input-border)] bg-background font-sans text-lg font-semibold text-foreground hover:bg-surface"
             onClick={() => bumpQuantity(-1)}
             aria-label="Adeti azalt"
           >
@@ -101,12 +101,12 @@ export function RetailProductDetailBuyBox({ product }: Props) {
               if (!Number.isFinite(n)) return;
               setQuantity(Math.max(1, Math.min(99, Math.floor(n))));
             }}
-            className="h-12 w-full rounded-[var(--radius-input)] border border-black/15 bg-background text-center font-sans text-base font-semibold text-foreground"
+            className="h-12 w-full rounded-[var(--radius-input)] border border-[var(--input-border)] bg-background text-center font-sans text-base font-semibold text-foreground"
             aria-label="Adet"
           />
           <button
             type="button"
-            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-button)] border border-black/15 bg-background font-sans text-lg font-semibold text-foreground hover:bg-surface"
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-button)] border border-[var(--input-border)] bg-background font-sans text-lg font-semibold text-foreground hover:bg-surface"
             onClick={() => bumpQuantity(1)}
             aria-label="Adeti artır"
           >
@@ -120,10 +120,10 @@ export function RetailProductDetailBuyBox({ product }: Props) {
       </p>
 
       <ul className="mt-4 grid gap-2 font-sans text-xs text-[var(--ink-soft)] sm:grid-cols-2" aria-label="Güven">
-        <li className="rounded-[10px] bg-[var(--paper)] px-3 py-2 ring-1 ring-black/[0.05]">Güvenli ödeme</li>
-        <li className="rounded-[10px] bg-[var(--paper)] px-3 py-2 ring-1 ring-black/[0.05]">Taze paketleme</li>
-        <li className="rounded-[10px] bg-[var(--paper)] px-3 py-2 ring-1 ring-black/[0.05]">Hızlı kargo</li>
-        <li className="rounded-[10px] bg-[var(--paper)] px-3 py-2 ring-1 ring-black/[0.05]">
+        <li className="rounded-[10px] bg-[var(--paper)] px-3 py-2 ring-1 ring-[var(--line-soft)]">Güvenli ödeme</li>
+        <li className="rounded-[10px] bg-[var(--paper)] px-3 py-2 ring-1 ring-[var(--line-soft)]">Taze paketleme</li>
+        <li className="rounded-[10px] bg-[var(--paper)] px-3 py-2 ring-1 ring-[var(--line-soft)]">Hızlı kargo</li>
+        <li className="rounded-[10px] bg-[var(--paper)] px-3 py-2 ring-1 ring-[var(--line-soft)]">
           <a href="/iade-degisim" className="font-medium text-primary underline-offset-2 hover:underline">
             İade / değişim bilgisi
           </a>

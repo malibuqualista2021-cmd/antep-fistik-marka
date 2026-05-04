@@ -1,10 +1,11 @@
 import { RetailProductGrid } from "@/components/shop/RetailProductGrid";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import type { RetailProduct } from "@/lib/shop-products";
 
-export function HomeRetailShowcase() {
+export function HomeRetailShowcase({ catalog }: { catalog: RetailProduct[] }) {
   return (
-    <section className="border-b border-black/5 bg-surface/30 py-11 md:py-16" aria-labelledby="home-retail-heading">
+    <section className="border-b border-[var(--line-soft)] bg-surface/30 py-11 md:py-16" aria-labelledby="home-retail-heading">
       <Container>
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="max-w-3xl">
@@ -22,7 +23,7 @@ export function HomeRetailShowcase() {
           <Button href="/urunler">Tüm ürünleri gör</Button>
         </div>
         <div className="mt-8">
-          <RetailProductGrid />
+          <RetailProductGrid catalog={catalog} />
         </div>
       </Container>
     </section>

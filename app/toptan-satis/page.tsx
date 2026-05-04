@@ -39,21 +39,21 @@ export default function WholesalePage() {
 
   return (
     <main id="icerik" className="pb-16">
-      <section className="border-b border-black/[0.08] bg-primary py-11 text-[var(--cream)] md:py-16">
+      <section className="border-b border-[var(--line-medium)] bg-primary py-11 text-on-green md:py-16">
         <Container>
-          <p className="font-sans text-sm font-semibold uppercase tracking-[0.14em] text-[var(--cream)]/70">
+          <p className="font-sans text-sm font-semibold uppercase tracking-[0.14em] text-on-green-muted">
             Toptan · B2B vitrin
           </p>
-          <h1 className="mt-3 max-w-4xl font-serif text-[2.05rem] font-semibold leading-[1.06] tracking-tight sm:text-[2.45rem] md:text-[3rem]">
+          <h1 className="mt-3 max-w-4xl font-serif text-[2.05rem] font-semibold leading-[1.06] tracking-tight text-on-green sm:text-[2.45rem] md:text-[3rem]">
             Toplu alımda yazılı teklif, şeffaf kalemleme, planlı sevkiyat
           </h1>
-          <p className="mt-5 max-w-2xl font-sans text-base leading-relaxed text-[var(--cream)]/88 md:text-lg">
+          <p className="mt-5 max-w-2xl font-sans text-base leading-relaxed text-on-green-muted md:text-lg">
             Baklavacı, üretici ve toptan kuruyemiş için iç fıstık, kabuklu ve boz içte
             torba, koli ve palet. Minimum ve birim fiyat ürün ve rotaya göre teklifte
             açılır; nakliye kalemi ayrı satırda yer alır.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <Button variant="cream" href="#teklif">
+            <Button variant="cta" href="#teklif" className="shadow-[0_2px_14px_color-mix(in_srgb,var(--cta)_42%,transparent)]">
               {w.formAnchorLabel}
             </Button>
             {site.whatsappE164 ? (
@@ -67,7 +67,7 @@ export default function WholesalePage() {
               </Button>
             ) : null}
           </div>
-          <div className="relative mt-10 aspect-[16/10] w-full max-w-4xl overflow-hidden rounded-[var(--radius-xl)] ring-2 ring-white/15 md:aspect-[2/1]">
+          <div className="relative mt-10 aspect-[16/10] w-full max-w-4xl overflow-hidden rounded-[var(--radius-xl)] ring-2 ring-[color-mix(in_srgb,var(--color-fg-on-green)_28%,transparent)] md:aspect-[2/1]">
             <Image
               src={brandPhotos.wholesaleDepo}
               alt={brandPhotoAlts.wholesaleDepo}
@@ -121,12 +121,12 @@ export default function WholesalePage() {
             miktar ve sevkiyat detayına göre yazılı olarak paylaşılır.
           </p>
           <dl className="mt-5 grid gap-3 md:grid-cols-2">
-            <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-black/[0.06]"><dt className="text-xs font-semibold uppercase tracking-wide text-muted">Ürün</dt><dd className="mt-1 text-sm text-foreground">Antep İç Fıstık (çiğ/kavrulmuş)</dd></div>
-            <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-black/[0.06]"><dt className="text-xs font-semibold uppercase tracking-wide text-muted">Miktar</dt><dd className="mt-1 text-sm text-foreground">Aylık / seferlik yaklaşık miktar</dd></div>
-            <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-black/[0.06]"><dt className="text-xs font-semibold uppercase tracking-wide text-muted">Ambalaj</dt><dd className="mt-1 text-sm text-foreground">Torba, koli veya palet</dd></div>
-            <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-black/[0.06]"><dt className="text-xs font-semibold uppercase tracking-wide text-muted">Teslim ili</dt><dd className="mt-1 text-sm text-foreground">İl / bölge ve hedef tarih penceresi</dd></div>
-            <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-black/[0.06]"><dt className="text-xs font-semibold uppercase tracking-wide text-muted">Nakliye</dt><dd className="mt-1 text-sm text-foreground">Kargo, ambar veya paletli taşıma satırı</dd></div>
-            <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-black/[0.06]"><dt className="text-xs font-semibold uppercase tracking-wide text-muted">Ödeme ve çıkış</dt><dd className="mt-1 text-sm text-foreground">Ödeme notu + planlanan çıkış tarihi</dd></div>
+            <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-[var(--ring-soft)]"><dt className="text-xs font-semibold uppercase tracking-wide text-muted">Ürün</dt><dd className="mt-1 text-sm text-foreground">Antep İç Fıstık (çiğ/kavrulmuş)</dd></div>
+            <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-[var(--ring-soft)]"><dt className="text-xs font-semibold uppercase tracking-wide text-muted">Miktar</dt><dd className="mt-1 text-sm text-foreground">Aylık / seferlik yaklaşık miktar</dd></div>
+            <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-[var(--ring-soft)]"><dt className="text-xs font-semibold uppercase tracking-wide text-muted">Ambalaj</dt><dd className="mt-1 text-sm text-foreground">Torba, koli veya palet</dd></div>
+            <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-[var(--ring-soft)]"><dt className="text-xs font-semibold uppercase tracking-wide text-muted">Teslim ili</dt><dd className="mt-1 text-sm text-foreground">İl / bölge ve hedef tarih penceresi</dd></div>
+            <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-[var(--ring-soft)]"><dt className="text-xs font-semibold uppercase tracking-wide text-muted">Nakliye</dt><dd className="mt-1 text-sm text-foreground">Kargo, ambar veya paletli taşıma satırı</dd></div>
+            <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-[var(--ring-soft)]"><dt className="text-xs font-semibold uppercase tracking-wide text-muted">Ödeme ve çıkış</dt><dd className="mt-1 text-sm text-foreground">Ödeme notu + planlanan çıkış tarihi</dd></div>
           </dl>
         </section>
       </Container>

@@ -39,13 +39,15 @@ export function DashboardLogin({ ready }: Props) {
     <div className="card-elevated mx-auto w-full max-w-md rounded-[var(--radius-card)] p-6 md:p-8">
       <h2 className="font-serif text-2xl text-foreground">Dashboard girişi</h2>
       <p className="mt-2 text-sm text-muted">
-        Foto yükleme paneli yalnızca şifre ile açılır.
+        Yönetim paneline şifre ile giriş yapılır. Cloudinary yalnızca görsel yüklemek içindir.
       </p>
 
       {!ready ? (
         <p className="mt-4 rounded-[var(--radius-input)] border border-red-400/30 bg-red-100/60 p-3 text-sm text-red-900">
-          Dashboard yapılandırması eksik. <code>ADMIN_DASHBOARD_PASSWORD</code> ve
-          Cloudinary değişkenlerini doldurun.
+          Proje kökünde <code>.env.local</code> oluşturup{" "}
+          <code>ADMIN_DASHBOARD_PASSWORD</code> tanımlayın (yerel şablon için repodaki{" "}
+          <code>.env.example</code> dosyasına bakın). Görsel yükleme için Cloudinary ayrıca gereklidir; giriş için
+          değildir. Dosyayı kaydettikten sonra <code>npm run dev</code> sürecini yeniden başlatın.
         </p>
       ) : null}
 
@@ -56,7 +58,7 @@ export function DashboardLogin({ ready }: Props) {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-[var(--radius-input)] border border-black/15 bg-background px-3 py-2 text-sm text-foreground"
+            className="w-full rounded-[var(--radius-input)] border border-[var(--input-border)] bg-background px-3 py-2 text-sm text-foreground"
             autoComplete="current-password"
             required
           />

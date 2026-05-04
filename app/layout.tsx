@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
+import { PromoPopupsLayer } from "@/components/layout/PromoPopupsLayer";
+import { SitePresentationProvider } from "@/components/layout/SitePresentationContext";
 import { SiteShell } from "@/components/layout/SiteShell";
 import "./globals.css";
+import { getSitePresentation } from "@/lib/site-presentation";
 import { site } from "@/lib/site";
 
 const playfair = Playfair_Display({
@@ -47,15 +50,20 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const presentation = await getSitePresentation();
+
   return (
     <html lang="tr" className={`${playfair.variable} ${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
-        <SiteShell>{children}</SiteShell>
+        <SitePresentationProvider value={presentation}>
+          <SiteShell presentation={presentation}>{children}</SiteShell>
+          <PromoPopupsLayer popups={presentation.promoPopups} />
+        </SitePresentationProvider>
       </body>
     </html>
   );

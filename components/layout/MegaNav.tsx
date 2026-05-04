@@ -42,12 +42,12 @@ export function MegaNav({
         aria-label={ariaLabel}
       >
         <div
-          className={`mt-1 ${gridClass} rounded-[14px] border border-[var(--border-subtle)] bg-[var(--cream)] p-4 ring-1 ring-black/[0.04] md:p-5`}
+          className={`mt-1 ${gridClass} rounded-[14px] border border-[var(--border-subtle)] bg-[var(--cream)] p-4 ring-1 ring-[var(--ring-soft)] md:p-5`}
         >
           {columns.map((col) => (
             <div
               key={col.title}
-              className="border-b border-black/[0.06] px-1 py-3 last:border-b-0 md:border-b-0 md:py-0 md:pr-3"
+              className="border-b border-[var(--line-soft)] px-1 py-3 last:border-b-0 md:border-b-0 md:py-0 md:pr-3"
             >
               <p className="font-sans text-[11px] font-bold uppercase tracking-wide text-[var(--walnut)]">{col.title}</p>
               <ul className="mt-2 space-y-1.5">

@@ -8,7 +8,7 @@ const base =
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-primary text-[var(--cream)] shadow-sm hover:bg-primary-hover focus-visible:outline-primary-hover",
+    "bg-primary text-[var(--color-fg-on-green)] shadow-sm hover:bg-primary-hover focus-visible:outline-primary-hover",
   secondary:
     "border-2 border-primary bg-[var(--color-surface)] text-primary hover:bg-[var(--color-green-soft)]",
   ghost: "border border-transparent text-primary hover:bg-surface/80",
@@ -16,7 +16,7 @@ const variants: Record<Variant, string> = {
     "bg-[var(--cream)] text-primary shadow-sm hover:bg-[color-mix(in_srgb,var(--cream)_92%,var(--primary)_8%)]",
   outlineLight:
     "border-2 border-[var(--cream)]/55 bg-transparent text-[var(--cream)] hover:bg-[color-mix(in_srgb,var(--cream)_12%,transparent)]",
-  cta: "bg-[var(--cta)] text-white shadow-sm hover:bg-[var(--cta-hover)] focus-visible:outline-[var(--cta)]",
+  cta: "bg-[var(--cta)] text-[var(--color-surface)] shadow-[0_2px_10px_color-mix(in_srgb,var(--cta)_38%,transparent)] hover:bg-[var(--cta-hover)] focus-visible:outline-[var(--cta)]",
 };
 
 type Props = {

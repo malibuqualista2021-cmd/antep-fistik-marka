@@ -16,10 +16,10 @@ export function ProcessSteps({ id, heading, steps }: Props) {
         {steps.map((s, i) => (
           <li
             key={s.title}
-            className="relative rounded-[var(--radius-card)] border border-black/[0.06] bg-surface/80 p-5 ring-1 ring-black/[0.04]"
+            className="relative rounded-[var(--radius-card)] border border-[var(--line-soft)] bg-surface/80 p-5 ring-1 ring-[var(--ring-soft)]"
           >
             <span
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-primary font-sans text-sm font-bold text-[#F7F3EA]"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-primary font-sans text-sm font-bold text-[var(--color-fg-on-green)]"
               aria-hidden
             >
               {i + 1}

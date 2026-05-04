@@ -18,7 +18,7 @@ const choices = [
 
 export function AudienceChoice() {
   return (
-    <section className="border-b border-black/[0.06] bg-background py-8 md:py-10" aria-labelledby="audience-choice-heading">
+    <section className="border-b border-[var(--line-soft)] bg-background py-8 md:py-10" aria-labelledby="audience-choice-heading">
       <Container>
         <h2 id="audience-choice-heading" className="sr-only">
           Alışveriş türünü seçin

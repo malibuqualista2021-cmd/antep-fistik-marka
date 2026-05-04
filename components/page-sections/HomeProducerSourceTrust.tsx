@@ -18,7 +18,7 @@ export function HomeProducerSourceTrust() {
           {producerSourceTrustSection.cards.map((card) => (
             <li
               key={card.title}
-              className="flex flex-col rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--cream)] p-5 shadow-[var(--shadow-soft)] ring-1 ring-black/[0.03]"
+              className="flex flex-col rounded-[var(--radius-card)] border border-[var(--border-subtle)] bg-[var(--cream)] p-5 shadow-[var(--shadow-soft)] ring-1 ring-[color-mix(in_srgb,var(--color-text)_3%,transparent)]"
             >
               <span
                 className="mb-3 h-0.5 w-10 rounded-full bg-primary"

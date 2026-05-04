@@ -9,7 +9,7 @@ export function FaqHome() {
 
   return (
     <section
-      className="border-t border-black/5 bg-background py-11 md:py-16"
+      className="border-t border-[var(--line-soft)] bg-background py-11 md:py-16"
       aria-labelledby="faq-home-heading"
     >
       <Container>

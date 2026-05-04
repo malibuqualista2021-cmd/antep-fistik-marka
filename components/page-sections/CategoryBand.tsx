@@ -77,7 +77,7 @@ export function CategoryBand() {
       <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {baseItems.map((item) => (
           <li key={item.title} className="flex">
-            <article className="group flex h-full min-h-[268px] w-full flex-col rounded-[var(--radius-xl)] border border-black/[0.06] bg-[var(--cream)] p-5 shadow-[var(--shadow-soft)] transition-[box-shadow,transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-primary/20 hover:shadow-[var(--shadow-lift)] md:min-h-[288px] md:p-6">
+            <article className="group flex h-full min-h-[268px] w-full flex-col rounded-[var(--radius-xl)] border border-[var(--line-soft)] bg-[var(--cream)] p-5 shadow-[var(--shadow-soft)] transition-[box-shadow,transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-primary/20 hover:shadow-[var(--shadow-lift)] md:min-h-[288px] md:p-6">
               <span className="h-0.5 w-11 rounded-full bg-accent/90" aria-hidden />
               <h3 className="mt-4 font-serif text-xl text-foreground transition-colors group-hover:text-primary md:text-[1.35rem]">
                 <Link

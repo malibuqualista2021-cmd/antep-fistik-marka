@@ -26,8 +26,9 @@ export default async function OrderSuccessPage({
             Teşekkürler
           </h1>
           <p className="mt-3 font-sans text-base leading-relaxed text-muted">
-            Siparişiniz başarıyla alındı. Ödeme bağlantısı, hazırlık ve çıkış bilgisi
-            iletişim bilgileriniz üzerinden paylaşılacaktır.
+            Sipariş kaydınız oluşturuldu. Ödeme durumu şu an{" "}
+            <strong className="text-foreground">beklemede</strong>; ödeme altyapısı aktif olduğunda veya
+            ekibimiz onayladığında güncellenecek ve iletişim bilgileriniz üzerinden bilgilendirileceksiniz.
           </p>
           {order ? (
             <p className="mt-5 rounded-[var(--radius-input)] bg-surface px-4 py-3 font-sans text-sm text-foreground">

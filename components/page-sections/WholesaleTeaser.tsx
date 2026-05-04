@@ -12,7 +12,7 @@ export function WholesaleTeaser() {
 
   return (
     <section
-      className="border-y border-black/[0.07] bg-[color-mix(in_srgb,var(--primary)_6%,var(--background))] py-11 md:py-16"
+      className="border-y border-[var(--line-soft)] bg-[color-mix(in_srgb,var(--primary)_6%,var(--background))] py-11 md:py-16"
       aria-labelledby="wholesale-home-heading"
     >
       <Container>

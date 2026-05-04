@@ -2,61 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
-import { brandPhotoAlts, brandPhotos } from "@/lib/site-images";
+import type { DiscoveryTileDefinition } from "@/lib/site-settings-types";
 
-const categories = [
-  {
-    title: "Kabuklu Antep Fıstığı",
-    blurb: "Kavrulmuş ve tuzlu kabuklu seriler.",
-    href: "/urunler?kategori=kabuklu",
-    image: brandPhotos.categoryKabuklu,
-    imageAlt: brandPhotoAlts.categoryKabuklu,
-  },
-  {
-    title: "İç Antep Fıstığı",
-    blurb: "Baklava ve tatlı için yeşil iç.",
-    href: "/urunler?kategori=ic",
-    image: brandPhotos.categoryIc,
-    imageAlt: brandPhotoAlts.categoryIc,
-  },
-  {
-    title: "Boz İç",
-    blurb: "Pastalık ve dolgu için homojen doku.",
-    href: "/urunler?kategori=boz",
-    image: brandPhotos.categoryBozBaklavalik,
-    imageAlt: brandPhotoAlts.categoryBozBaklavalik,
-  },
-  {
-    title: "Baklavalık seçimi",
-    blurb: "İç ve boz içte baklava üretimine uygun parti.",
-    href: "/urunler?kullanim=baklavalik",
-    image: brandPhotos.categoryBozBaklavalik,
-    imageAlt: brandPhotoAlts.categoryBozBaklavalik,
-  },
-  {
-    title: "Kavrulmuş tuzlu",
-    blurb: "İkram ve günlük tüketim.",
-    href: "/urunler?kategori=kabuklu&islem=kavrulmus",
-    image: brandPhotos.categoryKabuklu,
-    imageAlt: brandPhotoAlts.categoryKabuklu,
-  },
-  {
-    title: "Çiğ / tuzsuz",
-    blurb: "İç ve boz iç çiğ seriler.",
-    href: "/urunler?islem=cig",
-    image: brandPhotos.categoryIc,
-    imageAlt: brandPhotoAlts.categoryIc,
-  },
-  {
-    title: "Hediye ve paket",
-    blurb: "Hazır paket ve sunum.",
-    href: "/urunler?kategori=paket",
-    image: brandPhotos.storeRange,
-    imageAlt: brandPhotoAlts.storeRange,
-  },
-] as const;
-
-export function CategoryDiscovery() {
+export function CategoryDiscovery({ tiles }: { tiles: DiscoveryTileDefinition[] }) {
+  const ordered = [...tiles].sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
   return (
     <section className="border-b border-[var(--border-subtle)] bg-[var(--paper)]/60 py-9 md:py-11" aria-labelledby="discover-categories">
       <Container>
@@ -67,14 +16,14 @@ export function CategoryDiscovery() {
           Aradığınız ürünü gramaj ve kullanım amacına göre bulun; vitrin kalabalığı olmadan net seçim yapın.
         </p>
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {categories.map((category) => (
+          {ordered.map((category) => (
             <article
-              key={category.title}
+              key={category.id}
               className="flex min-h-0 flex-col overflow-hidden rounded-[var(--radius-card)] bg-[var(--cream)] ring-1 ring-[var(--border-subtle)]"
             >
               <Link href={category.href} className="group relative aspect-[4/3] min-h-0 shrink-0 bg-[var(--paper)]">
                 <Image
-                  src={category.image}
+                  src={category.imageSrc}
                   alt={category.imageAlt}
                   fill
                   className="object-cover object-center transition duration-300 group-hover:opacity-95"

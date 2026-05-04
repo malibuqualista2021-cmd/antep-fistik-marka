@@ -34,7 +34,7 @@ export function TrustClientSegments() {
           {segments.map((s) => (
             <li
               key={s.title}
-              className="rounded-[var(--radius-card)] border border-black/[0.06] bg-background p-4 ring-1 ring-black/[0.04]"
+              className="rounded-[var(--radius-card)] border border-[var(--line-soft)] bg-background p-4 ring-1 ring-[var(--ring-soft)]"
             >
               <h3 className="font-serif text-lg text-foreground">{s.title}</h3>
               <p className="mt-2 font-sans text-sm leading-relaxed text-muted">{s.text}</p>

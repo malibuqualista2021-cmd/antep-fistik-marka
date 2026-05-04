@@ -3,6 +3,8 @@ import { pistachioImages } from "@/lib/pistachio-images";
 export type RetailFacetProcess = "kavrulmus" | "cig" | "tuzlu" | "tuzsuz";
 export type RetailFacetUsage = "atistirmalik" | "baklavalik" | "tatlilik" | "pastalik" | "hediye";
 
+export type RetailProductVariant = { id: string; label: string; weight: string; price: number };
+
 export type RetailProduct = {
   id: string;
   slug: string;
@@ -16,11 +18,14 @@ export type RetailProduct = {
   storage?: string;
   imageSrc: string;
   imageAlt: string;
+  /** Ek vitrin görselleri (detay sayfasında küçük seçici ile) — kapak `imageSrc` */
+  extraImages?: string[];
   price: number;
   currency: "TRY";
   weight: string;
-  variants?: { id: string; label: string; weight: string; price: number }[];
-  category: "ic" | "kabuklu" | "boz" | "paket";
+  variants?: RetailProductVariant[];
+  /** Dinamik mağaza kategorisi — admin panelinde tanımlı id (örn. kabuklu, ic) */
+  category: string;
   stockStatus: "in_stock" | "limited" | "out_of_stock";
   shippingNote: string;
   isActive: boolean;
@@ -32,7 +37,8 @@ export type RetailProduct = {
   };
 };
 
-export const retailProducts: RetailProduct[] = [
+/** Kod ile gömülü varsayılan katalog — dosya yoksa sunucu bunu kullanır */
+export const defaultRetailProducts: RetailProduct[] = [
   {
     id: "retail-kabuklu-500",
     slug: "kabuklu-kavrulmus-500g",
@@ -177,12 +183,12 @@ export function kgUnitPriceLine(price: number, weightLabel: string, currency: Re
   return `Kg fiyatı: ${formatMoney(perKg, currency)} / kg`;
 }
 
-export function getRetailProductByDetailSlug(slug: string): RetailProduct | undefined {
-  return retailProducts.find((product) => product.detailSlug === slug && product.isActive);
+export function getRetailProductByDetailSlug(catalog: RetailProduct[], slug: string): RetailProduct | undefined {
+  return catalog.find((product) => product.detailSlug === slug && product.isActive);
 }
 
-export function getSimilarRetailProducts(current: RetailProduct, limit = 4): RetailProduct[] {
-  const others = retailProducts.filter((product) => product.isActive && product.id !== current.id);
+export function getSimilarRetailProducts(catalog: RetailProduct[], current: RetailProduct, limit = 4): RetailProduct[] {
+  const others = catalog.filter((product) => product.isActive && product.id !== current.id);
   const sameCategory = others.filter((product) => product.category === current.category);
   const otherCategories = others.filter((product) => product.category !== current.category);
   return [...sameCategory, ...otherCategories].slice(0, limit);

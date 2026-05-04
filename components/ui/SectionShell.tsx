@@ -6,7 +6,7 @@ type Tone = "default" | "muted" | "line";
 const tones: Record<Tone, string> = {
   default: "bg-background",
   muted: "bg-surface/35",
-  line: "bg-background border-y border-black/[0.06]",
+  line: "bg-background border-y border-[var(--line-soft)]",
 };
 
 type Props = {

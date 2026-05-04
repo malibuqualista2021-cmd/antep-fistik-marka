@@ -4,10 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { useCart } from "@/components/shop/CartProvider";
-import { formatMoney, retailProducts } from "@/lib/shop-products";
+import { formatMoney } from "@/lib/shop-products";
+import type { RetailProduct } from "@/lib/shop-products";
 import { RetailProductCard } from "@/components/shop/RetailProductCard";
 
-export function CartPageClient() {
+export function CartPageClient({ recommendations }: { recommendations: RetailProduct[] }) {
   const { items, total, updateQuantity, removeItem } = useCart();
 
   if (items.length === 0) {
@@ -20,7 +21,7 @@ export function CartPageClient() {
           </p>
           <ul className="mt-5 grid gap-3 font-sans text-sm text-muted sm:grid-cols-2 lg:grid-cols-4">
             {["Güvenli sipariş", "Taze paketleme", "Türkiye geneli kargo", "WhatsApp destek"].map((badge) => (
-              <li key={badge} className="rounded-[12px] bg-background px-3 py-2 text-center ring-1 ring-black/5">
+              <li key={badge} className="rounded-[12px] bg-background px-3 py-2 text-center ring-1 ring-[var(--line-soft)]">
                 {badge}
               </li>
             ))}
@@ -34,7 +35,7 @@ export function CartPageClient() {
             Popüler ürünler
           </h2>
           <div className="mt-5 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {retailProducts.slice(0, 4).map((product) => (
+            {recommendations.slice(0, 4).map((product) => (
               <RetailProductCard key={product.id} product={product} />
             ))}
           </div>
@@ -71,7 +72,7 @@ export function CartPageClient() {
                     max={99}
                     value={item.quantity}
                     onChange={(e) => updateQuantity(item.product.id, Number(e.target.value))}
-                    className="ml-2 w-20 rounded-[var(--radius-input)] border border-black/15 bg-background px-2 py-2 text-foreground"
+                    className="ml-2 w-20 rounded-[var(--radius-input)] border border-[var(--input-border)] bg-background px-2 py-2 text-foreground"
                   />
                 </label>
                 <button
@@ -88,7 +89,7 @@ export function CartPageClient() {
       </div>
       <aside className="card-elevated rounded-[var(--radius-card)] p-5 md:p-6 lg:sticky lg:top-28">
         <h2 className="font-serif text-2xl text-foreground">Sipariş özeti</h2>
-        <div className="mt-4 flex items-center justify-between border-t border-black/10 pt-4 font-sans">
+        <div className="mt-4 flex items-center justify-between border-t border-[var(--line-medium)] pt-4 font-sans">
           <span className="text-muted">Toplam</span>
           <strong className="text-price text-lg">{formatMoney(total)}</strong>
         </div>

@@ -15,7 +15,7 @@ export function CatalogWholesaleDetail({ product }: Props) {
   return (
     <main id="icerik" className="pb-16">
       <Container className="grid gap-8 py-9 md:grid-cols-2 md:items-start md:gap-11 md:py-12">
-        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[var(--radius-card)] bg-surface shadow-[var(--shadow-soft)] ring-1 ring-black/5 md:aspect-[4/5]">
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[var(--radius-card)] bg-surface shadow-[var(--shadow-soft)] ring-1 ring-[var(--line-soft)] md:aspect-[4/5]">
           <Image
             src={product.imageSrc}
             alt={product.imageAlt}
@@ -44,13 +44,13 @@ export function CatalogWholesaleDetail({ product }: Props) {
               İletişim
             </Button>
           </div>
-          <p className="mt-6 rounded-[var(--radius-card)] bg-surface/80 p-4 font-sans text-sm text-muted ring-1 ring-black/5">
+          <p className="mt-6 rounded-[var(--radius-card)] bg-surface/80 p-4 font-sans text-sm text-muted ring-1 ring-[var(--line-soft)]">
             Bu kalem doğrudan sepete eklenen perakende gramaj ürünü değildir. Miktar, teslim ili ve ambalaj tercihinize göre
             yazılı teklif hazırlanır.
           </p>
         </div>
       </Container>
-      <Container className="border-t border-black/5 pt-10">
+      <Container className="border-t border-[var(--line-soft)] pt-10">
         <h2 className="font-serif text-xl text-foreground md:text-2xl">Perakende mağazaya geç</h2>
         <p className="mt-2 max-w-2xl font-sans text-sm text-muted">
           Ev ve hediye için hazır paketleri{" "}

@@ -12,9 +12,20 @@ type Props = {
   variantId?: string;
   onVariantChange?: (id: string) => void;
   layout?: "select" | "buttons";
+  /** Mobil vitrin: daha büyük dokunma alanı ve tipografi */
+  prominent?: boolean;
+  /** Sepete ekle düğmesi ek sınıfları */
+  buttonClassName?: string;
 };
 
-export function AddToCartButton({ product, variantId: controlledId, onVariantChange, layout = "select" }: Props) {
+export function AddToCartButton({
+  product,
+  variantId: controlledId,
+  onVariantChange,
+  layout = "select",
+  prominent = false,
+  buttonClassName = "",
+}: Props) {
   const { addItem } = useCart();
   const [internalId, setInternalId] = useState(product.variants?.[0]?.id ?? "");
   const variantId = controlledId !== undefined ? controlledId : internalId;
@@ -37,17 +48,29 @@ export function AddToCartButton({ product, variantId: controlledId, onVariantCha
       {product.variants?.length ? (
         layout === "buttons" ? (
           <div>
-            <span className="font-sans text-xs font-semibold text-muted">Gramaj</span>
-            <div className="mt-2 flex flex-wrap gap-2" role="group" aria-label="Gramaj seçimi">
+            <span
+              className={`font-sans font-semibold text-muted ${prominent ? "text-sm md:text-xs" : "text-xs"}`}
+            >
+              Gramaj seçin
+            </span>
+            <div
+              className={`mt-2 flex flex-wrap ${prominent ? "gap-2.5" : "gap-2"}`}
+              role="group"
+              aria-label="Gramaj seçimi"
+            >
               {product.variants.map((variant) => (
                 <button
                   key={variant.id}
                   type="button"
                   onClick={() => setVariantId(variant.id)}
-                  className={`min-h-[40px] rounded-full px-3 py-2 font-sans text-xs font-semibold ring-1 transition ${
+                  className={`rounded-full font-sans font-semibold ring-1 transition ${
+                    prominent
+                      ? "min-h-[48px] px-4 py-2.5 text-sm md:min-h-[42px] md:px-3.5 md:text-xs"
+                      : "min-h-[40px] px-3 py-2 text-xs"
+                  } ${
                     variantId === variant.id
-                      ? "bg-primary text-[var(--cream)] ring-primary"
-                      : "bg-background text-foreground ring-black/10 hover:ring-primary/30"
+                      ? "bg-primary text-[var(--color-fg-on-green)] ring-primary"
+                      : "bg-background text-foreground ring-[var(--line-medium)] hover:ring-primary/35"
                   }`}
                 >
                   {variant.label}
@@ -62,7 +85,9 @@ export function AddToCartButton({ product, variantId: controlledId, onVariantCha
             <select
               value={variantId}
               onChange={(e) => setVariantId(e.target.value)}
-              className="mt-1 w-full rounded-[var(--radius-input)] border border-black/15 bg-background px-3 py-2 text-foreground"
+              className={`mt-1 w-full rounded-[var(--radius-input)] border border-[var(--input-border)] bg-background px-3 text-foreground ${
+                prominent ? "min-h-[52px] text-base md:min-h-[48px] md:text-sm" : "py-2"
+              }`}
             >
               {product.variants.map((variant) => (
                 <option key={variant.id} value={variant.id}>
@@ -76,7 +101,7 @@ export function AddToCartButton({ product, variantId: controlledId, onVariantCha
       <Button
         type="button"
         variant="cta"
-        className="w-full justify-center"
+        className={`w-full justify-center ${prominent ? "min-h-[52px] text-base md:min-h-[48px] md:text-sm" : ""} ${buttonClassName}`}
         onClick={() => {
           if (disabled) return;
           addItem(selectedProduct);

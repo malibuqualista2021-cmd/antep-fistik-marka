@@ -59,7 +59,7 @@ export function MainSidebar() {
                       id={`sidebar-panel-${item.id}`}
                       role="region"
                       aria-labelledby={`sidebar-trigger-${item.id}`}
-                      className="border-t border-black/[0.06] px-2 pb-2 pt-1"
+                      className="border-t border-[var(--line-soft)] px-2 pb-2 pt-1"
                     >
                       <p className="px-1 pt-1 font-sans text-[11px] text-muted">
                         <Link href={item.href} className="font-semibold text-primary hover:underline">
@@ -94,7 +94,7 @@ export function MainSidebar() {
                     id={`sidebar-panel-${item.id}`}
                     role="region"
                     aria-labelledby={`sidebar-trigger-${item.id}`}
-                    className="border-t border-black/[0.06] px-2 pb-2 pt-1"
+                    className="border-t border-[var(--line-soft)] px-2 pb-2 pt-1"
                   >
                     <NavColumnList columns={item.columns} />
                   </div>

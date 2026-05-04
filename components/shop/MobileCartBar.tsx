@@ -9,7 +9,7 @@ export function MobileCartBar() {
   if (count === 0) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-black/10 bg-[var(--cream)] px-4 py-3 shadow-[0_-8px_24px_rgb(31_30_28/0.12)] md:hidden">
+    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[var(--line-medium)] bg-[var(--cream)] px-4 py-3 shadow-[0_-8px_24px_rgb(36_23_15/0.12)] md:hidden">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3">
         <div className="font-sans text-sm">
           <p className="font-semibold text-foreground">Sepet ({count})</p>

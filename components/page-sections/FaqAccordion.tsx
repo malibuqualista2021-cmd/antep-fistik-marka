@@ -8,7 +8,7 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <div className="divide-y divide-black/[0.06] rounded-[var(--radius-card)] border border-black/[0.06] bg-background">
+    <div className="divide-y divide-[var(--line-soft)] rounded-[var(--radius-card)] border border-[var(--line-soft)] bg-background">
       {items.map((item, i) => {
         const panelId = `${id}-panel-${i}`;
         const headerId = `${id}-header-${i}`;

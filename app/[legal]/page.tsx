@@ -29,7 +29,7 @@ export default async function LegalPage({ params }: Props) {
 
   return (
     <main id="icerik" className="pb-16">
-      <section className="border-b border-black/5 bg-surface/30 py-10 md:py-14">
+      <section className="border-b border-[var(--line-soft)] bg-surface/30 py-10 md:py-14">
         <Container>
           <h1 className="font-serif text-[2rem] font-semibold text-foreground md:text-[2.75rem]">
             {page.title}
@@ -42,7 +42,7 @@ export default async function LegalPage({ params }: Props) {
       <Container className="max-w-3xl py-10 md:py-12">
         <div className="space-y-7">
           {page.sections.map((section) => (
-            <section key={section.title} className="rounded-[var(--radius-card)] bg-surface/70 p-5 ring-1 ring-black/5">
+            <section key={section.title} className="rounded-[var(--radius-card)] bg-surface/70 p-5 ring-1 ring-[var(--line-soft)]">
               <h2 className="font-serif text-xl text-foreground">{section.title}</h2>
               <p className="mt-2 font-sans text-sm leading-relaxed text-muted md:text-base">
                 {section.text}

@@ -1,8 +1,11 @@
-import { createHash, createHmac } from "node:crypto";
+import { randomBytes } from "node:crypto";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { mediaSlots } from "@/lib/media-slots";
 import { sessionCookieName, verifySessionToken } from "@/lib/admin-auth";
+import { isCloudinaryConfigured } from "@/lib/admin/cloudinary-config";
+import { buildCatalogProductPublicId, uploadBufferToCloudinary } from "@/lib/media/cloudinary-upload";
+import { saveUploadedImageLocal } from "@/lib/media/local-disk-upload";
 
 function sanitizeFileName(name: string) {
   const ext = name.includes(".") ? name.slice(name.lastIndexOf(".") + 1) : "jpg";
@@ -14,70 +17,94 @@ function sanitizeFileName(name: string) {
   return `${base || "fistik"}-${Date.now()}.${ext}`;
 }
 
+function dedupeFiles(files: File[]): File[] {
+  const seen = new Set<string>();
+  const out: File[] = [];
+  for (const f of files) {
+    const k = `${f.name}:${f.size}:${f.lastModified}`;
+    if (seen.has(k)) continue;
+    seen.add(k);
+    out.push(f);
+  }
+  return out;
+}
+
+function collectFiles(form: FormData): File[] {
+  const raw: File[] = [];
+  const single = form.get("file");
+  if (single instanceof File && single.size > 0) raw.push(single);
+  for (const entry of form.getAll("files")) {
+    if (entry instanceof File && entry.size > 0) raw.push(entry);
+  }
+  return dedupeFiles(raw);
+}
+
+const MAX_BYTES = 10 * 1024 * 1024;
+const MAX_FILES = 24;
+
 export async function POST(req: Request) {
   const store = await cookies();
   const ok = verifySessionToken(store.get(sessionCookieName())?.value);
   if (!ok) return NextResponse.json({ ok: false, message: "Yetkisiz." }, { status: 401 });
 
-  const cloudName = (process.env.CLOUDINARY_CLOUD_NAME || "").trim();
-  const apiKey = (process.env.CLOUDINARY_API_KEY || "").trim();
-  const apiSecret = (process.env.CLOUDINARY_API_SECRET || "").trim();
   const folder = (process.env.CLOUDINARY_UPLOAD_FOLDER || "antep-fistik-marka").trim();
-  if (!cloudName || !apiKey || !apiSecret) {
-    return NextResponse.json(
-      { ok: false, message: "Cloudinary bilgileri eksik (.env)." },
-      { status: 500 },
-    );
-  }
+  const useCloudinary = isCloudinaryConfigured();
 
   const form = await req.formData();
-  const file = form.get("file");
   const slot = String(form.get("slot") || "");
-  if (!(file instanceof File)) {
+  const files = collectFiles(form);
+
+  if (files.length === 0) {
     return NextResponse.json({ ok: false, message: "Dosya gerekli." }, { status: 400 });
   }
-  if (!mediaSlots().some((x) => x.id === slot)) {
-    return NextResponse.json({ ok: false, message: "Geçersiz görsel alanı." }, { status: 400 });
-  }
-  if (file.size > 10 * 1024 * 1024) {
-    return NextResponse.json({ ok: false, message: "Maksimum dosya boyutu 10MB." }, { status: 400 });
+  if (files.length > MAX_FILES) {
+    return NextResponse.json({ ok: false, message: `En fazla ${MAX_FILES} dosya.` }, { status: 400 });
   }
 
-  const timestamp = Math.floor(Date.now() / 1000).toString();
-  const publicId = `${slot}/${sanitizeFileName(file.name).replace(/\.[^.]+$/, "")}`;
-  const signatureBase = `folder=${folder}&public_id=${publicId}&timestamp=${timestamp}${apiSecret}`;
-  const signature = createHash("sha1").update(signatureBase).digest("hex");
+  const urls: string[] = [];
 
-  const uploadData = new FormData();
-  uploadData.set("file", file);
-  uploadData.set("api_key", apiKey);
-  uploadData.set("timestamp", timestamp);
-  uploadData.set("folder", folder);
-  uploadData.set("public_id", publicId);
-  uploadData.set("signature", signature);
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    if (file.size > MAX_BYTES) {
+      return NextResponse.json({ ok: false, message: `Çok büyük dosya (max 10MB): ${file.name}` }, { status: 400 });
+    }
 
-  const endpoint = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
-  const uploadRes = await fetch(endpoint, { method: "POST", body: uploadData });
-  if (!uploadRes.ok) {
-    const detail = await uploadRes.text();
-    return NextResponse.json(
-      { ok: false, message: "Cloudinary yükleme hatası.", detail },
-      { status: 502 },
-    );
+    if (useCloudinary) {
+      let publicIdPath: string;
+      const uniq = randomBytes(4).toString("hex");
+      if (slot === "catalog-product") {
+        publicIdPath = `${buildCatalogProductPublicId(file.name)}-${uniq}`;
+      } else {
+        if (!mediaSlots().some((x) => x.id === slot)) {
+          return NextResponse.json({ ok: false, message: "Geçersiz görsel alanı." }, { status: 400 });
+        }
+        const base = sanitizeFileName(file.name).replace(/\.[^.]+$/, "");
+        publicIdPath = `${slot}/${base}-${uniq}`;
+      }
+
+      const result = await uploadBufferToCloudinary({ file, folder, publicIdPath });
+      if (!result.ok) {
+        const status = result.message.includes("eksik") ? 500 : 502;
+        return NextResponse.json({ ok: false, message: result.message, detail: result.detail }, { status });
+      }
+      urls.push(result.url);
+    } else {
+      const slotSegment = slot === "catalog-product" ? "catalog-products" : slot;
+      if (slot !== "catalog-product" && !mediaSlots().some((x) => x.id === slot)) {
+        return NextResponse.json({ ok: false, message: "Geçersiz görsel alanı." }, { status: 400 });
+      }
+      const result = await saveUploadedImageLocal({ file, slotSegment });
+      if (!result.ok) {
+        return NextResponse.json({ ok: false, message: result.message }, { status: 400 });
+      }
+      urls.push(result.url);
+    }
   }
 
-  const payload = (await uploadRes.json()) as { secure_url?: string };
-  if (!payload.secure_url) {
-    return NextResponse.json(
-      { ok: false, message: "Yükleme tamamlandı ama URL dönmedi." },
-      { status: 502 },
-    );
-  }
-
-  // Kullanıcı farklı sekmelerde çalışıyorsa aynı dosya isimlerinde cache çakışmasın
-  const cacheBuster = createHmac("sha1", timestamp).update(payload.secure_url).digest("hex").slice(0, 8);
   return NextResponse.json({
     ok: true,
-    url: `${payload.secure_url}?v=${cacheBuster}`,
+    url: urls[0],
+    urls,
+    storage: useCloudinary ? "cloudinary" : "local",
   });
 }

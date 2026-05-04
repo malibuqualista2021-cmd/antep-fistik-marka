@@ -10,11 +10,15 @@ function esc(s: string): string {
     .replace(/"/g, "&quot;");
 }
 
-function catLabel(c: RetailProduct["category"]): string {
-  if (c === "kabuklu") return "Kabuklu Antep fıstığı";
-  if (c === "ic") return "İç Antep fıstığı";
-  if (c === "boz") return "Boz iç";
-  return "Hediye / paket";
+function catLabel(c: string): string {
+  const map: Record<string, string> = {
+    kabuklu: "Kabuklu Antep fıstığı",
+    ic: "İç Antep fıstığı",
+    boz: "Boz iç",
+    paket: "Hediye / paket",
+  };
+  const key = c.trim().toLowerCase();
+  return map[key] ?? key.replace(/-/g, " ");
 }
 
 function joinFacets(product: RetailProduct): string {

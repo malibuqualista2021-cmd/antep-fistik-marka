@@ -1,8 +1,8 @@
-import { retailProducts } from "@/lib/shop-products";
+import type { RetailProduct } from "@/lib/shop-products";
 import { RetailProductCard } from "@/components/shop/RetailProductCard";
 
-export function RetailProductGrid() {
-  const products = retailProducts.filter((product) => product.isActive);
+export function RetailProductGrid({ catalog }: { catalog: RetailProduct[] }) {
+  const products = catalog.filter((product) => product.isActive);
 
   return (
     <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-4">

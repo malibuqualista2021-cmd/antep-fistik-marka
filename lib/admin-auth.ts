@@ -18,9 +18,16 @@ function sign(payload: string): string {
   return createHmac("sha256", authSecret()).update(payload).digest("hex");
 }
 
-function safeEqual(a: string, b: string) {
-  if (a.length !== b.length) return false;
-  return timingSafeEqual(Buffer.from(a), Buffer.from(b));
+/** Kopyala-yapıştırda sık görülen tire/minus karakterlerini ASCII tire ile eşler */
+function normalizePasswordChars(raw: string) {
+  return raw.trim().replace(/[\u2013\u2014\u2212]/g, "-");
+}
+
+function safeEqualUtf8(a: string, b: string) {
+  const ba = Buffer.from(a, "utf8");
+  const bb = Buffer.from(b, "utf8");
+  if (ba.length !== bb.length) return false;
+  return timingSafeEqual(ba, bb);
 }
 
 export function dashboardAuthReady() {
@@ -28,10 +35,10 @@ export function dashboardAuthReady() {
 }
 
 export function verifyDashboardPassword(raw: string) {
-  const value = raw.trim();
-  const expected = expectedPassword();
+  const value = normalizePasswordChars(raw);
+  const expected = normalizePasswordChars(expectedPassword());
   if (!value || !expected) return false;
-  return safeEqual(value, expected);
+  return safeEqualUtf8(value, expected);
 }
 
 export function createSessionToken() {
@@ -45,7 +52,7 @@ export function verifySessionToken(token: string | undefined) {
   const [ts, sig] = token.split(".");
   if (!ts || !sig) return false;
   const expected = sign(ts);
-  if (!safeEqual(sig, expected)) return false;
+  if (!safeEqualUtf8(sig, expected)) return false;
 
   const ageMs = Date.now() - Number(ts);
   if (!Number.isFinite(ageMs) || ageMs > ONE_DAY * 1000) return false;

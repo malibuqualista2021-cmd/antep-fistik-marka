@@ -18,7 +18,7 @@ export function ProductCard({ product }: { product: Product }) {
         : { href: "/urunler#perakende-satin-al", label: "Perakende satın al" };
 
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] bg-surface shadow-[var(--shadow-soft)] ring-1 ring-black/5">
+    <article className="flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] bg-surface shadow-[var(--shadow-soft)] ring-1 ring-[var(--line-soft)]">
       <div className="relative aspect-[4/3] w-full bg-background">
         <Image
           src={product.imageSrc}
@@ -43,7 +43,7 @@ export function ProductCard({ product }: { product: Product }) {
           {product.tags.slice(0, 4).map((t) => (
             <li
               key={t}
-              className="rounded-full bg-background/90 px-2 py-0.5 font-sans text-[11px] font-medium text-foreground/85 ring-1 ring-black/10"
+              className="rounded-full bg-background/90 px-2 py-0.5 font-sans text-[11px] font-medium text-foreground/85 ring-1 ring-[var(--line-medium)]"
             >
               {t}
             </li>

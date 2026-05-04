@@ -32,7 +32,7 @@ export function ImageSlot({
   if (!src.trim()) {
     return (
       <div
-        className={`bg-gradient-to-br from-surface via-background to-surface ring-1 ring-inset ring-black/[0.07] ${wrapperClassName} ${className}`}
+        className={`bg-gradient-to-br from-surface via-background to-surface ring-1 ring-inset ring-[var(--line-soft)] ${wrapperClassName} ${className}`}
         aria-hidden
       />
     );

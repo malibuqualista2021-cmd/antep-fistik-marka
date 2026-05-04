@@ -11,7 +11,7 @@ export function FloatingWhatsapp() {
   return (
     <a
       href={waLink(msg)}
-      className="fixed bottom-5 right-5 z-[60] flex min-h-[52px] min-w-[52px] items-center justify-center gap-2 rounded-full bg-[var(--color-whatsapp)] px-3 py-3 font-sans text-sm font-semibold text-white shadow-lg ring-2 ring-white/90 transition hover:bg-[#20BD5A] hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:min-h-0 sm:px-4"
+      className="fixed bottom-5 right-5 z-[60] flex min-h-[52px] min-w-[52px] items-center justify-center gap-2 rounded-full bg-[var(--color-whatsapp)] px-3 py-3 font-sans text-sm font-semibold text-white shadow-lg ring-2 ring-white/90 transition hover:bg-[color-mix(in_srgb,var(--color-whatsapp)_90%,var(--color-green-dark))] hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:min-h-0 sm:px-4"
       aria-label={`WhatsApp: ${msg}`}
     >
       <WhatsAppGlyph className="h-6 w-6 shrink-0" aria-hidden />

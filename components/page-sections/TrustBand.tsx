@@ -39,7 +39,7 @@ export function TrustBand() {
   };
 
   return (
-    <section className="section-y border-t border-black/[0.07] bg-[color-mix(in_srgb,var(--cream)_40%,var(--background))]" aria-labelledby="trust-heading">
+    <section className="section-y border-t border-[var(--line-soft)] bg-[color-mix(in_srgb,var(--cream)_40%,var(--background))]" aria-labelledby="trust-heading">
       <Container>
         <div className="max-w-3xl">
           <p className="font-sans text-sm font-semibold uppercase tracking-[0.12em] text-accent">
@@ -78,7 +78,7 @@ export function TrustBand() {
             </div>
             {site.address.line1 || site.address.line2 ? (
               <dl className="grid gap-3 font-sans text-sm">
-                <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-black/[0.06]">
+                <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-[var(--ring-soft)]">
                   <dt className="text-muted">Açık adres</dt>
                   <dd className="mt-1 text-foreground">
                     {site.address.line1}
@@ -91,7 +91,7 @@ export function TrustBand() {
                   </dd>
                 </div>
                 {site.phone ? (
-                  <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-black/[0.06]">
+                  <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-[var(--ring-soft)]">
                     <dt className="text-muted">Telefon</dt>
                     <dd className="mt-1">
                       <a className="font-semibold text-primary hover:underline" href={`tel:${site.phoneE164}`}>
@@ -101,14 +101,14 @@ export function TrustBand() {
                   </div>
                 ) : null}
                 {site.hours ? (
-                  <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-black/[0.06]">
+                  <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-[var(--ring-soft)]">
                     <dt className="text-muted">Çalışma saatleri</dt>
                     <dd className="mt-1 text-foreground">{site.hours}</dd>
                   </div>
                 ) : null}
               </dl>
             ) : (
-              <p className="rounded-[12px] bg-background/90 px-4 py-3 font-sans text-sm text-muted ring-1 ring-black/[0.06]">
+              <p className="rounded-[12px] bg-background/90 px-4 py-3 font-sans text-sm text-muted ring-1 ring-[var(--ring-soft)]">
                 Ziyaret ve konum bilgisi randevu/onay sonrası paylaşılır. Şimdilik{" "}
                 <Link href="/iletisim" className="font-semibold text-primary underline">
                   iletişim
@@ -140,7 +140,7 @@ export function TrustBand() {
               {bentoCells.map((cell) => (
                 <li
                   key={cell.key}
-                  className={`overflow-hidden rounded-[14px] bg-background ring-1 ring-black/[0.06] ${cell.className}`}
+                  className={`overflow-hidden rounded-[14px] bg-background ring-1 ring-[var(--ring-soft)] ${cell.className}`}
                 >
                   <figure className="flex h-full min-h-0 flex-col">
                     <div className="relative min-h-0 flex-1">
@@ -151,7 +151,7 @@ export function TrustBand() {
                         sizes="(max-width: 768px) 33vw, 18vw"
                       />
                     </div>
-                    <figcaption className="shrink-0 border-t border-black/[0.06] px-2 py-1.5 text-center font-sans text-[11px] font-medium text-muted">
+                    <figcaption className="shrink-0 border-t border-[var(--line-soft)] px-2 py-1.5 text-center font-sans text-[11px] font-medium text-muted">
                       {cell.label}
                     </figcaption>
                   </figure>
@@ -190,7 +190,7 @@ export function TrustBand() {
               </p>
             )}
             {site.certificatesNote ? (
-              <p className="mt-4 rounded-[10px] bg-surface/90 px-3 py-2 font-sans text-sm text-foreground ring-1 ring-black/[0.06]">
+              <p className="mt-4 rounded-[10px] bg-surface/90 px-3 py-2 font-sans text-sm text-foreground ring-1 ring-[var(--ring-soft)]">
                 {site.certificatesNote}
               </p>
             ) : null}
