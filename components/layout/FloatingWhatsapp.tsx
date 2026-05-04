@@ -1,8 +1,12 @@
-import { site, waLink } from "@/lib/site";
+"use client";
+
+import { useSitePresentation } from "@/components/layout/SitePresentationContext";
 import { cta } from "@/lib/cta";
+import { waLinkResolved } from "@/lib/storefront-contact";
 
 export function FloatingWhatsapp() {
-  if (!site.whatsappE164) {
+  const { contact } = useSitePresentation();
+  if (!contact.whatsappE164) {
     return null;
   }
 
@@ -10,7 +14,7 @@ export function FloatingWhatsapp() {
 
   return (
     <a
-      href={waLink(msg)}
+      href={waLinkResolved(contact, msg)}
       className="fixed bottom-5 right-5 z-[60] flex min-h-[52px] min-w-[52px] items-center justify-center gap-2 rounded-full bg-[var(--color-whatsapp)] px-3 py-3 font-sans text-sm font-semibold text-white shadow-lg ring-2 ring-white/90 transition hover:bg-[color-mix(in_srgb,var(--color-whatsapp)_90%,var(--color-green-dark))] hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:min-h-0 sm:px-4"
       aria-label={`WhatsApp: ${msg}`}
     >

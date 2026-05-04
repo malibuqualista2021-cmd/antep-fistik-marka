@@ -1,7 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { ImageSlot } from "@/components/ui/ImageSlot";
-import { site, mapsLink, waLink } from "@/lib/site";
+import { useSitePresentation } from "@/components/layout/SitePresentationContext";
+import { mapsLinkResolved, waLinkResolved } from "@/lib/storefront-contact";
+import { site } from "@/lib/site";
 
 /** Bento ızgarası: ürün 2×2, yan hücreler depo/paket, alt şerit kalite */
 const bentoCells: {
@@ -24,7 +28,9 @@ const bentoCells: {
 ];
 
 export function TrustBand() {
-  const ti = site.trustImages;
+  const presentation = useSitePresentation();
+  const contact = presentation.contact;
+  const ti = presentation.trustImages;
   const srcMap = {
     depot: ti.depot,
     packaging: ti.packaging,
@@ -76,34 +82,34 @@ export function TrustBand() {
                 )}
               </p>
             </div>
-            {site.address.line1 || site.address.line2 ? (
+            {contact.address.line1 || contact.address.line2 ? (
               <dl className="grid gap-3 font-sans text-sm">
                 <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-[var(--ring-soft)]">
                   <dt className="text-muted">Açık adres</dt>
                   <dd className="mt-1 text-foreground">
-                    {site.address.line1}
-                    {site.address.line2 ? (
+                    {contact.address.line1}
+                    {contact.address.line2 ? (
                       <>
                         <br />
-                        {site.address.line2}
+                        {contact.address.line2}
                       </>
                     ) : null}
                   </dd>
                 </div>
-                {site.phone ? (
+                {contact.phoneDisplay ? (
                   <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-[var(--ring-soft)]">
                     <dt className="text-muted">Telefon</dt>
                     <dd className="mt-1">
-                      <a className="font-semibold text-primary hover:underline" href={`tel:${site.phoneE164}`}>
-                        {site.phone}
+                      <a className="font-semibold text-primary hover:underline" href={`tel:${contact.phoneE164}`}>
+                        {contact.phoneDisplay}
                       </a>
                     </dd>
                   </div>
                 ) : null}
-                {site.hours ? (
+                {contact.hours ? (
                   <div className="rounded-[12px] bg-background/90 px-4 py-3 ring-1 ring-[var(--ring-soft)]">
                     <dt className="text-muted">Çalışma saatleri</dt>
-                    <dd className="mt-1 text-foreground">{site.hours}</dd>
+                    <dd className="mt-1 text-foreground">{contact.hours}</dd>
                   </div>
                 ) : null}
               </dl>
@@ -124,8 +130,8 @@ export function TrustBand() {
               <Link href="/iletisim" className="underline-offset-4 hover:underline">
                 İletişim
               </Link>
-              {mapsLink() ? (
-                <a href={mapsLink()} target="_blank" rel="noopener noreferrer" className="underline-offset-4 hover:underline">
+              {mapsLinkResolved(contact) ? (
+                <a href={mapsLinkResolved(contact)} target="_blank" rel="noopener noreferrer" className="underline-offset-4 hover:underline">
                   Haritada aç
                 </a>
               ) : null}
@@ -189,13 +195,13 @@ export function TrustBand() {
                 öneririz.
               </p>
             )}
-            {site.certificatesNote ? (
+            {contact.certificatesNote ? (
               <p className="mt-4 rounded-[10px] bg-surface/90 px-3 py-2 font-sans text-sm text-foreground ring-1 ring-[var(--ring-soft)]">
-                {site.certificatesNote}
+                {contact.certificatesNote}
               </p>
             ) : null}
             <a
-              href={waLink("Numune veya referans süreci hakkında bilgi almak istiyorum.")}
+              href={waLinkResolved(contact, "Numune veya referans süreci hakkında bilgi almak istiyorum.")}
               className="mt-5 inline-flex min-h-[44px] items-center font-sans text-sm font-semibold text-primary underline-offset-4 hover:underline"
             >
               Numune / referans süreci

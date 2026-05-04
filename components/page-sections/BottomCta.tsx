@@ -1,7 +1,10 @@
+"use client";
+
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { useSitePresentation } from "@/components/layout/SitePresentationContext";
 import { cta } from "@/lib/cta";
-import { site, waLink } from "@/lib/site";
+import { waLinkResolved } from "@/lib/storefront-contact";
 
 const ghostOnGreen =
   "!min-h-[48px] !border !border-[color-mix(in_srgb,var(--color-fg-on-green)_52%,transparent)] !bg-transparent !px-5 !text-[var(--color-fg-on-green)] hover:!bg-[color-mix(in_srgb,var(--color-fg-on-green)_12%,transparent)]";
@@ -14,6 +17,7 @@ const secondaryOnGreen =
 
 export function BottomCta() {
   const b = cta.bottomCta;
+  const { contact } = useSitePresentation();
 
   return (
     <section className="pb-12 pt-2 md:pb-16" aria-labelledby="bottom-cta-heading">
@@ -29,22 +33,22 @@ export function BottomCta() {
             <Button variant="cta" href="/urunler" className="w-full justify-center shadow-[0_2px_14px_color-mix(in_srgb,var(--cta)_42%,transparent)] sm:w-auto">
               Perakende ürünleri gör
             </Button>
-            {site.whatsappE164 ? (
+            {contact.whatsappE164 ? (
               <Button
                 variant="secondary"
-                href={waLink(b.primaryWaMessage)}
+                href={waLinkResolved(contact, b.primaryWaMessage)}
                 className={`${secondaryOnGreen} w-full sm:w-auto`}
                 aria-label={b.primaryWaLabel}
               >
                 {b.primaryWaLabel}
               </Button>
             ) : null}
-            {site.phone && site.phoneE164 ? (
+            {contact.phoneDisplay && contact.phoneE164 ? (
               <Button
                 variant="secondary"
-                href={`tel:${site.phoneE164}`}
+                href={`tel:${contact.phoneE164}`}
                 className={`${outlineOnGreen} w-full sm:w-auto`}
-                aria-label={`${b.phoneLabel}: ${site.phone}`}
+                aria-label={`${b.phoneLabel}: ${contact.phoneDisplay}`}
               >
                 {b.phoneLabel}
               </Button>

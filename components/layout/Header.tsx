@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { useSitePresentation } from "@/components/layout/SitePresentationContext";
-import { site, waLink } from "@/lib/site";
+import { waLinkResolved } from "@/lib/storefront-contact";
 import { cta } from "@/lib/cta";
 import { brandLogo } from "@/lib/brand-logo";
 import { CartLink } from "@/components/shop/CartLink";
@@ -34,15 +34,16 @@ const utilityLinkClass =
 /** Masaüstü üst sağ — gap ~16–20px, 14px tipografi */
 function HeaderActionsBar() {
   const { waMessage } = cta.header;
+  const { contact } = useSitePresentation();
   return (
     <div className="hidden shrink-0 flex-wrap items-center justify-end gap-x-4 lg:gap-x-5 md:flex">
-      {site.phoneE164 ? (
-        <a href={`tel:${site.phoneE164}`} className={utilityLinkClass}>
+      {contact.phoneE164 ? (
+        <a href={`tel:${contact.phoneE164}`} className={utilityLinkClass}>
           Telefon
         </a>
       ) : null}
-      {site.whatsappE164 ? (
-        <a href={waLink(waMessage)} className={`${utilityLinkClass} text-primary hover:underline`}>
+      {contact.whatsappE164 ? (
+        <a href={waLinkResolved(contact, waMessage)} className={`${utilityLinkClass} text-primary hover:underline`}>
           WhatsApp
         </a>
       ) : null}
@@ -62,20 +63,21 @@ function HeaderActionsBar() {
 
 function HeaderDrawerUtilities({ onNavigate }: { onNavigate: () => void }) {
   const { waMessage } = cta.header;
+  const { contact } = useSitePresentation();
   return (
     <div className="flex flex-col gap-2 border-b border-[color-mix(in_srgb,var(--color-border)_75%,transparent)] pb-3">
-      {site.phoneE164 ? (
+      {contact.phoneE164 ? (
         <a
-          href={`tel:${site.phoneE164}`}
+          href={`tel:${contact.phoneE164}`}
           className="min-h-[44px] rounded-md px-2 py-3 font-sans text-sm font-semibold text-[var(--color-text)] hover:bg-[color-mix(in_srgb,var(--color-green-soft)_55%,var(--color-surface))]"
           onClick={onNavigate}
         >
           Telefon
         </a>
       ) : null}
-      {site.whatsappE164 ? (
+      {contact.whatsappE164 ? (
         <a
-          href={waLink(waMessage)}
+          href={waLinkResolved(contact, waMessage)}
           className="min-h-[44px] rounded-md px-2 py-3 font-sans text-sm font-semibold text-primary hover:bg-[color-mix(in_srgb,var(--color-green-soft)_55%,var(--color-surface))]"
           onClick={onNavigate}
         >
@@ -98,7 +100,7 @@ function HeaderDrawerUtilities({ onNavigate }: { onNavigate: () => void }) {
 export function Header() {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
-  const { branding } = useSitePresentation();
+  const { branding, contact } = useSitePresentation();
 
   return (
     <header className="sticky top-0 z-50 border-b border-[color-mix(in_srgb,var(--color-border)_78%,transparent)] bg-[var(--color-surface)] shadow-[0_1px_0_rgb(36_23_15_/0.04)]">
@@ -183,8 +185,8 @@ export function Header() {
             </nav>
             <div className="mt-3 flex flex-col gap-2 border-t border-[color-mix(in_srgb,var(--color-border)_78%,transparent)] pt-3">
               <CartLink className="w-full justify-center" onClick={close} />
-              {site.whatsappE164 ? (
-                <Button variant="cta" href={waLink(cta.header.waMessage)} className="w-full justify-center" onClick={close}>
+              {contact.whatsappE164 ? (
+                <Button variant="cta" href={waLinkResolved(contact, cta.header.waMessage)} className="w-full justify-center" onClick={close}>
                   WhatsApp
                 </Button>
               ) : null}

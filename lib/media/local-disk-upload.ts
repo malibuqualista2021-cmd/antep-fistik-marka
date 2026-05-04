@@ -46,6 +46,8 @@ export async function saveUploadedImageLocal(opts: {
   file: File;
   /** `public/uploads/admin/<slotSegment>/` */
   slotSegment: string;
+  /** Panelden gelen salt okunur disk mesajı (isteğe bağlı) */
+  diskReadonlyMessage?: string;
 }): Promise<ProductImageUploadResult> {
   const buf = Buffer.from(await opts.file.arrayBuffer());
   const kind = detectKind(buf);
@@ -59,8 +61,20 @@ export async function saveUploadedImageLocal(opts: {
   const relSegments = ["uploads", "admin", safeSlot, unique];
   const diskPath = path.join(process.cwd(), "public", ...relSegments);
 
-  await mkdir(path.dirname(diskPath), { recursive: true });
-  await writeFile(diskPath, buf);
+  try {
+    await mkdir(path.dirname(diskPath), { recursive: true });
+    await writeFile(diskPath, buf);
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    const readonlyHint =
+      opts.diskReadonlyMessage?.trim() ||
+      "Sunucu dosya sistemine yazılamıyor (salt okunur ortam). Cloudinary kullanın veya görseli URL ile verin.";
+    return {
+      ok: false,
+      message:
+        msg.includes("/var/task") || msg.includes("EROFS") || msg.includes("EACCES") ? readonlyHint : `Dosya kaydedilemedi: ${msg}`,
+    };
+  }
 
   const url = `/${relSegments.join("/")}`;
   return { ok: true, url };

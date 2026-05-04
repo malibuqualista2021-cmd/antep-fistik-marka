@@ -4,15 +4,18 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { brandPhotoAlts, brandPhotos } from "@/lib/site-images";
-import { site } from "@/lib/site";
+import { getSitePresentation } from "@/lib/site-presentation";
 
-export const metadata: Metadata = {
-  title: "Hakkımızda",
-  description:
-    "Gaziantep merkezli Antep fıstığı ticareti: ürün seçimi, parti bilgisi ve sevkiyat yaklaşımı.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const p = await getSitePresentation();
+  return {
+    title: "Hakkımızda",
+    description: `${p.branding.shortName} — Gaziantep merkezli Antep fıstığı ticareti: ürün seçimi, parti bilgisi ve sevkiyat yaklaşımı.`,
+  };
+}
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const { branding: brand, contact: c } = await getSitePresentation();
   return (
     <main id="icerik" className="pb-16">
       <section className="border-b border-[var(--line-soft)] bg-surface/30 py-10 md:py-14">
@@ -24,7 +27,7 @@ export default function AboutPage() {
             Gaziantep’ten çıkan ürünün modern ticari vitrini: net parti, net teslim
           </h1>
           <p className="mt-4 max-w-2xl font-sans text-base leading-relaxed text-muted md:text-lg">
-            {site.name}, Gaziantep Nizip&apos;te üretici olarak Antep fıstığını aracısız sunar; perakende paket ile
+            {brand.name}, Gaziantep Nizip&apos;te üretici olarak Antep fıstığını aracısız sunar; perakende paket ile
             toptan parti satışını aynı operasyon üzerinden yürütür. Amacımız gösterişli vaat değil; doğru ürün kodunu
             doğru kullanıma bağlamak ve çıkışı sürpriz yaşatmadan tamamlamaktır.
           </p>
@@ -171,29 +174,29 @@ export default function AboutPage() {
           <dl className="mt-6 grid gap-4 font-sans text-sm text-foreground md:max-w-xl">
             <div>
               <dt className="font-semibold text-muted">Marka / ticari görünen ad</dt>
-              <dd className="mt-1">{site.name}</dd>
+              <dd className="mt-1">{brand.name}</dd>
             </div>
             <div>
               <dt className="font-semibold text-muted">Adres</dt>
               <dd className="mt-1">
-                {site.address.line1}
+                {c.address.line1}
                 <br />
-                {site.address.line2}
+                {c.address.line2}
               </dd>
             </div>
             <div>
               <dt className="font-semibold text-muted">İletişim</dt>
               <dd className="mt-1">
-                {site.phone ? (
-                  <a className="text-primary hover:underline" href={`tel:${site.phoneE164}`}>
-                    {site.phone}
+                {c.phoneDisplay ? (
+                  <a className="text-primary hover:underline" href={`tel:${c.phoneE164}`}>
+                    {c.phoneDisplay}
                   </a>
                 ) : null}
-                {site.email ? (
+                {c.email ? (
                   <>
                     <br />
-                    <a className="text-primary hover:underline" href={`mailto:${site.email}`}>
-                      {site.email}
+                    <a className="text-primary hover:underline" href={`mailto:${c.email}`}>
+                      {c.email}
                     </a>
                   </>
                 ) : null}

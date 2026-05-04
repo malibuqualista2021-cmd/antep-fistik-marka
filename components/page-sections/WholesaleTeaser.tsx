@@ -1,14 +1,18 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { WholesaleLeadForm } from "@/components/forms/WholesaleLeadForm";
 import { ProcessRail } from "@/components/ui/ProcessRail";
 import { b2bProcessSteps } from "@/lib/b2b-process";
-import { site, waLink } from "@/lib/site";
+import { useSitePresentation } from "@/components/layout/SitePresentationContext";
+import { waLinkResolved } from "@/lib/storefront-contact";
 import { cta } from "@/lib/cta";
 
 export function WholesaleTeaser() {
   const w = cta.wholesalePage;
+  const { contact } = useSitePresentation();
 
   return (
     <section
@@ -61,9 +65,9 @@ export function WholesaleTeaser() {
               <Button variant="secondary" href="/toptan-satis#teklif" className="w-full justify-center sm:w-auto">
                 Talep formuna git
               </Button>
-              {site.whatsappE164 ? (
+              {contact.whatsappE164 ? (
                 <a
-                  href={waLink(w.waMessage)}
+                  href={waLinkResolved(contact, w.waMessage)}
                   className="inline-flex min-h-[48px] items-center justify-center font-sans text-sm font-semibold text-primary underline-offset-4 hover:underline"
                 >
                   {w.waLabel}
@@ -74,7 +78,7 @@ export function WholesaleTeaser() {
 
           <aside className="card-elevated rounded-[var(--radius-xl)] p-6 md:p-8" id="home-wholesale-form">
             <h3 className="font-serif text-xl text-foreground">Kısa toptan talep</h3>
-            <p className="mt-2 font-sans text-sm leading-relaxed text-muted">{site.wholesaleFormIntro}</p>
+            <p className="mt-2 font-sans text-sm leading-relaxed text-muted">{contact.wholesaleFormIntro}</p>
             <p className="mt-2 font-sans text-xs text-muted">
               Numune için{" "}
               <Link href="/toptan-satis#numune" className="font-semibold text-primary underline">

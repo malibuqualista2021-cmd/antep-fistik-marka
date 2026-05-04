@@ -2,11 +2,13 @@
 
 import Link from "next/link";
 import { useCart } from "@/components/shop/CartProvider";
-import { site, waLink } from "@/lib/site";
+import { useSitePresentation } from "@/components/layout/SitePresentationContext";
+import { waLinkResolved } from "@/lib/storefront-contact";
 import { cta } from "@/lib/cta";
 
 export function MobileBottomNav() {
   const { count } = useCart();
+  const { contact } = useSitePresentation();
 
   return (
     <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-[var(--line-medium)] bg-[var(--cream)] px-3 py-2 shadow-[0_-8px_24px_rgb(36_23_15/0.12)] md:hidden" aria-label="Mobil hızlı menü">
@@ -17,7 +19,7 @@ export function MobileBottomNav() {
         <Link href="/sepet" className="rounded-[var(--radius-button)] bg-primary px-2 py-2 text-center font-sans text-xs font-semibold text-[var(--cream)]">
           Sepet{count > 0 ? ` (${count})` : ""}
         </Link>
-        <Link href={site.whatsappE164 ? waLink(cta.header.waMessage) : "/iletisim"} className="rounded-[var(--radius-button)] px-2 py-2 text-center font-sans text-xs font-semibold text-primary">
+        <Link href={contact.whatsappE164 ? waLinkResolved(contact, cta.header.waMessage) : "/iletisim"} className="rounded-[var(--radius-button)] px-2 py-2 text-center font-sans text-xs font-semibold text-primary">
           WhatsApp
         </Link>
       </div>

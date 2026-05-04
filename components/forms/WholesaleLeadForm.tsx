@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useSitePresentation } from "@/components/layout/SitePresentationContext";
 import { Button } from "@/components/ui/Button";
-import { site, waLink } from "@/lib/site";
+import { waLinkResolved } from "@/lib/storefront-contact";
 import { inputFieldClass } from "@/lib/form-classes";
 import { cta } from "@/lib/cta";
 
@@ -16,6 +17,7 @@ export function WholesaleLeadForm({ source = "page" }: Props) {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const submitLabel = cta.wholesalePage.formSubmitLabel;
+  const { contact } = useSitePresentation();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -51,12 +53,12 @@ export function WholesaleLeadForm({ source = "page" }: Props) {
     return (
       <div className="space-y-3" role="status">
         <p className="font-sans text-sm font-medium text-primary">
-          Teşekkürler. Talebiniz alındı. {site.responseTimeHint}
+          Teşekkürler. Talebiniz alındı. {contact.responseTimeHint}
         </p>
         <p className="font-sans text-sm text-muted">
           Ek bilgi için{" "}
           <Link
-            href={waLink("Toptan talep formu doldurdum, devam etmek istiyorum.")}
+            href={waLinkResolved(contact, "Toptan talep formu doldurdum, devam etmek istiyorum.")}
             className="font-semibold text-primary underline-offset-2 hover:underline"
           >
             WhatsApp
@@ -171,24 +173,24 @@ export function WholesaleLeadForm({ source = "page" }: Props) {
         </Button>
         {submitError ? <p className="text-center font-sans text-sm text-red-700">{submitError}</p> : null}
       </form>
-      {site.whatsappE164 ? (
+      {contact.whatsappE164 ? (
         <p className="text-center font-sans text-sm text-muted">
           <a
-            href={waLink(cta.wholesalePage.waMessage)}
+            href={waLinkResolved(contact, cta.wholesalePage.waMessage)}
             className="font-semibold text-primary underline-offset-2 hover:underline"
           >
             {cta.wholesalePage.waLabel}
           </a>
         </p>
       ) : null}
-      {site.phone ? (
+      {contact.phoneDisplay ? (
         <div className="rounded-[var(--radius-card)] border border-primary/10 bg-background/80 px-4 py-3 text-center font-sans text-sm text-muted">
           <span className="font-medium text-foreground">Hızlı hat: </span>
           <a
-            href={`tel:${site.phoneE164}`}
+            href={`tel:${contact.phoneE164}`}
             className="font-semibold text-primary underline-offset-2 hover:underline"
           >
-            {site.phone}
+            {contact.phoneDisplay}
           </a>
         </div>
       ) : null}

@@ -23,35 +23,38 @@ const inter = Inter({
   display: "swap",
 });
 
-const metadataBase = site.url
-  ? (() => {
-      try {
-        return new URL(site.url);
-      } catch {
-        return undefined;
-      }
-    })()
-  : undefined;
+function metadataBaseUrl(): URL | undefined {
+  if (!site.url) return undefined;
+  try {
+    return new URL(site.url);
+  } catch {
+    return undefined;
+  }
+}
 
-export const metadata: Metadata = {
-  metadataBase: metadataBase ?? undefined,
-  title: {
-    default: `${site.name} | Gaziantep Antep Fıstığı — Perakende & Toptan`,
-    template: `%s | ${site.name}`,
-  },
-  description: site.description,
-  openGraph: {
-    title: site.name,
-    description: site.description,
-    locale: "tr_TR",
-    type: "website",
-    ...(site.url ? { url: site.url } : {}),
-  },
-  icons: {
-    icon: [{ url: "/icon.png", sizes: "32x32", type: "image/png" }],
-    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const p = await getSitePresentation();
+  const base = metadataBaseUrl();
+  return {
+    metadataBase: base ?? undefined,
+    title: {
+      default: `${p.branding.name} | Gaziantep Antep Fıstığı — Perakende & Toptan`,
+      template: `%s | ${p.branding.name}`,
+    },
+    description: p.branding.description,
+    openGraph: {
+      title: p.branding.name,
+      description: p.branding.description,
+      locale: "tr_TR",
+      type: "website",
+      ...(site.url ? { url: site.url } : {}),
+    },
+    icons: {
+      icon: [{ url: "/icon.png", sizes: "32x32", type: "image/png" }],
+      apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
@@ -63,6 +66,9 @@ export default async function RootLayout({
   return (
     <html lang="tr" className={`${playfair.variable} ${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
+        {presentation.themeInlineCss ? (
+          <style id="site-theme-accent" dangerouslySetInnerHTML={{ __html: presentation.themeInlineCss }} />
+        ) : null}
         <SitePresentationProvider value={presentation}>
           <SiteShell presentation={presentation}>{children}</SiteShell>
           <PromoPopupsLayer popups={presentation.promoPopups} />

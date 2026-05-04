@@ -9,6 +9,8 @@ import type { CartItem } from "@/components/shop/CartProvider";
 import type { CheckoutPaymentMethodCode } from "@/lib/payment/types";
 import { resolvePaymentAdapter } from "@/lib/payment/resolve-adapter";
 import { appendPersistedOrder } from "@/lib/server/orders-store";
+import { readSiteSettingsFile } from "@/lib/server/site-settings-store";
+import { mergeContentMessages, contentMessage, SITE_MESSAGE_KEYS } from "@/lib/site-content-messages";
 
 const PAYMENT_METHODS: CheckoutPaymentMethodCode[] = [
   "card",
@@ -130,10 +132,20 @@ export async function POST(req: Request) {
     paymentLastMessage,
   };
 
+  const settingsFile = await readSiteSettingsFile();
+  const msgMap = mergeContentMessages(settingsFile?.contentMessages);
+
   try {
     await appendPersistedOrder(order);
-  } catch {
-    // Sunucusuz veya salt okunur FS ortamlarında sipariş dosyaya yazılamayabilir — müşteri akışı yine döner.
+  } catch (e) {
+    console.error("[api/orders] persist failed", e);
+    return NextResponse.json(
+      {
+        ok: false,
+        message: contentMessage(msgMap, SITE_MESSAGE_KEYS.orderPersistFailed),
+      },
+      { status: 503 },
+    );
   }
 
   return NextResponse.json({ ok: true, order });

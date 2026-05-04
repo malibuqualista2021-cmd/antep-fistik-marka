@@ -1,5 +1,27 @@
 /** Diskteki site-settings.json ile sunulan vitrin birleşimi için tipler */
 
+/** .env üzerine yazılır; boş alanlar ortam varsayılanına düşer */
+export type SiteContactOverrides = {
+  phoneDisplay?: string;
+  phoneE164?: string;
+  whatsappE164?: string;
+  email?: string;
+  addressLine1?: string;
+  addressLine2?: string;
+  hours?: string;
+  mapsUrl?: string;
+  mapsQuery?: string;
+  socialInstagram?: string;
+  responseTimeHint?: string;
+  wholesaleFormIntro?: string;
+  certificatesNote?: string;
+};
+
+/** CSS `--color-orange` / `--cta` — yalnızca #RRGGBB */
+export type SiteThemeOverrides = {
+  ctaAccentHex?: string;
+};
+
 export type RetailCategoryDefinition = {
   id: string;
   label: string;
@@ -50,6 +72,10 @@ export type SiteSettingsFileV1 = {
   categories?: RetailCategoryDefinition[];
   /** mediaSlots id → URL */
   mediaUrls?: Partial<Record<string, string>>;
+  contact?: SiteContactOverrides;
+  theme?: SiteThemeOverrides;
+  /** API ve vitrin mesajları — lib/site-content-messages.ts anahtarları */
+  contentMessages?: Record<string, string>;
   branding?: {
     siteName?: string;
     shortName?: string;

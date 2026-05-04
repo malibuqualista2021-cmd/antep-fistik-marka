@@ -2,7 +2,7 @@ import Link from "next/link";
 import { BrandLogo } from "@/components/brand/BrandLogo";
 import { Container } from "@/components/ui/Container";
 import { footerProducerNote } from "@/lib/copy";
-import { mapsEmbedUrl, mapsLink, site, waLink } from "@/lib/site";
+import { mapsEmbedUrlResolved, mapsLinkResolved, waLinkResolved } from "@/lib/storefront-contact";
 import type { SitePresentation } from "@/lib/site-presentation";
 
 const alisveris = [
@@ -30,9 +30,12 @@ const yasalVeIsletme = [
 
 export function Footer({ presentation }: { presentation: SitePresentation }) {
   const brand = presentation.branding;
-  const categoryLinks = presentation.categories.map((c) => ({
-    href: `/urunler?kategori=${encodeURIComponent(c.id)}`,
-    label: c.label,
+  const c = presentation.contact;
+  const mapHref = mapsLinkResolved(c);
+  const embedHref = mapsEmbedUrlResolved(c);
+  const categoryLinks = presentation.categories.map((cat) => ({
+    href: `/urunler?kategori=${encodeURIComponent(cat.id)}`,
+    label: cat.label,
   }));
   const footerCategoryNav = [...categoryLinks, ...presentation.footerExtraLinks];
 
@@ -98,18 +101,18 @@ export function Footer({ presentation }: { presentation: SitePresentation }) {
         <div>
           <p className="font-sans text-sm font-semibold text-foreground">İletişim</p>
           <address className="mt-3 not-italic font-sans text-sm text-muted space-y-1">
-            {site.phone ? (
+            {c.phoneDisplay ? (
               <p>
-                <a className="hover:text-primary" href={`tel:${site.phoneE164}`}>
-                  {site.phone}
+                <a className="hover:text-primary" href={`tel:${c.phoneE164}`}>
+                  {c.phoneDisplay}
                 </a>
               </p>
             ) : (
               <p>Telefon: İletişim formundan paylaşılır</p>
             )}
-            {site.whatsappE164 ? (
+            {c.whatsappE164 ? (
               <p>
-                <a className="font-medium text-primary hover:underline" href={waLink()}>
+                <a className="font-medium text-primary hover:underline" href={waLinkResolved(c)}>
                   WhatsApp
                 </a>
               </p>
@@ -120,10 +123,10 @@ export function Footer({ presentation }: { presentation: SitePresentation }) {
                 </Link>
               </p>
             )}
-            {site.email ? (
+            {c.email ? (
               <p>
-                <a className="hover:text-primary" href={`mailto:${site.email}`}>
-                  {site.email}
+                <a className="hover:text-primary" href={`mailto:${c.email}`}>
+                  {c.email}
                 </a>
               </p>
             ) : (
@@ -133,28 +136,28 @@ export function Footer({ presentation }: { presentation: SitePresentation }) {
                 </Link>
               </p>
             )}
-            {site.address.line1 || site.address.line2 ? (
+            {c.address.line1 || c.address.line2 ? (
               <p>
-                {site.address.line1} {site.address.line2}
+                {c.address.line1} {c.address.line2}
               </p>
             ) : (
               <p>Gaziantep merkezli sevkiyat noktası</p>
             )}
-            {mapsLink() ? (
+            {mapHref ? (
               <p>
-                <a className="font-medium text-primary hover:underline" href={mapsLink()} target="_blank" rel="noopener noreferrer">
+                <a className="font-medium text-primary hover:underline" href={mapHref} target="_blank" rel="noopener noreferrer">
                   Haritada aç
                 </a>
               </p>
             ) : null}
-            {site.socialInstagram ? (
+            {c.socialInstagram ? (
               <p>
-                <a className="hover:text-primary" href={site.socialInstagram} target="_blank" rel="noopener noreferrer">
+                <a className="hover:text-primary" href={c.socialInstagram} target="_blank" rel="noopener noreferrer">
                   Instagram
                 </a>
               </p>
             ) : null}
-            {site.hours ? <p>{site.hours}</p> : null}
+            {c.hours ? <p>{c.hours}</p> : null}
           </address>
         </div>
       </Container>
@@ -165,20 +168,20 @@ export function Footer({ presentation }: { presentation: SitePresentation }) {
             <h2 className="font-serif text-xl font-semibold text-foreground md:text-2xl">Adres</h2>
             <p className="mt-2 font-sans text-sm text-muted">Gaziantep, Nizip</p>
             <address className="mt-4 not-italic font-sans text-sm leading-relaxed text-foreground">
-              <p>{site.address.line1}</p>
-              <p className="mt-1">{site.address.line2}</p>
+              <p>{c.address.line1}</p>
+              <p className="mt-1">{c.address.line2}</p>
             </address>
             <p className="mt-5 font-sans text-sm font-semibold text-foreground">WhatsApp</p>
             <p className="mt-1 font-sans text-sm">
-              <a href={waLink()} className="font-medium text-primary underline-offset-2 hover:underline" target="_blank" rel="noopener noreferrer">
-                {site.phone}
+              <a href={waLinkResolved(c)} className="font-medium text-primary underline-offset-2 hover:underline" target="_blank" rel="noopener noreferrer">
+                {c.phoneDisplay}
               </a>
             </p>
-            {mapsLink() ? (
+            {mapHref ? (
               <p className="mt-4">
                 <a
                   className="inline-flex font-sans text-sm font-semibold text-[var(--walnut)] underline-offset-2 hover:text-primary hover:underline"
-                  href={mapsLink()}
+                  href={mapHref}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -188,10 +191,10 @@ export function Footer({ presentation }: { presentation: SitePresentation }) {
             ) : null}
           </div>
           <div className="min-h-[220px] overflow-hidden rounded-[var(--radius-card)] ring-1 ring-[var(--border-subtle)] md:min-h-[280px]">
-            {mapsEmbedUrl() ? (
+            {embedHref ? (
               <iframe
                 title={`${brand.name} — Nizip mağaza konumu`}
-                src={mapsEmbedUrl()}
+                src={embedHref}
                 className="h-[min(55vh,22rem)] w-full border-0 md:h-full md:min-h-[280px]"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"

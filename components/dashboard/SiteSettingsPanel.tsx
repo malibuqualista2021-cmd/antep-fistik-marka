@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import type { SiteSettingsFileV1 } from "@/lib/site-settings-types";
 import { Button } from "@/components/ui/Button";
 import { inputFieldClass } from "@/lib/form-classes";
+import { mergeContentMessages, diffContentMessagesFromDefaults, contentMessageDefaultsForAdmin } from "@/lib/site-content-messages";
 
 const MEDIA_FIELDS: { id: string; label: string }[] = [
   { id: "hero-main", label: "Hero ana görsel" },
@@ -40,6 +41,7 @@ export function SiteSettingsPanel() {
       }
       const base = structuredClone(data.defaults);
       const merged: SiteSettingsFileV1 = data.file ? deepMerge(base, data.file) : base;
+      merged.contentMessages = mergeContentMessages(merged.contentMessages);
       setModel(merged);
     } catch {
       setError("Bağlantı hatası.");
@@ -58,11 +60,17 @@ export function SiteSettingsPanel() {
     setError("");
     setNotice("");
     try {
+      const mergedMsgs = model.contentMessages ?? mergeContentMessages();
+      const diff = diffContentMessagesFromDefaults(mergedMsgs);
+      const { contentMessages: _drop, ...rest } = model;
+      const payload: SiteSettingsFileV1 =
+        diff !== undefined ? { ...rest, contentMessages: diff } : rest;
+
       const res = await fetch("/api/admin/site-settings", {
         method: "PUT",
         credentials: "same-origin",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify(model),
+        body: JSON.stringify(payload),
       });
       const data = (await res.json()) as { ok?: boolean; message?: string };
       if (!res.ok || !data.ok) {
@@ -113,6 +121,144 @@ export function SiteSettingsPanel() {
 
       {error ? <p className="text-sm text-red-700">{error}</p> : null}
       {notice ? <p className="text-sm text-primary">{notice}</p> : null}
+
+      <details open className="rounded-[var(--radius-input)] bg-background p-4 ring-1 ring-[var(--line-soft)]">
+        <summary className="cursor-pointer font-serif text-lg text-foreground">İletişim &amp; kanallar</summary>
+        <p className="mt-2 text-xs text-muted">
+          Boş bıraktığınız alanlarda site{" "}
+          <code className="rounded bg-background px-1 text-[11px]">NEXT_PUBLIC_*</code> ortam değişkenleri kullanılır.
+        </p>
+        <div className="mt-4 grid gap-4 md:grid-cols-2">
+          {(
+            [
+              ["phoneDisplay", "Telefon (görünen)"],
+              ["phoneE164", "Telefon E.164 (ülke kodu ile, boşluksuz)"],
+              ["whatsappE164", "WhatsApp E.164"],
+              ["email", "E-posta"],
+              ["socialInstagram", "Instagram URL"],
+              ["hours", "Çalışma saatleri"],
+              ["mapsUrl", "Harita linki (Google Maps vb.)"],
+              ["mapsQuery", "Harita arama metni (mapsUrl yoksa)"],
+            ] as const
+          ).map(([key, label]) => (
+            <label key={key} className={key === "mapsQuery" || key === "mapsUrl" ? "md:col-span-2" : ""}>
+              <span className="text-xs text-muted">{label}</span>
+              <input
+                className={`${inputFieldClass} mt-1 font-mono text-[13px]`}
+                value={(model.contact ?? {})[key] ?? ""}
+                onChange={(e) =>
+                  setModel({
+                    ...model,
+                    contact: { ...(model.contact ?? {}), [key]: e.target.value },
+                  })
+                }
+              />
+            </label>
+          ))}
+          <label className="md:col-span-2">
+            <span className="text-xs text-muted">Adres satırı 1</span>
+            <input
+              className={`${inputFieldClass} mt-1`}
+              value={model.contact?.addressLine1 ?? ""}
+              onChange={(e) => setModel({ ...model, contact: { ...(model.contact ?? {}), addressLine1: e.target.value } })}
+            />
+          </label>
+          <label className="md:col-span-2">
+            <span className="text-xs text-muted">Adres satırı 2</span>
+            <input
+              className={`${inputFieldClass} mt-1`}
+              value={model.contact?.addressLine2 ?? ""}
+              onChange={(e) => setModel({ ...model, contact: { ...(model.contact ?? {}), addressLine2: e.target.value } })}
+            />
+          </label>
+          <label className="md:col-span-2">
+            <span className="text-xs text-muted">Yanıt süresi ipucu (formlar)</span>
+            <textarea
+              className={`${inputFieldClass} mt-1 min-h-[56px]`}
+              value={model.contact?.responseTimeHint ?? ""}
+              onChange={(e) => setModel({ ...model, contact: { ...(model.contact ?? {}), responseTimeHint: e.target.value } })}
+            />
+          </label>
+          <label className="md:col-span-2">
+            <span className="text-xs text-muted">Toptan form giriş metni</span>
+            <textarea
+              className={`${inputFieldClass} mt-1 min-h-[56px]`}
+              value={model.contact?.wholesaleFormIntro ?? ""}
+              onChange={(e) => setModel({ ...model, contact: { ...(model.contact ?? {}), wholesaleFormIntro: e.target.value } })}
+            />
+          </label>
+          <label className="md:col-span-2">
+            <span className="text-xs text-muted">Sertifika / belge notu (Hakkımızda güven bandı)</span>
+            <textarea
+              className={`${inputFieldClass} mt-1 min-h-[48px]`}
+              value={model.contact?.certificatesNote ?? ""}
+              onChange={(e) => setModel({ ...model, contact: { ...(model.contact ?? {}), certificatesNote: e.target.value } })}
+            />
+          </label>
+        </div>
+      </details>
+
+      <details className="rounded-[var(--radius-input)] bg-background p-4 ring-1 ring-[var(--line-soft)]">
+        <summary className="cursor-pointer font-serif text-lg text-foreground">Tema — CTA turuncusu</summary>
+        <p className="mt-2 text-xs text-muted">
+          Yalnızca <code className="rounded bg-background px-1">#RRGGBB</code> (ör. #d9732f). Boş bırakırsanız site varsayılanı kullanılır.
+        </p>
+        <div className="mt-4 flex flex-wrap items-end gap-4">
+          <label className="text-xs text-muted">
+            Hex
+            <input
+              className={`${inputFieldClass} mt-1 font-mono`}
+              placeholder="#d9732f"
+              value={model.theme?.ctaAccentHex ?? ""}
+              onChange={(e) =>
+                setModel({
+                  ...model,
+                  theme: { ...model.theme, ctaAccentHex: e.target.value },
+                })
+              }
+            />
+          </label>
+          <label className="flex items-center gap-2 text-xs text-muted">
+            Renk seçici
+            <input
+              type="color"
+              className="mt-1 h-10 w-14 cursor-pointer rounded border border-[var(--line-soft)] bg-background p-1"
+              value={/^#[0-9A-Fa-f]{6}$/.test(model.theme?.ctaAccentHex ?? "") ? model.theme!.ctaAccentHex! : "#d9732f"}
+              onChange={(e) =>
+                setModel({
+                  ...model,
+                  theme: { ...model.theme, ctaAccentHex: e.target.value },
+                })
+              }
+            />
+          </label>
+        </div>
+      </details>
+
+      <details className="rounded-[var(--radius-input)] bg-background p-4 ring-1 ring-[var(--line-soft)]">
+        <summary className="cursor-pointer font-serif text-lg text-foreground">Sistem mesajları</summary>
+        <p className="mt-2 text-xs text-muted">
+          Müşteri veya panelde beklenmeyen durumlarda gösterilen metinler. Varsayılanlar kodda tanımlıdır; yalnızca değiştirdikleriniz JSON’a yazılır.
+        </p>
+        <div className="mt-4 space-y-4">
+          {contentMessageDefaultsForAdmin().map((row) => (
+            <label key={row.key} className="block text-xs text-muted">
+              <span className="font-medium text-foreground">{row.label}</span>
+              <span className="mt-0.5 block text-[11px] opacity-90">{row.hint}</span>
+              <textarea
+                className={`${inputFieldClass} mt-1 min-h-[72px] font-sans text-sm`}
+                value={model.contentMessages?.[row.key] ?? ""}
+                onChange={(e) =>
+                  setModel({
+                    ...model,
+                    contentMessages: { ...(model.contentMessages ?? mergeContentMessages()), [row.key]: e.target.value },
+                  })
+                }
+              />
+            </label>
+          ))}
+        </div>
+      </details>
 
       <details open className="rounded-[var(--radius-input)] bg-background p-4 ring-1 ring-[var(--line-soft)]">
         <summary className="cursor-pointer font-serif text-lg text-foreground">Mağaza kategorileri</summary>
@@ -362,7 +508,7 @@ export function SiteSettingsPanel() {
         <summary className="cursor-pointer font-serif text-lg text-foreground">Keşfet kartları (ana sayfa)</summary>
         <div className="mt-4 space-y-4">
           {(model.discoveryTiles ?? []).map((tile, idx) => (
-            <div key={tile.id} className="grid gap-2 rounded-lg border border-[var(--line-soft)] p-3 md:grid-cols-2">
+            <div key={`${tile.id}-${idx}`} className="grid gap-2 rounded-lg border border-[var(--line-soft)] p-3 md:grid-cols-2">
               <label className="text-xs text-muted">
                 Kimlik
                 <input
@@ -599,6 +745,9 @@ function deepMerge(base: SiteSettingsFileV1, patch: SiteSettingsFileV1): SiteSet
   return {
     ...base,
     ...patch,
+    contact: { ...(base.contact ?? {}), ...(patch.contact ?? {}) },
+    theme: { ...(base.theme ?? {}), ...(patch.theme ?? {}) },
+    contentMessages: { ...(base.contentMessages ?? {}), ...(patch.contentMessages ?? {}) },
     branding: { ...base.branding, ...patch.branding },
     heroSection: {
       ...heroBase,

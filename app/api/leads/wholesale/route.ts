@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { appendWholesaleLead, type WholesaleLeadRecord } from "@/lib/server/wholesale-leads-store";
+import { readSiteSettingsFile } from "@/lib/server/site-settings-store";
+import { mergeContentMessages, contentMessage, SITE_MESSAGE_KEYS } from "@/lib/site-content-messages";
 
 export async function POST(req: Request) {
   const body = (await req.json().catch(() => null)) as Record<string, unknown> | null;
@@ -39,8 +41,14 @@ export async function POST(req: Request) {
 
   try {
     await appendWholesaleLead(record);
-  } catch {
-    return NextResponse.json({ ok: false, message: "Kayıt yazılamadı." }, { status: 500 });
+  } catch (e) {
+    console.error("[api/leads/wholesale] persist failed", e);
+    const file = await readSiteSettingsFile();
+    const msgMap = mergeContentMessages(file?.contentMessages);
+    return NextResponse.json(
+      { ok: false, message: contentMessage(msgMap, SITE_MESSAGE_KEYS.leadPersistFailed) },
+      { status: 503 },
+    );
   }
 
   return NextResponse.json({ ok: true, id: record.id });

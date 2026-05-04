@@ -2,13 +2,16 @@ import type { Metadata } from "next";
 import { BrandLogo } from "@/components/brand/BrandLogo";
 import { Container } from "@/components/ui/Container";
 import { CartPageClient } from "@/components/shop/CartPageClient";
-import { site } from "@/lib/site";
 import { getRetailProducts } from "@/lib/catalog/get-retail-products";
+import { getSitePresentation } from "@/lib/site-presentation";
 
-export const metadata: Metadata = {
-  title: "Sepet",
-  description: `${site.name} perakende ürün sepeti.`,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const p = await getSitePresentation();
+  return {
+    title: "Sepet",
+    description: `${p.branding.name} perakende ürün sepeti.`,
+  };
+}
 
 export default async function CartPage() {
   const catalog = await getRetailProducts();

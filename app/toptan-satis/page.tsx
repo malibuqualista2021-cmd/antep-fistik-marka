@@ -8,15 +8,19 @@ import { ProcessRail } from "@/components/ui/ProcessRail";
 import { b2bProcessSteps } from "@/lib/b2b-process";
 import { cta } from "@/lib/cta";
 import { brandPhotoAlts, brandPhotos } from "@/lib/site-images";
-import { site, waLink } from "@/lib/site";
+import { getSitePresentation } from "@/lib/site-presentation";
+import { waLinkResolved } from "@/lib/storefront-contact";
 
-export const metadata: Metadata = {
-  title: "Toptan satış",
-  description:
-    "Antep fıstığı toplu alım: yazılı teklif, numune, paketleme ve sevkiyat. Baklavacı, kuruyemişçi ve üreticiler.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const p = await getSitePresentation();
+  return {
+    title: "Toptan satış",
+    description: `${p.branding.shortName} — Antep fıstığı toplu alım: yazılı teklif, numune, paketleme ve sevkiyat.`,
+  };
+}
 
-export default function WholesalePage() {
+export default async function WholesalePage() {
+  const contact = (await getSitePresentation()).contact;
   const w = cta.wholesalePage;
   const segments = [
     {
@@ -56,13 +60,13 @@ export default function WholesalePage() {
             <Button variant="cta" href="#teklif" className="shadow-[0_2px_14px_color-mix(in_srgb,var(--cta)_42%,transparent)]">
               {w.formAnchorLabel}
             </Button>
-            {site.whatsappE164 ? (
-              <Button variant="outlineLight" href={waLink(w.waMessage)}>
+            {contact.whatsappE164 ? (
+              <Button variant="outlineLight" href={waLinkResolved(contact, w.waMessage)}>
                 {w.waLabel}
               </Button>
             ) : null}
-            {site.phone && site.phoneE164 ? (
-              <Button variant="outlineLight" href={`tel:${site.phoneE164}`}>
+            {contact.phoneDisplay && contact.phoneE164 ? (
+              <Button variant="outlineLight" href={`tel:${contact.phoneE164}`}>
                 {w.phoneLabel}
               </Button>
             ) : null}
@@ -188,8 +192,8 @@ export default function WholesalePage() {
               <Button variant="primary" href="#teklif">
                 Talep formunu aç
               </Button>
-              {site.whatsappE164 ? (
-                <Button variant="secondary" href={waLink(cta.home.sampleWaMessage)}>
+              {contact.whatsappE164 ? (
+                <Button variant="secondary" href={waLinkResolved(contact, cta.home.sampleWaMessage)}>
                   Numune için WhatsApp
                 </Button>
               ) : null}
@@ -225,8 +229,8 @@ export default function WholesalePage() {
           className="card-elevated scroll-mt-28 h-fit rounded-[var(--radius-xl)] p-6 md:sticky md:top-28 md:p-8"
         >
           <h2 className="font-serif text-2xl text-foreground">Toplu alım talebi</h2>
-          <p className="mt-2 font-sans text-sm leading-relaxed text-muted">{site.wholesaleFormIntro}</p>
-          <p className="mt-2 font-sans text-sm text-muted">{site.responseTimeHint}</p>
+          <p className="mt-2 font-sans text-sm leading-relaxed text-muted">{contact.wholesaleFormIntro}</p>
+          <p className="mt-2 font-sans text-sm text-muted">{contact.responseTimeHint}</p>
           <div className="mt-6">
             <WholesaleLeadForm source="toptan-satis" />
           </div>

@@ -20,6 +20,11 @@ const FILE_NAMES: Record<RuntimeJsonDataset, string> = {
   wholesaleLeads: "wholesale-leads.json",
 };
 
+/** Netlify Functions (Lambda) ortamında yerel `public/` yazımı çalışmaz — yükleme için Cloudinary gerekir */
+export function isLambdaLikeServerlessRuntime(): boolean {
+  return Boolean(process.env.AWS_LAMBDA_FUNCTION_NAME?.trim());
+}
+
 /** Netlify Functions / OpenNext ortamında kalıcı yazım için Blobs kullanılmalı */
 export function useBlobPersistence(): boolean {
   if (process.env.RUNTIME_JSON_FORCE_FS === "1") return false;
@@ -51,7 +56,10 @@ async function readFromBlob(id: RuntimeJsonDataset): Promise<unknown | null> {
     const data = await store.get(blobKey(id), { type: "json" });
     return data ?? null;
   } catch (err) {
-    console.error(`[runtime-json] blob okuma (${id}):`, err);
+    const msg = err instanceof Error ? err.message : String(err);
+    if (!msg.includes("MissingBlobsEnvironment") && !msg.includes("not been configured to use Netlify Blobs")) {
+      console.error(`[runtime-json] blob okuma (${id}):`, err);
+    }
     return null;
   }
 }

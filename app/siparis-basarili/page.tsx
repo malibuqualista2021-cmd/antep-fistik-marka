@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { site } from "@/lib/site";
+import { getSitePresentation } from "@/lib/site-presentation";
 
-export const metadata: Metadata = {
-  title: "Sipariş alındı",
-  description: `${site.name} perakende siparişiniz alındı.`,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const p = await getSitePresentation();
+  return {
+    title: "Sipariş alındı",
+    description: `${p.branding.name} perakende siparişiniz alındı.`,
+  };
+}
 
 export default async function OrderSuccessPage({
   searchParams,

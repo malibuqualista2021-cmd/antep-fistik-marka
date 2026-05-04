@@ -4,7 +4,7 @@ import { Container } from "@/components/ui/Container";
 import { ImageSlot } from "@/components/ui/ImageSlot";
 import { brandPhotoAlts } from "@/lib/site-images";
 import type { SitePresentation } from "@/lib/site-presentation";
-import { waLink } from "@/lib/site";
+import { waLinkResolved } from "@/lib/storefront-contact";
 
 export function HeroHome({ presentation }: { presentation: SitePresentation }) {
   const { heroImages } = presentation;
@@ -39,7 +39,7 @@ export function HeroHome({ presentation }: { presentation: SitePresentation }) {
               </Button>
             </div>
             <p className="mt-2 font-sans text-xs text-[var(--color-muted)]">
-              <a href={waLink(h.waPriceMessage)} className="font-semibold text-primary underline-offset-4 hover:underline">
+              <a href={waLinkResolved(presentation.contact, h.waPriceMessage)} className="font-semibold text-primary underline-offset-4 hover:underline">
                 {h.waPriceLabel}
               </a>
             </p>

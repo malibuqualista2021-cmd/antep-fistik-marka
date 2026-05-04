@@ -4,14 +4,19 @@ import { site } from "@/lib/site";
 import type { HeroImages, TrustImages } from "@/lib/site";
 import { brandPhotoAlts, brandPhotos } from "@/lib/site-images";
 import { readSiteSettingsFile } from "@/lib/server/site-settings-store";
+import { mergeContentMessages } from "@/lib/site-content-messages";
 import type {
   CommerceTrustItem,
   DiscoveryTileDefinition,
   HeroTrustMicroLine,
   PromoPopupDefinition,
   RetailCategoryDefinition,
+  SiteContactOverrides,
   SiteSettingsFileV1,
+  SiteThemeOverrides,
 } from "@/lib/site-settings-types";
+import type { ResolvedStorefrontContact } from "@/lib/storefront-contact";
+import { resolveStorefrontContact } from "@/lib/storefront-contact";
 
 export type SitePresentation = {
   branding: {
@@ -49,6 +54,11 @@ export type SitePresentation = {
   footerExtraLinks: { href: string; label: string }[];
   footerTagline: string;
   mediaUrls: Partial<Record<string, string>>;
+  contact: ResolvedStorefrontContact;
+  /** Üretimde güvenli tek satır CSS (:root turuncu / CTA) */
+  themeInlineCss?: string;
+  /** Panel mesajları + kod varsayılanları (istemci/API tekrar okumadan kullanılabilir) */
+  contentMessages: Record<string, string>;
 };
 
 export const DEFAULT_RETAIL_CATEGORIES: RetailCategoryDefinition[] = [
@@ -177,6 +187,19 @@ function mergeHeroImages(file: SiteSettingsFileV1 | null): HeroImages {
   };
 }
 
+function validateCtaAccentHex(raw: string | undefined): string | null {
+  if (!raw?.trim()) return null;
+  const h = raw.trim();
+  if (!/^#[0-9A-Fa-f]{6}$/.test(h)) return null;
+  return h;
+}
+
+function buildThemeInlineCss(file: SiteSettingsFileV1 | null): string | undefined {
+  const hex = validateCtaAccentHex(file?.theme?.ctaAccentHex);
+  if (!hex) return undefined;
+  return `:root{--color-orange:${hex};--cta:${hex};}`;
+}
+
 function mergeTrustImages(file: SiteSettingsFileV1 | null): TrustImages {
   const m = file?.mediaUrls ?? {};
   return {
@@ -254,6 +277,9 @@ function buildPresentationInner(file: SiteSettingsFileV1 | null): SitePresentati
       : DEFAULT_FOOTER_EXTRAS,
     footerTagline: file?.footerTagline?.trim() || DEFAULT_FOOTER_TAGLINE,
     mediaUrls: { ...(file?.mediaUrls ?? {}) },
+    contact: resolveStorefrontContact(file?.contact),
+    themeInlineCss: buildThemeInlineCss(file),
+    contentMessages: mergeContentMessages(file?.contentMessages),
   };
 }
 
@@ -284,6 +310,46 @@ function sanitizePopups(raw: PromoPopupDefinition[] | undefined): PromoPopupDefi
       storageKey: p.storageKey.trim(),
       enabled: Boolean(p.enabled),
     }));
+}
+
+function normalizeContentMessagesForDisk(raw: Record<string, string> | undefined): Record<string, string> | undefined {
+  if (!raw || typeof raw !== "object") return undefined;
+  const out: Record<string, string> = {};
+  for (const [k, v] of Object.entries(raw)) {
+    const key = k.trim().slice(0, 80);
+    if (!/^[\w.]+$/.test(key)) continue;
+    const val = typeof v === "string" ? v.trim().slice(0, 4000) : "";
+    if (val) out[key] = val;
+  }
+  return Object.keys(out).length ? out : undefined;
+}
+
+function normalizeContactForDisk(raw: SiteContactOverrides | undefined): SiteContactOverrides | undefined {
+  if (!raw || typeof raw !== "object") return undefined;
+  const o: SiteContactOverrides = {};
+  const set = (key: keyof SiteContactOverrides, val: string | undefined) => {
+    const t = val?.trim();
+    if (t) (o as Record<string, string>)[key as string] = t;
+  };
+  set("phoneDisplay", raw.phoneDisplay);
+  set("phoneE164", raw.phoneE164);
+  set("whatsappE164", raw.whatsappE164);
+  set("email", raw.email);
+  set("addressLine1", raw.addressLine1);
+  set("addressLine2", raw.addressLine2);
+  set("hours", raw.hours);
+  set("mapsUrl", raw.mapsUrl);
+  set("mapsQuery", raw.mapsQuery);
+  set("socialInstagram", raw.socialInstagram);
+  set("responseTimeHint", raw.responseTimeHint);
+  set("wholesaleFormIntro", raw.wholesaleFormIntro);
+  set("certificatesNote", raw.certificatesNote);
+  return Object.keys(o).length ? o : undefined;
+}
+
+function normalizeThemeForDisk(raw: SiteThemeOverrides | undefined): SiteThemeOverrides | undefined {
+  const hex = validateCtaAccentHex(raw?.ctaAccentHex);
+  return hex ? { ctaAccentHex: hex } : undefined;
 }
 
 export function normalizeSiteSettingsForDisk(input: SiteSettingsFileV1): SiteSettingsFileV1 {
@@ -339,6 +405,9 @@ export function normalizeSiteSettingsForDisk(input: SiteSettingsFileV1): SiteSet
     version: 1,
     categories: cats,
     mediaUrls: { ...input.mediaUrls },
+    contact: normalizeContactForDisk(input.contact),
+    theme: normalizeThemeForDisk(input.theme),
+    contentMessages: normalizeContentMessagesForDisk(input.contentMessages),
     branding,
     heroSection,
     campaignBanner,
@@ -371,6 +440,9 @@ export function createDefaultSiteSettingsFile(): SiteSettingsFileV1 {
     version: 1,
     categories: DEFAULT_RETAIL_CATEGORIES.map((c) => ({ ...c })),
     mediaUrls: {},
+    contact: {},
+    theme: {},
+    contentMessages: {},
     branding: {},
     heroSection: {
       kicker: heroCopy.kicker,

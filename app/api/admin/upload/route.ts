@@ -6,6 +6,9 @@ import { sessionCookieName, verifySessionToken } from "@/lib/admin-auth";
 import { isCloudinaryConfigured } from "@/lib/admin/cloudinary-config";
 import { buildCatalogProductPublicId, uploadBufferToCloudinary } from "@/lib/media/cloudinary-upload";
 import { saveUploadedImageLocal } from "@/lib/media/local-disk-upload";
+import { isLambdaLikeServerlessRuntime } from "@/lib/server/runtime-json-storage";
+import { readSiteSettingsFile } from "@/lib/server/site-settings-store";
+import { mergeContentMessages, contentMessage, SITE_MESSAGE_KEYS } from "@/lib/site-content-messages";
 
 function sanitizeFileName(name: string) {
   const ext = name.includes(".") ? name.slice(name.lastIndexOf(".") + 1) : "jpg";
@@ -50,6 +53,19 @@ export async function POST(req: Request) {
   const folder = (process.env.CLOUDINARY_UPLOAD_FOLDER || "antep-fistik-marka").trim();
   const useCloudinary = isCloudinaryConfigured();
 
+  const settingsFile = await readSiteSettingsFile();
+  const msgMap = mergeContentMessages(settingsFile?.contentMessages);
+
+  if (!useCloudinary && isLambdaLikeServerlessRuntime()) {
+    return NextResponse.json(
+      {
+        ok: false,
+        message: contentMessage(msgMap, SITE_MESSAGE_KEYS.uploadLambdaNoCloudinary),
+      },
+      { status: 503 },
+    );
+  }
+
   const form = await req.formData();
   const slot = String(form.get("slot") || "");
   const files = collectFiles(form);
@@ -93,9 +109,14 @@ export async function POST(req: Request) {
       if (slot !== "catalog-product" && !mediaSlots().some((x) => x.id === slot)) {
         return NextResponse.json({ ok: false, message: "Geçersiz görsel alanı." }, { status: 400 });
       }
-      const result = await saveUploadedImageLocal({ file, slotSegment });
+      const diskMsg = contentMessage(msgMap, SITE_MESSAGE_KEYS.uploadDiskReadonly);
+      const result = await saveUploadedImageLocal({ file, slotSegment, diskReadonlyMessage: diskMsg });
       if (!result.ok) {
-        return NextResponse.json({ ok: false, message: result.message }, { status: 400 });
+        const readonly =
+          result.message === diskMsg ||
+          result.message.includes("salt okunur") ||
+          result.message.includes("/var/task");
+        return NextResponse.json({ ok: false, message: result.message }, { status: readonly ? 503 : 400 });
       }
       urls.push(result.url);
     }

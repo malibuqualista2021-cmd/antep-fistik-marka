@@ -4,14 +4,16 @@ import { useMemo, useState } from "react";
 import type { RetailProduct } from "@/lib/shop-products";
 import { formatMoney, kgUnitPriceLine, stockLabel } from "@/lib/shop-products";
 import { useCart } from "@/components/shop/CartProvider";
+import { useSitePresentation } from "@/components/layout/SitePresentationContext";
 import { Button } from "@/components/ui/Button";
-import { site, waLink } from "@/lib/site";
+import { waLinkResolved } from "@/lib/storefront-contact";
 import { cta } from "@/lib/cta";
 
 type Props = { product: RetailProduct };
 
 export function RetailProductDetailBuyBox({ product }: Props) {
   const { addItem } = useCart();
+  const { contact } = useSitePresentation();
   const [variantId, setVariantId] = useState(product.variants?.[0]?.id ?? "");
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
@@ -37,8 +39,8 @@ export function RetailProductDetailBuyBox({ product }: Props) {
     [selectedProduct.price, selectedProduct.weight, product.currency],
   );
 
-  const waQuestionHref = site.whatsappE164
-    ? waLink(cta.retailProductDetailQuestion(product.name, gramajLabel))
+  const waQuestionHref = contact.whatsappE164
+    ? waLinkResolved(contact, cta.retailProductDetailQuestion(product.name, gramajLabel))
     : "/iletisim";
 
   function bumpQuantity(delta: number) {

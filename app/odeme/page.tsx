@@ -2,12 +2,15 @@ import type { Metadata } from "next";
 import { BrandLogo } from "@/components/brand/BrandLogo";
 import { Container } from "@/components/ui/Container";
 import { CheckoutPageClient } from "@/components/shop/CheckoutPageClient";
-import { site } from "@/lib/site";
+import { getSitePresentation } from "@/lib/site-presentation";
 
-export const metadata: Metadata = {
-  title: "Siparişi tamamla",
-  description: `${site.name} perakende checkout: teslimat, fatura, özet ve ödeme yöntemi seçimi.`,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const p = await getSitePresentation();
+  return {
+    title: "Siparişi tamamla",
+    description: `${p.branding.name} perakende checkout: teslimat, fatura, özet ve ödeme yöntemi seçimi.`,
+  };
+}
 
 export default function CheckoutPage() {
   return (

@@ -2,17 +2,24 @@ import type { Metadata } from "next";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { mapsLink, site, waLink } from "@/lib/site";
+import { mapsLinkResolved, waLinkResolved } from "@/lib/storefront-contact";
+import { getSitePresentation } from "@/lib/site-presentation";
 import { cta } from "@/lib/cta";
 
-export const metadata: Metadata = {
-  title: "İletişim",
-  description: "Telefon, WhatsApp, adres ve iletişim formu — perakende ve toptan talepler.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const p = await getSitePresentation();
+  return {
+    title: "İletişim",
+    description: `${p.branding.name} — telefon, WhatsApp, adres ve iletişim formu; perakende ve toptan talepler.`,
+  };
+}
 
-export default function ContactPage() {
-  const mapHref = mapsLink();
-  const c = cta.contactPage;
+export default async function ContactPage() {
+  const presentation = await getSitePresentation();
+  const brand = presentation.branding;
+  const contact = presentation.contact;
+  const mapHref = mapsLinkResolved(contact);
+  const cx = cta.contactPage;
 
   const waPendingCopy =
     "WhatsApp hattı yakında aktif olacak. Şimdilik iletişim formunu kullanabilirsiniz.";
@@ -26,27 +33,27 @@ export default function ContactPage() {
   const channels = [
     {
       label: "WhatsApp",
-      value: site.whatsappE164 ? "Sipariş ve hızlı destek" : waPendingCopy,
-      href: site.whatsappE164 ? waLink(c.waMessage) : "#form",
+      value: contact.whatsappE164 ? "Sipariş ve hızlı destek" : waPendingCopy,
+      href: contact.whatsappE164 ? waLinkResolved(contact, cx.waMessage) : "#form",
     },
     {
       label: "Telefon",
-      value: site.phone ? site.phone : phonePendingCopy,
-      href: site.phoneE164 ? `tel:${site.phoneE164}` : "#form",
+      value: contact.phoneDisplay ? contact.phoneDisplay : phonePendingCopy,
+      href: contact.phoneE164 ? `tel:${contact.phoneE164}` : "#form",
     },
     {
       label: "E-posta",
-      value: site.email ? site.email : emailPendingCopy,
-      href: site.email ? `mailto:${site.email}` : "#form",
+      value: contact.email ? contact.email : emailPendingCopy,
+      href: contact.email ? `mailto:${contact.email}` : "#form",
     },
     {
       label: "Instagram",
-      value: site.socialInstagram ? "Instagram hesabımız" : instagramPendingCopy,
-      href: site.socialInstagram || "#form",
+      value: contact.socialInstagram ? "Instagram hesabımız" : instagramPendingCopy,
+      href: contact.socialInstagram || "#form",
     },
     {
       label: "Çalışma saatleri",
-      value: site.hours ? site.hours : "Çalışma saatleri talep üzerine ve yoğunluğa göre paylaşılır; formdan konu belirtebilirsiniz.",
+      value: contact.hours ? contact.hours : "Çalışma saatleri talep üzerine ve yoğunluğa göre paylaşılır; formdan konu belirtebilirsiniz.",
       href: "#form",
     },
   ];
@@ -60,7 +67,7 @@ export default function ContactPage() {
           </h1>
           <p className="mt-3 max-w-2xl font-sans text-base leading-relaxed text-muted md:text-lg">
             Perakende sipariş, toptan teklif veya genel sorularınız için aşağıdaki
-            kanallardan birini kullanın. {site.responseTimeHint}
+            kanallardan birini kullanın. {contact.responseTimeHint}
           </p>
         </Container>
       </section>
@@ -96,17 +103,17 @@ export default function ContactPage() {
                 <p className="text-xs font-semibold uppercase tracking-wide text-foreground">
                   İşletme
                 </p>
-                <p className="mt-1">{site.name}</p>
+                <p className="mt-1">{brand.name}</p>
                 <p>Gaziantep merkezli perakende ve toptan Antep fıstığı satışı.</p>
                 <p>Şehir: Gaziantep</p>
               </div>
-              {site.address.line1 || site.address.line2 ? (
+              {contact.address.line1 || contact.address.line2 ? (
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wide text-foreground">
                     Adres
                   </p>
-                  {site.address.line1 ? <p className="mt-1">{site.address.line1}</p> : null}
-                  {site.address.line2 ? <p>{site.address.line2}</p> : null}
+                  {contact.address.line1 ? <p className="mt-1">{contact.address.line1}</p> : null}
+                  {contact.address.line2 ? <p>{contact.address.line2}</p> : null}
                   {mapHref ? (
                     <a
                       className="mt-2 inline-flex min-h-[44px] items-center text-sm font-medium text-primary hover:underline"
@@ -125,42 +132,42 @@ export default function ContactPage() {
                   kullanabilirsiniz.
                 </p>
               )}
-              {site.phone ? (
+              {contact.phoneDisplay ? (
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wide text-foreground">
                     Telefon
                   </p>
-                  <a className="mt-1 inline-flex min-h-[44px] items-center font-medium text-primary hover:underline" href={`tel:${site.phoneE164}`}>
-                    {site.phone}
+                  <a className="mt-1 inline-flex min-h-[44px] items-center font-medium text-primary hover:underline" href={`tel:${contact.phoneE164}`}>
+                    {contact.phoneDisplay}
                   </a>
                 </div>
               ) : null}
-              {site.whatsappE164 ? (
+              {contact.whatsappE164 ? (
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wide text-foreground">
                     WhatsApp
                   </p>
-                  <Button variant="primary" href={waLink(c.waMessage)} className="mt-2 !text-sm">
-                    {c.waLabel}
+                  <Button variant="primary" href={waLinkResolved(contact, cx.waMessage)} className="mt-2 !text-sm">
+                    {cx.waLabel}
                   </Button>
                 </div>
               ) : null}
-              {site.email ? (
+              {contact.email ? (
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wide text-foreground">
                     E-posta
                   </p>
-                  <a className="mt-1 break-all font-medium text-primary hover:underline" href={`mailto:${site.email}`}>
-                    {site.email}
+                  <a className="mt-1 break-all font-medium text-primary hover:underline" href={`mailto:${contact.email}`}>
+                    {contact.email}
                   </a>
                 </div>
               ) : null}
-              {site.hours ? (
+              {contact.hours ? (
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wide text-foreground">
                     Çalışma saatleri
                   </p>
-                  <p className="mt-1">{site.hours}</p>
+                  <p className="mt-1">{contact.hours}</p>
                 </div>
               ) : null}
             </address>
