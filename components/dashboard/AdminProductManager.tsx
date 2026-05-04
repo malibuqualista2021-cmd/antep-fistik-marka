@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type {
   RetailFacetProcess,
@@ -74,6 +75,7 @@ export function AdminProductManager({
   categories: RetailCategoryDefinition[];
   cloudinaryConfigured: boolean;
 }) {
+  const router = useRouter();
   const [products, setProducts] = useState<RetailProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -218,6 +220,7 @@ export function AdminProductManager({
       closeModal();
       setNotice(creating ? "Ürün oluşturuldu." : "Ürün kaydedildi.");
       await load();
+      router.refresh();
     } catch {
       setError("Kayıt sırasında bağlantı hatası.");
     }
@@ -238,6 +241,7 @@ export function AdminProductManager({
       }
       await load();
       setNotice("Ürün silindi.");
+      router.refresh();
     } catch {
       setError("Silme sırasında bağlantı hatası.");
     }
@@ -261,6 +265,7 @@ export function AdminProductManager({
       }
       setNotice(payload.isActive ? "Ürün yayına alındı." : "Ürün vitrinden kaldırıldı.");
       await load();
+      router.refresh();
     } catch {
       setError("Durum güncellenirken bağlantı hatası.");
     } finally {
@@ -286,6 +291,7 @@ export function AdminProductManager({
       }
       setNotice("Stok durumu güncellendi.");
       await load();
+      router.refresh();
     } catch {
       setError("Stok güncellenirken bağlantı hatası.");
     } finally {

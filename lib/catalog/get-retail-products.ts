@@ -1,13 +1,11 @@
-import { unstable_cache } from "next/cache";
 import type { RetailProduct } from "@/lib/shop-products";
 import { readRetailCatalogFromDisk } from "@/lib/catalog/catalog-fs";
 
-const cachedRetailCatalog = unstable_cache(
-  async (): Promise<RetailProduct[]> => readRetailCatalogFromDisk(),
-  ["retail-catalog-v1"],
-  { tags: ["retail-catalog"] },
-);
-
+/**
+ * Katalog Netlify Blobs'tan okunur. Burada `unstable_cache` kullanılmaz:
+ * Netlify/OpenNext ortamında tag ile invalidation güvenilir olmayabiliyor ve sayfalar
+ * derleme anındaki fiyatla statikleniyordu; admin güncellemesi vitrine yansımıyordu.
+ */
 export async function getRetailProducts(): Promise<RetailProduct[]> {
-  return cachedRetailCatalog();
+  return readRetailCatalogFromDisk();
 }

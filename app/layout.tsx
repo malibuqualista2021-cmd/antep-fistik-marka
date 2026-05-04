@@ -7,6 +7,9 @@ import "./globals.css";
 import { getSitePresentation } from "@/lib/site-presentation";
 import { site } from "@/lib/site";
 
+/** Tüm vitrin + ürün fiyatları Blob/site ayarından gelsin; statik önbellekte eski fiyat kalmasın (Netlify). */
+export const dynamic = "force-dynamic";
+
 const playfair = Playfair_Display({
   subsets: ["latin", "latin-ext"],
   variable: "--font-heading",

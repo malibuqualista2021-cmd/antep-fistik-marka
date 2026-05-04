@@ -1,4 +1,3 @@
-import { unstable_cache } from "next/cache";
 import { heroCopy } from "@/lib/copy";
 import { cta } from "@/lib/cta";
 import { site } from "@/lib/site";
@@ -360,14 +359,11 @@ export function normalizeSiteSettingsForDisk(input: SiteSettingsFileV1): SiteSet
   };
 }
 
-async function loadPresentation(): Promise<SitePresentation> {
+/** Blobs/diskten her çağrıda okunur — admin değişiklikleri Netlify’da anında yansır (layout dinamik). */
+export async function getSitePresentation(): Promise<SitePresentation> {
   const file = await readSiteSettingsFile();
   return buildPresentationInner(file);
 }
-
-export const getSitePresentation = unstable_cache(loadPresentation, ["site-presentation-v1"], {
-  tags: ["site-settings"],
-});
 
 export function createDefaultSiteSettingsFile(): SiteSettingsFileV1 {
   const h = cta.home;
