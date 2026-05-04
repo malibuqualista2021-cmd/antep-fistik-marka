@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { DashboardPageBody } from "@/components/dashboard/DashboardPageBody";
 import { adminPanelSlug } from "@/lib/admin-panel-path";
 
+/** Netlify / SSR ortamında ADMIN_PANEL_SLUG’ın istek anında okunması için */
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
@@ -15,8 +16,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function DashboardPage() {
+type PageProps = {
+  params: Promise<{ slug: string }>;
+};
+
+export default async function YonetimSlugPage({ params }: PageProps) {
   await connection();
-  if (adminPanelSlug()) notFound();
+  const expected = adminPanelSlug();
+  const { slug } = await params;
+  if (!expected || slug !== expected) notFound();
   return <DashboardPageBody />;
 }
