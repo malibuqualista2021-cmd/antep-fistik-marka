@@ -41,7 +41,13 @@ export async function POST(req: Request) {
   const dup = duplicateConflict(products, product);
   if (dup) return NextResponse.json({ ok: false, message: dup }, { status: 409 });
 
-  await writeRetailCatalogToDisk([...products, product]);
+  try {
+    await writeRetailCatalogToDisk([...products, product]);
+  } catch (e) {
+    console.error("[admin/catalog] POST write failed", e);
+    const msg = e instanceof Error ? e.message : "Yazma hatası";
+    return NextResponse.json({ ok: false, message: `Katalog kaydedilemedi: ${msg}` }, { status: 500 });
+  }
   revalidateRetailCatalog();
 
   return NextResponse.json({ ok: true, product });

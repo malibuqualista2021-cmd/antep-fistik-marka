@@ -87,7 +87,8 @@ export function coerceRetailProduct(raw: unknown): RetailProduct | null {
   if (!isStock(r.stockStatus)) return null;
   if (typeof r.shippingNote !== "string") return null;
   if (typeof r.isActive !== "boolean") return null;
-  if (r.currency !== "TRY") return null;
+  const currencyRaw = r.currency;
+  if (currencyRaw !== undefined && currencyRaw !== null && currencyRaw !== "TRY") return null;
 
   let variants: RetailProduct["variants"];
   if (Array.isArray(r.variants)) {

@@ -29,6 +29,18 @@ const FACET_USAGE_OPTS: { id: RetailFacetUsage; label: string }[] = [
   { id: "hediye", label: "Hediye" },
 ];
 
+/**
+ * Kartlar ve satın alma kutusu `variants[0]` fiyatını kullanır; başlık alanındaki fiyat/gramaj
+ * kaydedilirken ilk seçenekle hizalanmazsa vitrinde değişiklik görünmez.
+ */
+function withHeadlineSyncedToFirstVariant<T extends RetailProduct>(draft: T): T {
+  if (!draft.variants?.length) return draft;
+  const variants = draft.variants.map((v, i) =>
+    i === 0 ? { ...v, price: draft.price, weight: draft.weight } : v,
+  );
+  return { ...draft, variants };
+}
+
 function blankProduct(defaultCategoryId: string): RetailProduct {
   return {
     id: "",
@@ -364,10 +376,10 @@ export function AdminProductManager({
         <div>
           <h2 className="font-serif text-2xl text-foreground">Ürün yönetimi</h2>
           <p className="mt-1 max-w-2xl font-sans text-sm text-muted">
-            Fiyat, stok, gramaj seçenekleri ve açıklamalar sunucuda{" "}
-            <code className="rounded bg-background px-1 py-0.5 text-xs">data/retail-catalog.json</code> dosyasına
-            yazılır (yazılabilir disk gerekir). Görseller doğrudan yüklenebilir: Cloudinary tanımlıysa CDN’e, değilse{" "}
-            <code className="rounded bg-background px-1 py-0.5 text-xs">public/uploads/admin/</code> altına kaydedilir.
+            Liste ve ürün sayfasında görünen tutarlar{" "}
+            <strong className="font-semibold text-foreground">gramaj satırlarındaki fiyatlar</strong>dır. Üstteki varsayılan
+            fiyat kaydederken ilk gramaj satırıyla otomatik eşitlenir; çoklu gramajda her satırın fiyatını da kontrol edin.
+            Veriler sunucuda kalıcı depoda tutulur.
           </p>
           {!cloudinaryConfigured ? (
             <p className="mt-3 rounded-[var(--radius-input)] border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-950">

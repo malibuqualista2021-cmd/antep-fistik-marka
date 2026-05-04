@@ -43,7 +43,13 @@ export async function PUT(req: Request, ctx: Params) {
 
   const next = [...products];
   next[idx] = product;
-  await writeRetailCatalogToDisk(next);
+  try {
+    await writeRetailCatalogToDisk(next);
+  } catch (e) {
+    console.error("[admin/catalog] PUT write failed", e);
+    const msg = e instanceof Error ? e.message : "Yazma hatası";
+    return NextResponse.json({ ok: false, message: `Katalog kaydedilemedi: ${msg}` }, { status: 500 });
+  }
   revalidateRetailCatalog();
 
   return NextResponse.json({ ok: true, product });
@@ -60,7 +66,13 @@ export async function DELETE(_req: Request, ctx: Params) {
     return NextResponse.json({ ok: false, message: "Ürün bulunamadı." }, { status: 404 });
   }
 
-  await writeRetailCatalogToDisk(next);
+  try {
+    await writeRetailCatalogToDisk(next);
+  } catch (e) {
+    console.error("[admin/catalog] DELETE write failed", e);
+    const msg = e instanceof Error ? e.message : "Yazma hatası";
+    return NextResponse.json({ ok: false, message: `Katalog kaydedilemedi: ${msg}` }, { status: 500 });
+  }
   revalidateRetailCatalog();
 
   return NextResponse.json({ ok: true });
