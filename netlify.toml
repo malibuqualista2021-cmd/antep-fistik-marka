@@ -1,5 +1,6 @@
-# Site ayarı / katalog / sipariş / talepler → Netlify Blobs (`inal-shop-runtime-v1`). Yerelde `data/*.json`.
-# RUNTIME_JSON_FORCE_FS=1 ile Netlify’da bile dosya moduna zorlanabilir (önerilmez).
+# Site ayarı / katalog / sipariş / talepler → Netlify Blobs (`inal-shop-runtime-v1`).
+# Blobs anahtarı: normalde `NETLIFY_SITE_ID` ile otomatik seçilir; gerekirse Netlify’da `RUNTIME_JSON_USE_BLOBS=1`.
+# RUNTIME_JSON_FORCE_FS=1 ile Netlify’da bile dosya moduna zorlanır (önerilmez — `/var/task` yazılamaz).
 # Next.js: publish dizinini eklentiye bırakın. Git bağlıysa push yeterlidir.
 [build]
   command = "npm run build"
